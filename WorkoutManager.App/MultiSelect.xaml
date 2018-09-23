@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="WorkoutManager.App.MultiSelect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:app="clr-namespace:WorkoutManager.App"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+<UserControl.Resources>
+    <app:GetMultiSelectItemText x:Key="GetMultiSelectItemText" />
+    <app:ItemToMultiSelectItemConverter x:Key="ItemToMultiSelectItemConverter" />
+</UserControl.Resources>
+    <ListView
+        SelectionMode="Multiple"
+        SelectionChanged="OnSelectionChanged"
+        Loaded="OnLoaded"
+    >
+        <ListView.Style>
+            <Style TargetType="ListView">
+                <Setter Property="ItemsSource">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ItemToMultiSelectItemConverter}">
+                            <Binding Path="ItemsSource" RelativeSource="{RelativeSource FindAncestor, AncestorType=app:MultiSelect}" />
+                            <Binding Path="SelectedItems" RelativeSource="{RelativeSource FindAncestor, AncestorType=app:MultiSelect}" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ListView.Style>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource GetMultiSelectItemText}">
+                                        <Binding Path="" />
+                                        <Binding Path="GetItemText" RelativeSource="{RelativeSource FindAncestor, AncestorType=app:MultiSelect}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <ListView.ItemContainerStyle>
+            <Style TargetType="{x:Type ListViewItem}">
+                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+            </Style>
+        </ListView.ItemContainerStyle>
+    </ListView>
+</UserControl>
