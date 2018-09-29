@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace WorkoutManager.App.Converters
 {
-    public class IsTextEmptyConverter : IValueConverter
+    internal class IsTextEmptyConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

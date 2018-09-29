@@ -10,51 +10,87 @@
         <e p="App.xaml" t="Include" />
         <e p="App.xaml.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Bindable.cs" t="Include" />
+        <e p="Controls" t="Include">
+          <e p="MultiSelect" t="Include">
+            <e p="MultiSelect.xaml" t="Include" />
+            <e p="MultiSelect.xaml.cs" t="Include" />
+            <e p="MultiSelectItem.cs" t="Include" />
+          </e>
+        </e>
         <e p="Converters" t="Include">
           <e p="DateTimeToDateConverter.cs" t="Include" />
           <e p="DoesEnumMatchConverter.cs" t="Include" />
           <e p="EnumConverter.cs" t="Include" />
+          <e p="GetMultiSelectItemTextConverter.cs" t="Include" />
           <e p="GetSelectedMuscleHeadsConverter.cs" t="Include" />
           <e p="IsTextEmptyConverter.cs" t="Include" />
+          <e p="ItemToMultiSelectItemConverter.cs" t="Include" />
           <e p="RemoveExerciseSetConverter.cs" t="Include" />
         </e>
-        <e p="Exercises" t="Include">
-          <e p="ExercisesPage.xaml" t="Include" />
-          <e p="ExercisesPage.xaml.cs" t="Include" />
-          <e p="Models" t="Include">
-            <e p="ExerciseDialogViewModel.cs" t="Include" />
-            <e p="ExercisesPageViewModel.cs" t="Include" />
-            <e p="MainWindowViewModel.cs" t="Include" />
-            <e p="MotionsPageViewModel.cs" t="Include" />
-            <e p="MuscleGroupDialogViewModel.cs" t="Include" />
-            <e p="MuscleGroupsPageViewModel.cs" t="Include" />
-          </e>
-          <e p="MotionsPage.xaml" t="Include" />
-          <e p="MotionsPage.xaml.cs" t="Include" />
-          <e p="MuscleGroupsPage.xaml" t="Include" />
-          <e p="MuscleGroupsPage.xaml.cs" t="Include" />
-          <e p="UserControls" t="Include">
-            <e p="ExerciseDialog.xaml" t="Include" />
-            <e p="ExerciseDialog.xaml.cs" t="Include" />
-            <e p="MuscleGroupDialog.xaml" t="Include" />
-            <e p="MuscleGroupDialog.xaml.cs" t="Include" />
-          </e>
-        </e>
-        <e p="GetMultiSelectItemText.cs" t="Include" />
-        <e p="ItemToMultiSelectItemConverter.cs" t="Include" />
-        <e p="MainWindow.xaml" t="Include" />
-        <e p="MainWindow.xaml.cs" t="Include" />
-        <e p="Misc" t="Include">
-          <e p="AsyncObservableCollection.cs" t="Include" />
-          <e p="BulkObservableCollection.cs" t="Include" />
-          <e p="Command.cs" t="Include" />
-        </e>
-        <e p="MultiSelect.xaml" t="Include" />
-        <e p="MultiSelect.xaml.cs" t="Include" />
-        <e p="MultiSelectItem.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="packages.config" t="Include" />
+        <e p="Pages" t="Include">
+          <e p="Exercises" t="Include">
+            <e p="Dialogs" t="Include">
+              <e p="ExerciseDialog.xaml" t="Include" />
+              <e p="ExerciseDialog.xaml.cs" t="Include" />
+            </e>
+            <e p="ExercisesPage.xaml" t="Include" />
+            <e p="ExercisesPage.xaml.cs" t="Include" />
+            <e p="Models" t="Include">
+              <e p="ExerciseDialogViewModel.cs" t="Include" />
+              <e p="ExercisesPageViewModel.cs" t="Include" />
+            </e>
+          </e>
+          <e p="MainWindow.xaml" t="Include" />
+          <e p="MainWindow.xaml.cs" t="Include" />
+          <e p="MainWindowViewModel.cs" t="Include" />
+          <e p="Motions" t="Include">
+            <e p="Dialogs" t="Include">
+              <e p="JointMotionDialog.xaml" t="Include" />
+              <e p="JointMotionDialog.xaml.cs" t="Include" />
+            </e>
+            <e p="Models" t="Include">
+              <e p="JointMotionDialogViewModel.cs" t="Include" />
+              <e p="MotionsPageViewModel.cs" t="Include" />
+            </e>
+            <e p="MotionsPage.xaml" t="Include" />
+            <e p="MotionsPage.xaml.cs" t="Include" />
+          </e>
+          <e p="MuscleGroups" t="Include">
+            <e p="Dialogs" t="Include">
+              <e p="MuscleGroupDialog.xaml" t="Include" />
+              <e p="MuscleGroupDialog.xaml.cs" t="Include" />
+            </e>
+            <e p="Models" t="Include">
+              <e p="MuscleGroupDialogViewModel.cs" t="Include" />
+              <e p="MuscleGroupsPageViewModel.cs" t="Include" />
+            </e>
+            <e p="MuscleGroupsPage.xaml" t="Include" />
+            <e p="MuscleGroupsPage.xaml.cs" t="Include" />
+          </e>
+          <e p="TrainingLog" t="Include">
+            <e p="Controls" t="Include">
+              <e p="ExerciseSet.xaml" t="Include" />
+              <e p="ExerciseSet.xaml.cs" t="Include" />
+              <e p="SessionExercise.xaml" t="Include" />
+              <e p="SessionExercise.xaml.cs" t="Include" />
+            </e>
+            <e p="Dialogs" t="Include">
+              <e p="ExerciseSetDialog.xaml" t="Include" />
+              <e p="ExerciseSetDialog.xaml.cs" t="Include" />
+              <e p="TrainingSessionDialog.xaml" t="Include" />
+              <e p="TrainingSessionDialog.xaml.cs" t="Include" />
+            </e>
+            <e p="Models" t="Include">
+              <e p="ExerciseSetDialogViewModel.cs" t="Include" />
+              <e p="TrainingLogPageViewModel.cs" t="Include" />
+              <e p="TrainingSessionDialogViewModel.cs" t="Include" />
+            </e>
+            <e p="TrainingLogPage.xaml" t="Include" />
+            <e p="TrainingLogPage.xaml.cs" t="Include" />
+          </e>
+        </e>
         <e p="Properties" t="Include">
           <e p="Annotations.cs" t="Include" />
           <e p="AssemblyInfo.cs" t="Include" />
@@ -63,22 +99,13 @@
           <e p="Settings.Designer.cs" t="Include" />
           <e p="Settings.settings" t="Include" />
         </e>
-        <e p="TrainingLog" t="Include">
-          <e p="ExerciseSet.xaml" t="Include" />
-          <e p="ExerciseSet.xaml.cs" t="Include" />
-          <e p="ExerciseSetDialog.xaml" t="Include" />
-          <e p="ExerciseSetDialog.xaml.cs" t="Include" />
-          <e p="Models" t="Include">
-            <e p="ExerciseSetDialogViewModel.cs" t="Include" />
-            <e p="TrainingLogPageViewModel.cs" t="Include" />
-            <e p="TrainingSessionDialogViewModel.cs" t="Include" />
-          </e>
-          <e p="SessionExercise.xaml" t="Include" />
-          <e p="SessionExercise.xaml.cs" t="Include" />
-          <e p="TrainingLogPage.xaml" t="Include" />
-          <e p="TrainingLogPage.xaml.cs" t="Include" />
-          <e p="TrainingSessionDialog.xaml" t="Include" />
-          <e p="TrainingSessionDialog.xaml.cs" t="Include" />
+        <e p="Structures" t="Include">
+          <e p="AsyncObservableCollection.cs" t="Include" />
+          <e p="BulkObservableCollection.cs" t="Include" />
+          <e p="Command.cs" t="Include" />
+        </e>
+        <e p="Utils" t="Include">
+          <e p="DialogViewer.cs" t="Include" />
         </e>
         <e p="WorkoutManager.App.csproj" t="IncludeRecursive" />
       </e>

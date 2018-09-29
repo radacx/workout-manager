@@ -1,0 +1,30 @@
+﻿<Window x:Class="WorkoutManager.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pages="clr-namespace:WorkoutManager.App.Pages"
+        xmlns:exercises1="clr-namespace:WorkoutManager.App.Pages.Exercises"
+        xmlns:motions="clr-namespace:WorkoutManager.App.Pages.Motions"
+        xmlns:muscleGroups="clr-namespace:WorkoutManager.App.Pages.MuscleGroups"
+        xmlns:trainingLog="clr-namespace:WorkoutManager.App.Pages.TrainingLog"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=pages:MainWindowViewModel}"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Background="AliceBlue">
+        <TabControl>
+            <TabItem Header="Exercises">
+                <exercises1:ExercisesPage DataContext="{Binding ExercisesPage}" />
+            </TabItem>
+            <TabItem Header="Motions">
+                <motions:MotionsPage DataContext="{Binding MotionsPage}" />
+            </TabItem>
+            <TabItem Header="Muscle groups">
+                <muscleGroups:MuscleGroupsPage DataContext="{Binding MuscleGroupsPage}" />
+            </TabItem>
+            <TabItem Header="Training log">
+                <trainingLog:TrainingLogPage DataContext="{Binding TrainingLogPage}" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

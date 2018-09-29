@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
-using WorkoutManager.Contract.Models.Exercises;
+using WorkoutManager.App.Controls.MultiSelect;
 
 namespace WorkoutManager.App.Converters
-{
-    internal class GetSelectedMuscleHeadsConverter : IMultiValueConverter
+{   
+    internal class GetMultiSelectItemTextConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -15,13 +14,13 @@ namespace WorkoutManager.App.Converters
                 return null;
             }
 
-            if (!(values[0] is MuscleGroup muscleGroup)
-                || !(values[1] is Dictionary<MuscleGroup, IEnumerable<MuscleHead>> selectedMusclesHeads))
+            if (!(values[0] is MultiSelectItem selection) || !(values[1] is Func<object, string> converter))
             {
                 return null;
             }
 
-            return selectedMusclesHeads[muscleGroup];
+            return converter(selection.Item);
+
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => null;

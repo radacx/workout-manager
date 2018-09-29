@@ -82,95 +82,99 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\MultiSelect\MultiSelect.xaml.cs">
+      <DependentUpon>MultiSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MultiSelect\MultiSelectItem.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
+    <Compile Include="Converters\GetMultiSelectItemTextConverter.cs" />
+    <Compile Include="Converters\ItemToMultiSelectItemConverter.cs" />
     <Compile Include="Converters\RemoveExerciseSetConverter.cs" />
-    <Compile Include="TrainingLog\ExerciseSet.xaml.cs">
+    <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml.cs">
+      <DependentUpon>ExerciseDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Exercises\ExercisesPage.xaml.cs">
+      <DependentUpon>ExercisesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Exercises\Models\ExerciseDialogViewModel.cs" />
+    <Compile Include="Pages\Exercises\Models\ExercisesPageViewModel.cs" />
+    <Compile Include="Pages\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\MainWindowViewModel.cs" />
+    <Compile Include="Pages\Motions\Dialogs\JointMotionDialog.xaml.cs">
+      <DependentUpon>JointMotionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Motions\Models\JointMotionDialogViewModel.cs" />
+    <Compile Include="Pages\Motions\Models\MotionsPageViewModel.cs" />
+    <Compile Include="Pages\Motions\MotionsPage.xaml.cs">
+      <DependentUpon>MotionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml.cs">
+      <DependentUpon>MuscleGroupDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MuscleGroups\Models\MuscleGroupDialogViewModel.cs" />
+    <Compile Include="Pages\MuscleGroups\Models\MuscleGroupsPageViewModel.cs" />
+    <Compile Include="Pages\MuscleGroups\MuscleGroupsPage.xaml.cs">
+      <DependentUpon>MuscleGroupsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TrainingLog\Controls\ExerciseSet.xaml.cs">
       <DependentUpon>ExerciseSet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TrainingLog\ExerciseSetDialog.xaml.cs">
-      <DependentUpon>ExerciseSetDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TrainingLog\Models\ExerciseSetDialogViewModel.cs" />
-    <Compile Include="TrainingLog\Models\TrainingLogPageViewModel.cs" />
-    <Compile Include="TrainingLog\Models\TrainingSessionDialogViewModel.cs" />
-    <Compile Include="TrainingLog\SessionExercise.xaml.cs">
+    <Compile Include="Pages\TrainingLog\Controls\SessionExercise.xaml.cs">
       <DependentUpon>SessionExercise.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TrainingLog\TrainingLogPage.xaml.cs">
-      <DependentUpon>TrainingLogPage.xaml</DependentUpon>
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog.xaml.cs">
+      <DependentUpon>ExerciseSetDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TrainingLog\TrainingSessionDialog.xaml.cs">
+    <Compile Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog.xaml.cs">
       <DependentUpon>TrainingSessionDialog.xaml</DependentUpon>
     </Compile>
-    <Page Include="Exercises\ExercisesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Exercises\MotionsPage.xaml" />
-    <Page Include="Exercises\MuscleGroupsPage.xaml" />
-    <Page Include="Exercises\UserControls\ExerciseDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Exercises\UserControls\MuscleGroupDialog.xaml" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Pages\TrainingLog\Models\ExerciseSetDialogViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Models\TrainingLogPageViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Models\TrainingSessionDialogViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\TrainingLogPage.xaml.cs">
+      <DependentUpon>TrainingLogPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bindable.cs" />
     <Compile Include="Converters\DoesEnumMatchConverter.cs" />
     <Compile Include="Converters\EnumConverter.cs" />
     <Compile Include="Converters\GetSelectedMuscleHeadsConverter.cs" />
     <Compile Include="Converters\IsTextEmptyConverter.cs" />
-    <Compile Include="Exercises\ExercisesPage.xaml.cs">
-      <DependentUpon>ExercisesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Exercises\Models\ExercisesPageViewModel.cs" />
-    <Compile Include="Exercises\Models\MainWindowViewModel.cs" />
-    <Compile Include="Exercises\Models\ExerciseDialogViewModel.cs" />
-    <Compile Include="Exercises\Models\MotionsPageViewModel.cs" />
-    <Compile Include="Exercises\Models\MuscleGroupsPageViewModel.cs" />
-    <Compile Include="Exercises\Models\MuscleGroupDialogViewModel.cs" />
-    <Compile Include="Exercises\MotionsPage.xaml.cs">
-      <DependentUpon>MotionsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Exercises\MuscleGroupsPage.xaml.cs">
-      <DependentUpon>MuscleGroupsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Exercises\UserControls\ExerciseDialog.xaml.cs">
-      <DependentUpon>ExerciseDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Exercises\UserControls\MuscleGroupDialog.xaml.cs">
-      <DependentUpon>MuscleGroupDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GetMultiSelectItemText.cs" />
-    <Compile Include="ItemToMultiSelectItemConverter.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="MultiSelect.xaml">
+    <Compile Include="Utils\DialogViewer.cs" />
+    <Page Include="Controls\MultiSelect\MultiSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TrainingLog\ExerciseSet.xaml" />
-    <Page Include="TrainingLog\ExerciseSetDialog.xaml" />
-    <Page Include="TrainingLog\SessionExercise.xaml" />
-    <Page Include="TrainingLog\TrainingLogPage.xaml" />
-    <Page Include="TrainingLog\TrainingSessionDialog.xaml" />
+    <Page Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Exercises\ExercisesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Motions\Dialogs\JointMotionDialog.xaml" />
+    <Page Include="Pages\Motions\MotionsPage.xaml" />
+    <Page Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml" />
+    <Page Include="Pages\MuscleGroups\MuscleGroupsPage.xaml" />
+    <Page Include="Pages\TrainingLog\Controls\ExerciseSet.xaml" />
+    <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog.xaml" />
+    <Page Include="Pages\TrainingLog\TrainingLogPage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Misc\AsyncObservableCollection.cs" />
-    <Compile Include="Misc\BulkObservableCollection.cs" />
-    <Compile Include="Misc\Command.cs" />
-    <Compile Include="MultiSelect.xaml.cs">
-      <DependentUpon>MultiSelect.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MultiSelectItem.cs" />
+    <Compile Include="Structures\AsyncObservableCollection.cs" />
+    <Compile Include="Structures\BulkObservableCollection.cs" />
+    <Compile Include="Structures\Command.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

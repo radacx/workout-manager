@@ -1,0 +1,83 @@
+<Window x:Class="WorkoutManager.App.Pages.TrainingLog.Dialogs.TrainingSessionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:controls="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Controls"
+        xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
+        xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=models:TrainingSessionDialogViewModel}"
+        Title="TrainingSessionDialog" Height="450" Width="800">
+    <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />    
+            <ColumnDefinition Width="Auto" />    
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Button
+            Grid.Row="0"
+            Grid.Column="0"
+            Content="{Binding SaveButtonTitle}"
+            IsDefault="True"
+            Click="SaveButton_OnClick"
+        />
+        
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Content="Date"
+        />
+        <xctk:DateTimePicker
+            Grid.Row="1"
+            Grid.Column="1"
+            Format="ShortDate"
+            Value="{Binding TrainingSession.Date}"
+        />
+        
+        <ComboBox
+            Grid.Row="2"
+            Grid.Column="0"
+            Name="Exercises"
+            ItemsSource="{Binding Exercises}"
+            SelectedIndex="0"
+        />
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Content="Add exercise"
+            Command="{Binding AddExercise}"
+            CommandParameter="{Binding SelectedItem, ElementName=Exercises}"
+        />
+        
+        <Label
+            Grid.Row="3"
+            Grid.Column="0"
+            Content="Exercises"
+        />
+        <ItemsControl
+            Grid.Row="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding TrainingSession.Exercises}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:SessionExercise
+                        DataContext="{Binding}"
+                        OnAddExercise="{Binding DataContext.OpenAddExerciseSetDialog, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                        OnDeleteSet="{Binding DataContext.RemoveExerciseSet, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                        OnDeleteExercise="{Binding DataContext.RemoveExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                    />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>

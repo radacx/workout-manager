@@ -5,7 +5,7 @@ using WorkoutManager.Contract.Extensions;
 
 namespace WorkoutManager.App.Converters
 {
-    public class EnumConverter : IValueConverter
+    internal class EnumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,6 +17,6 @@ namespace WorkoutManager.App.Converters
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null;
     }
 }

@@ -1,0 +1,49 @@
+<UserControl x:Class="WorkoutManager.App.Pages.TrainingLog.Controls.SessionExercise"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
+             xmlns:controls="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Controls"
+             xmlns:sessions="clr-namespace:WorkoutManager.Contract.Models.Sessions;assembly=WorkoutManager.Contract"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=sessions:SessionExercise}"
+             d:DesignHeight="300" d:DesignWidth="300">
+<UserControl.Resources>
+    <converters:RemoveExerciseSetConverter x:Key="RemoveExerciseSetConverter" />    
+</UserControl.Resources>
+    <StackPanel>
+        <TextBlock Text="{Binding Exercise.Name}" />
+        <TextBlock Text="{Binding Exercise.ContractionType}" />
+        <Button
+            Content="Add set"
+            Command="{Binding OnAddExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
+            CommandParameter="{Binding}"
+        />
+        <ItemsControl ItemsSource="{Binding Sets}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <controls:ExerciseSet DataContext="{Binding}" />
+                        <Button
+                            Content="Remove"
+                            Command="{Binding OnDeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
+                        >
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource RemoveExerciseSetConverter}">
+                                    <Binding Path="DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:SessionExercise}" />
+                                    <Binding Path="" />
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Button
+            Content="Delete exercise"
+            Command="{Binding OnDeleteExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
+            CommandParameter="{Binding}"
+        />
+    </StackPanel>
+</UserControl>

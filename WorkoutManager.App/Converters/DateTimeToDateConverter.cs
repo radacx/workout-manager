@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace WorkoutManager.App.Converters
 {
-    public class DateTimeToDateConverter : IValueConverter
+    internal class DateTimeToDateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

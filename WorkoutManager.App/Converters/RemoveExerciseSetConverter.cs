@@ -1,13 +1,13 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using WorkoutManager.App.TrainingLog.Models;
+using WorkoutManager.App.Pages.TrainingLog.Models;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
 
 namespace WorkoutManager.App.Converters
 {
-    public class RemoveExerciseSetConverter : IMultiValueConverter
+    internal class RemoveExerciseSetConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
