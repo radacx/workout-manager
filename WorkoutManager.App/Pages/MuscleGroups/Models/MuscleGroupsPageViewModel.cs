@@ -24,7 +24,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
         private readonly MuscleGroupService _muscleGroupService;
         private readonly DialogViewer<MuscleGroupDialog> _muscleGroupDialogViewer;
         
-        public MuscleGroupsPageViewModel(MuscleGroupService muscleGroupService, DialogViewer<MuscleGroupDialog> muscleGroupDialogViewer)
+        public MuscleGroupsPageViewModel(MuscleGroupService muscleGroupService, DialogViewer<MuscleGroupDialog> muscleGroupDialogViewer, DialogViewer<MuscleHeadDialog> muscleHeadDialogViewer)
         {
             _muscleGroupService = muscleGroupService;
             _muscleGroupDialogViewer = muscleGroupDialogViewer;
@@ -34,7 +34,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
                 {
                     var muscleGroup = new MuscleGroup();
 
-                    var viewModel = new MuscleGroupViewModel(muscleGroup)
+                    var viewModel = new MuscleGroupViewModel(muscleGroup, muscleHeadDialogViewer)
                     {
                         SaveButtonTitle = "Create"
                     };
@@ -56,7 +56,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
                 {
                     var muscleGroupClone = muscleGroup.Clone();
 
-                    var viewModel = new MuscleGroupViewModel(muscleGroupClone)
+                    var viewModel = new MuscleGroupViewModel(muscleGroupClone, muscleHeadDialogViewer)
                     {
                         SaveButtonTitle = "Save"
                     };

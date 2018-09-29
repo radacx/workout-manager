@@ -114,8 +114,12 @@
     <Compile Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml.cs">
       <DependentUpon>MuscleGroupDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MuscleGroups\Dialogs\MuscleHeadDialog.xaml.cs">
+      <DependentUpon>MuscleHeadDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MuscleGroups\Models\MuscleGroupDialogViewModel.cs" />
     <Compile Include="Pages\MuscleGroups\Models\MuscleGroupsPageViewModel.cs" />
+    <Compile Include="Pages\MuscleGroups\Models\MuscleHeadDialogViewModel.cs" />
     <Compile Include="Pages\MuscleGroups\MuscleGroupsPage.xaml.cs">
       <DependentUpon>MuscleGroupsPage.xaml</DependentUpon>
     </Compile>
@@ -164,6 +168,7 @@
     <Page Include="Pages\Motions\Dialogs\JointMotionDialog.xaml" />
     <Page Include="Pages\Motions\MotionsPage.xaml" />
     <Page Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml" />
+    <Page Include="Pages\MuscleGroups\Dialogs\MuscleHeadDialog.xaml" />
     <Page Include="Pages\MuscleGroups\MuscleGroupsPage.xaml" />
     <Page Include="Pages\TrainingLog\Controls\ExerciseSet.xaml" />
     <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />

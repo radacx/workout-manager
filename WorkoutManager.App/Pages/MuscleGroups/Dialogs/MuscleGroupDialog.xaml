@@ -52,31 +52,12 @@
             Text="{Binding MuscleGroup.Name}"
         />
        
-        <StackPanel
+        <Button
             Grid.Row="2"
             Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Orientation="Horizontal"
-        >
-            <Label Content="Head name" />
-            <TextBox Name="HeadName" Width="200" />
-            <Button
-                Content="Add"
-                Command="{Binding AddHead}"
-                CommandParameter="{Binding Text, ElementName=HeadName}"
-            >
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="IsEnabled" Value="False" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=HeadName, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IsTextEmptyConverter}}" Value="False">
-                                <Setter Property="IsEnabled" Value="True" />   
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-        </StackPanel>
+            Content="Add head"
+            Command="{Binding OpenAddMuscleHeadDialog}"
+        />
         
         <Label
             Grid.Row="3"
@@ -92,6 +73,12 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Name}" />
+                        <Button
+                            Content="Edit"
+                            Command="{Binding DataContext.OpenEditMuscleHeadDialog,
+                                RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:MuscleGroupDialog}}"
+                            CommandParameter="{Binding}"
+                        />
                         <Button
                             Content="Remove"
                             Command="{Binding DataContext.RemoveHead,

@@ -46,12 +46,13 @@ namespace WorkoutManager.App.Pages
             var exerciseDialogViewer = new DialogViewer<ExerciseDialog>();
             var motionDialogViewer = new DialogViewer<JointMotionDialog>();
             var muscleGroupDialogViewer = new DialogViewer<MuscleGroupDialog>();
+            var muscleHeadDialogViewer = new DialogViewer<MuscleHeadDialog>();
             var trainingSessionDialogViewer = new DialogViewer<TrainingSessionDialog>();
             var exerciseSetDialogViewer = new DialogViewer<ExerciseSetDialog>();
             
             ExercisesPage = new ExercisesPageViewModel(exerciseService, motionsRepository, muscleGroupRepository, exerciseDialogViewer);
             MotionsPage = new MotionsPageViewModel(motionsRepository, motionDialogViewer);
-            MuscleGroupsPage = new MuscleGroupsPageViewModel(muscleGroupService, muscleGroupDialogViewer);
+            MuscleGroupsPage = new MuscleGroupsPageViewModel(muscleGroupService, muscleGroupDialogViewer, muscleHeadDialogViewer);
             TrainingLogPage = new TrainingLogPageViewModel(trainingSessionService, exerciseRepository, trainingSessionDialogViewer, exerciseSetDialogViewer);
         }
     }

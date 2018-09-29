@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace WorkoutManager.App.Structures
 {
-    public class BulkObservableCollection<TItem> : AsyncObservableCollection<TItem>
+    internal class BulkObservableCollection<TItem> : AsyncObservableCollection<TItem>
     {
         private const string CountString = "Count";
         private const string IndexerName = "Item[]";

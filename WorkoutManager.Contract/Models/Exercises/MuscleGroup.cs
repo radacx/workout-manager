@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using WorkoutManager.Contract.Annotations;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Exercises
@@ -22,7 +19,15 @@ namespace WorkoutManager.Contract.Models.Exercises
             set => _heads = new ObservableCollection<MuscleHead>(value);
         }
 
-        public void AddHead(string name) => _heads.Add(new MuscleHead(name));
+        public void AddHead(MuscleHead head) => _heads.Add(head);
+
+        public void UpdateHead(MuscleHead head)
+        {
+            var originalHeadIndex = _heads.IndexOf(head);
+            
+            _heads.RemoveAt(originalHeadIndex);
+            _heads.Insert(originalHeadIndex, head);
+        }
         
         public void RemoveHead(MuscleHead head) => _heads.Remove(head);
 

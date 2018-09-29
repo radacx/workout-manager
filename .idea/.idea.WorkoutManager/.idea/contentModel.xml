@@ -61,10 +61,13 @@
             <e p="Dialogs" t="Include">
               <e p="MuscleGroupDialog.xaml" t="Include" />
               <e p="MuscleGroupDialog.xaml.cs" t="Include" />
+              <e p="MuscleHeadDialog.xaml" t="Include" />
+              <e p="MuscleHeadDialog.xaml.cs" t="Include" />
             </e>
             <e p="Models" t="Include">
               <e p="MuscleGroupDialogViewModel.cs" t="Include" />
               <e p="MuscleGroupsPageViewModel.cs" t="Include" />
+              <e p="MuscleHeadDialogViewModel.cs" t="Include" />
             </e>
             <e p="MuscleGroupsPage.xaml" t="Include" />
             <e p="MuscleGroupsPage.xaml.cs" t="Include" />

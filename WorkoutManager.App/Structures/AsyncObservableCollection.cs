@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace WorkoutManager.App.Structures
 {
-    public class AsyncObservableCollection<TItem> : ObservableCollection<TItem>
+    internal class AsyncObservableCollection<TItem> : ObservableCollection<TItem>
     {
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
             => Application.Current.Dispatcher.BeginInvoke(
