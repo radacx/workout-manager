@@ -31,9 +31,10 @@ namespace WorkoutManager.App.TrainingLog.Models
 
         private void DeleteTrainingSession(TrainingSession session)
         {
-            TrainingSessions.Remove(session);
-
-            Task.Run(() => _trainingSessionRepository.Delete(session));
+            _exerciseSetRepository.DeleteRange(session.Exercises.SelectMany(exercise => exercise.Sets));
+            _sessionExerciseRepository.DeleteRange(session.Exercises);
+            
+            _trainingSessionRepository.Delete(session);
         }
 
         private void UpdateTrainingSession(TrainingSession session)
@@ -62,7 +63,13 @@ namespace WorkoutManager.App.TrainingLog.Models
             _sessionExerciseRepository = sessionExerciseRepository;
             _exerciseSetRepository = exerciseSetRepository;
             
-            DeleteSession = new Command<TrainingSession>(DeleteTrainingSession);
+            DeleteSession = new Command<TrainingSession>(session =>
+                {
+                    TrainingSessions.Remove(session);
+                    
+                    Task.Run(() => DeleteTrainingSession(session));
+                }
+            );
 
             OpenEditSessionDialog = new Command<TrainingSession>(
                 trainingSession =>

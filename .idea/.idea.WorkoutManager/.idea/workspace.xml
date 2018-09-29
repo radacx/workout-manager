@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e23712a2-69fc-4e50-b0f8-a7eb87891043" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSet.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSet.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSet.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSet.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSetDialog.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSetDialog.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/SessionExercise.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/SessionExercise.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/ExercisesPageViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/ExercisesPageViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MuscleGroupsPageViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MuscleGroupsPageViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingLogPageViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingLogPageViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WorkoutManager.Repository/Repository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WorkoutManager.Repository/Repository.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,13 +48,13 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="config" value="5" />
-          <entry key="cs" value="451" />
+          <entry key="cs" value="471" />
           <entry key="xaml" value="90" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="C#" value="451" />
+          <entry key="C#" value="471" />
           <entry key="Config" value="5" />
           <entry key="XAML" value="90" />
         </counts>
@@ -63,13 +62,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="config" value="71" />
-          <entry key="cs" value="32787" />
+          <entry key="cs" value="32983" />
           <entry key="xaml" value="10587" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="C#" value="32787" />
+          <entry key="C#" value="32983" />
           <entry key="Config" value="71" />
           <entry key="XAML" value="10587" />
         </counts>
@@ -79,435 +78,27 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/WorkoutManager.Repository/Repository.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1230">
-              <caret line="89" column="61" lean-forward="true" selection-start-line="89" selection-start-column="61" selection-end-line="89" selection-end-column="61" />
-              <folding>
-                <marker date="1538218866117" expanded="false" signature="6:224" ph="..." />
-                <marker date="1538218866117" expanded="true" signature="261:2997" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="308:1266" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="372:572" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="658:1260" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="1007:1071" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="1350:2995" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="1430:1502" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="1556:1614" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="1686:1895" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="1755:1881" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="1994:2210" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="2063:2196" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="2765:2989" ph="{...}" />
-                <marker date="1538218866117" expanded="true" signature="2834:2976" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingLogPageViewModel.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="188">
+              <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
               <folding>
-                <marker date="1538213000140" expanded="true" signature="6:327" ph="..." />
-                <marker date="1538213000140" expanded="true" signature="376:4736" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="422:4734" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="1231:1370" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="1439:1846" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="1915:2248" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="2513:4728" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="2915:3795" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="3139:3211" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="3295:3366" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="3500:3576" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="3868:4674" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="4080:4154" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="4238:4309" ph="{...}" />
-                <marker date="1538213000140" expanded="true" signature="4443:4519" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/Misc/IEntity.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-              <folding>
-                <marker date="1538210201686" expanded="true" signature="60:156" ph="{...}" />
-                <marker date="1538210201686" expanded="true" signature="113:154" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/ExerciseSet/IExerciseSet.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-              <folding>
-                <marker date="1538143417222" expanded="true" signature="96:192" ph="{...}" />
-                <marker date="1538143417222" expanded="true" signature="142:190" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSet.xaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-              <folding>
-                <marker date="1538218475893" expanded="true" signature="0:1888" ph="&lt;&lt;UserControl.Resources&gt;&#10;    &lt;DataTemplate DataType=&quot;{x:Type exerciseSet:DynamicExerciseSet}&quot;&gt;&#10;        &lt;StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Reps&quot; /&gt;&#10;                &lt;xctk:IntegerUpDown Value=&quot;{Binding Reps, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Weight&quot; /&gt;&#10;                &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;        &lt;/StackPanel&gt;&#10;    &lt;/DataTemplate&gt;&#10;&#10;    &lt;DataTemplate DataType=&quot;{x:Type exerciseSet:IsometricExerciseSet}&quot;&gt;&#10;        &lt;StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Duration&quot; /&gt;&#10;                &lt;xctk:TimeSpanUpDown Value=&quot;{Binding Duration, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Weight&quot; /&gt;&#10;                &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;        &lt;/StackPanel&gt;&#10;    &lt;/DataTemplate&gt;&#10;&lt;/UserControl.Resources&gt; &lt;ContentControl Content=&quot;{Binding}&quot; /&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="725:1825" ph="&lt;&lt;DataTemplate DataType=&quot;{x:Type exerciseSet:DynamicExerciseSet}&quot;&gt;&#10;        &lt;StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Reps&quot; /&gt;&#10;                &lt;xctk:IntegerUpDown Value=&quot;{Binding Reps, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Weight&quot; /&gt;&#10;                &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;        &lt;/StackPanel&gt;&#10;    &lt;/DataTemplate&gt; &lt;DataTemplate DataType=&quot;{x:Type exerciseSet:IsometricExerciseSet}&quot;&gt;&#10;        &lt;StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Duration&quot; /&gt;&#10;                &lt;xctk:TimeSpanUpDown Value=&quot;{Binding Duration, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Weight&quot; /&gt;&#10;                &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;        &lt;/StackPanel&gt;&#10;    &lt;/DataTemplate&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="753:1268" ph="&lt;&lt;StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Reps&quot; /&gt;&#10;                &lt;xctk:IntegerUpDown Value=&quot;{Binding Reps, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Weight&quot; /&gt;&#10;                &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;        &lt;/StackPanel&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="827:1248" ph="&lt;&lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Reps&quot; /&gt;&#10;                &lt;xctk:IntegerUpDown Value=&quot;{Binding Reps, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt; &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Weight&quot; /&gt;&#10;                &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="852:1031" ph="&lt;&lt;Label Content=&quot;Reps&quot; /&gt; &lt;xctk:IntegerUpDown Value=&quot;{Binding Reps, Mode=TwoWay}&quot; /&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="1044:1226" ph="&lt;&lt;Label Content=&quot;Weight&quot; /&gt; &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="1274:1800" ph="&lt;&lt;StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Duration&quot; /&gt;&#10;                &lt;xctk:TimeSpanUpDown Value=&quot;{Binding Duration, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;            &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Weight&quot; /&gt;&#10;                &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;&#10;        &lt;/StackPanel&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="1350:1780" ph="&lt;&lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Duration&quot; /&gt;&#10;                &lt;xctk:TimeSpanUpDown Value=&quot;{Binding Duration, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt; &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;&#10;                &lt;Label Content=&quot;Weight&quot; /&gt;&#10;                &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;&#10;            &lt;/StackPanel&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="1375:1563" ph="&lt;&lt;Label Content=&quot;Duration&quot; /&gt; &lt;xctk:TimeSpanUpDown Value=&quot;{Binding Duration, Mode=TwoWay}&quot; /&gt;.../&gt;" />
-                <marker date="1538218475893" expanded="true" signature="1576:1758" ph="&lt;&lt;Label Content=&quot;Weight&quot; /&gt; &lt;xctk:DoubleUpDown Value=&quot;{Binding Weight, Mode=TwoWay}&quot; /&gt;.../&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSetDialog.xaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
-              <folding>
-                <marker date="1538218513993" expanded="true" signature="0:1026" ph="&lt;&lt;StackPanel&gt;&#10;        &lt;trainingLog:ExerciseSet DataContext=&quot;{Binding DataContext.ExerciseSet, RelativeSource={RelativeSource FindAncestor,&#10;            AncestorType=trainingLog:ExerciseSetDialog}}&quot; /&gt;&#10;        &#10;        &lt;Button&#10;            Content=&quot;Submit&quot;&#10;            IsDefault=&quot;True&quot;&#10;            Click=&quot;Submit_OnClick&quot;&#10;        /&gt;&#10;    &lt;/StackPanel&gt;.../&gt;" />
-                <marker date="1538218513993" expanded="true" signature="671:1016" ph="&lt;&lt;trainingLog:ExerciseSet DataContext=&quot;{Binding DataContext.ExerciseSet, RelativeSource={RelativeSource FindAncestor,&#10;            AncestorType=trainingLog:ExerciseSetDialog}}&quot; /&gt; &lt;Button&#10;            Content=&quot;Submit&quot;&#10;            IsDefault=&quot;True&quot;&#10;            Click=&quot;Submit_OnClick&quot;&#10;        /&gt;.../&gt;" />
-                <marker date="1538218513993" expanded="true" signature="692:869" ph="&lt;.../&gt;" />
-                <marker date="1538218513993" expanded="true" signature="887:998" ph="&lt;.../&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/SessionExercise.xaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
-              <folding>
-                <marker date="1538218513966" expanded="true" signature="0:2770" ph="&lt;&lt;UserControl.Resources&gt;&#10;    &lt;converters:RemoveExerciseSetConverter x:Key=&quot;RemoveExerciseSetConverter&quot; /&gt;    &#10;&lt;/UserControl.Resources&gt; &lt;StackPanel&gt;&#10;        &lt;TextBlock Text=&quot;{Binding Exercise.Name}&quot; /&gt;&#10;        &lt;TextBlock Text=&quot;{Binding Exercise.ContractionType}&quot; /&gt;&#10;        &lt;Button&#10;            Content=&quot;Add set&quot;&#10;            Command=&quot;{Binding OnAddExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;            CommandParameter=&quot;{Binding}&quot;&#10;        /&gt;&#10;        &lt;ItemsControl ItemsSource=&quot;{Binding Sets}&quot;&gt;&#10;            &lt;ItemsControl.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;StackPanel&gt;&#10;                        &lt;trainingLog:ExerciseSet DataContext=&quot;{Binding}&quot; /&gt;&#10;                        &lt;Button&#10;                            Content=&quot;Remove&quot;&#10;                            Command=&quot;{Binding OnDeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;                        &gt;&#10;                            &lt;Button.CommandParameter&gt;&#10;                                &lt;MultiBinding Converter=&quot;{StaticResource RemoveExerciseSetConverter}&quot;&gt;&#10;                                    &lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt;&#10;                                    &lt;Binding Path=&quot;&quot; /&gt;&#10;                                &lt;/MultiBinding&gt;&#10;                            &lt;/Button.CommandParameter&gt;&#10;                        &lt;/Button&gt;&#10;                    &lt;/StackPanel&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ItemsControl.ItemTemplate&gt;&#10;        &lt;/ItemsControl&gt;&#10;        &lt;Button&#10;            Content=&quot;Delete exercise&quot;&#10;            Command=&quot;{Binding OnDeleteExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;            CommandParameter=&quot;{Binding}&quot;&#10;        /&gt;&#10;    &lt;/StackPanel&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="881:1014" ph="&lt;&lt;converters:RemoveExerciseSetConverter x:Key=&quot;RemoveExerciseSetConverter&quot; /&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1019:2755" ph="&lt;&lt;TextBlock Text=&quot;{Binding Exercise.Name}&quot; /&gt; &lt;TextBlock Text=&quot;{Binding Exercise.ContractionType}&quot; /&gt; &lt;Button&#10;            Content=&quot;Add set&quot;&#10;            Command=&quot;{Binding OnAddExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;            CommandParameter=&quot;{Binding}&quot;&#10;        /&gt; &lt;ItemsControl ItemsSource=&quot;{Binding Sets}&quot;&gt;&#10;            &lt;ItemsControl.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;StackPanel&gt;&#10;                        &lt;trainingLog:ExerciseSet DataContext=&quot;{Binding}&quot; /&gt;&#10;                        &lt;Button&#10;                            Content=&quot;Remove&quot;&#10;                            Command=&quot;{Binding OnDeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;                        &gt;&#10;                            &lt;Button.CommandParameter&gt;&#10;                                &lt;MultiBinding Converter=&quot;{StaticResource RemoveExerciseSetConverter}&quot;&gt;&#10;                                    &lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt;&#10;                                    &lt;Binding Path=&quot;&quot; /&gt;&#10;                                &lt;/MultiBinding&gt;&#10;                            &lt;/Button.CommandParameter&gt;&#10;                        &lt;/Button&gt;&#10;                    &lt;/StackPanel&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ItemsControl.ItemTemplate&gt;&#10;        &lt;/ItemsControl&gt; &lt;Button&#10;            Content=&quot;Delete exercise&quot;&#10;            Command=&quot;{Binding OnDeleteExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;            CommandParameter=&quot;{Binding}&quot;&#10;        /&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1157:1380" ph="&lt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1389:2494" ph="&lt;&lt;ItemsControl.ItemTemplate&gt;&#10;                &lt;DataTemplate&gt;&#10;                    &lt;StackPanel&gt;&#10;                        &lt;trainingLog:ExerciseSet DataContext=&quot;{Binding}&quot; /&gt;&#10;                        &lt;Button&#10;                            Content=&quot;Remove&quot;&#10;                            Command=&quot;{Binding OnDeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;                        &gt;&#10;                            &lt;Button.CommandParameter&gt;&#10;                                &lt;MultiBinding Converter=&quot;{StaticResource RemoveExerciseSetConverter}&quot;&gt;&#10;                                    &lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt;&#10;                                    &lt;Binding Path=&quot;&quot; /&gt;&#10;                                &lt;/MultiBinding&gt;&#10;                            &lt;/Button.CommandParameter&gt;&#10;                        &lt;/Button&gt;&#10;                    &lt;/StackPanel&gt;&#10;                &lt;/DataTemplate&gt;&#10;            &lt;/ItemsControl.ItemTemplate&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1445:2470" ph="&lt;&lt;DataTemplate&gt;&#10;                    &lt;StackPanel&gt;&#10;                        &lt;trainingLog:ExerciseSet DataContext=&quot;{Binding}&quot; /&gt;&#10;                        &lt;Button&#10;                            Content=&quot;Remove&quot;&#10;                            Command=&quot;{Binding OnDeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;                        &gt;&#10;                            &lt;Button.CommandParameter&gt;&#10;                                &lt;MultiBinding Converter=&quot;{StaticResource RemoveExerciseSetConverter}&quot;&gt;&#10;                                    &lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt;&#10;                                    &lt;Binding Path=&quot;&quot; /&gt;&#10;                                &lt;/MultiBinding&gt;&#10;                            &lt;/Button.CommandParameter&gt;&#10;                        &lt;/Button&gt;&#10;                    &lt;/StackPanel&gt;&#10;                &lt;/DataTemplate&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1489:2429" ph="&lt;&lt;StackPanel&gt;&#10;                        &lt;trainingLog:ExerciseSet DataContext=&quot;{Binding}&quot; /&gt;&#10;                        &lt;Button&#10;                            Content=&quot;Remove&quot;&#10;                            Command=&quot;{Binding OnDeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;                        &gt;&#10;                            &lt;Button.CommandParameter&gt;&#10;                                &lt;MultiBinding Converter=&quot;{StaticResource RemoveExerciseSetConverter}&quot;&gt;&#10;                                    &lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt;&#10;                                    &lt;Binding Path=&quot;&quot; /&gt;&#10;                                &lt;/MultiBinding&gt;&#10;                            &lt;/Button.CommandParameter&gt;&#10;                        &lt;/Button&gt;&#10;                    &lt;/StackPanel&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1524:2397" ph="&lt;&lt;trainingLog:ExerciseSet DataContext=&quot;{Binding}&quot; /&gt; &lt;Button&#10;                            Content=&quot;Remove&quot;&#10;                            Command=&quot;{Binding OnDeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=trainingLog:SessionExercise}}&quot;&#10;                        &gt;&#10;                            &lt;Button.CommandParameter&gt;&#10;                                &lt;MultiBinding Converter=&quot;{StaticResource RemoveExerciseSetConverter}&quot;&gt;&#10;                                    &lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt;&#10;                                    &lt;Binding Path=&quot;&quot; /&gt;&#10;                                &lt;/MultiBinding&gt;&#10;                            &lt;/Button.CommandParameter&gt;&#10;                        &lt;/Button&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1637:2363" ph="&lt;&lt;Button.CommandParameter&gt;&#10;                                &lt;MultiBinding Converter=&quot;{StaticResource RemoveExerciseSetConverter}&quot;&gt;&#10;                                    &lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt;&#10;                                    &lt;Binding Path=&quot;&quot; /&gt;&#10;                                &lt;/MultiBinding&gt;&#10;                            &lt;/Button.CommandParameter&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1892:2329" ph="&lt;&lt;MultiBinding Converter=&quot;{StaticResource RemoveExerciseSetConverter}&quot;&gt;&#10;                                    &lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt;&#10;                                    &lt;Binding Path=&quot;&quot; /&gt;&#10;                                &lt;/MultiBinding&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="1950:2274" ph="&lt;&lt;Binding Path=&quot;DataContext&quot; RelativeSource=&quot;{RelativeSource FindAncestor, AncestorType=views:SessionExercise}&quot; /&gt; &lt;Binding Path=&quot;&quot; /&gt;.../&gt;" />
-                <marker date="1538218513966" expanded="true" signature="2503:2737" ph="&lt;.../&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E7FE05A-5928-4996-8CFE-23DFC2A26585/36/809bf381/LiteCollection`1.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="456" column="8" selection-start-line="456" selection-start-column="8" selection-end-line="456" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E7FE05A-5928-4996-8CFE-23DFC2A26585/6b/199eee31/BsonMapper.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="294" column="46" selection-start-line="294" selection-start-column="46" selection-end-line="294" selection-end-column="46" />
-              <folding>
-                <marker date="1538154121263" expanded="true" signature="0:304" ph="/* Decompiled with JetBrains decompiler ... */" />
-                <marker date="1538154121263" expanded="false" signature="312:492" ph="..." />
-                <marker date="1538154121263" expanded="true" signature="510:26856" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="515:1191" ph="/// Class that converts your entity class to/from BsonDocument ... " />
-                <marker date="1538154121263" expanded="true" signature="1217:26854" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="1226:1338" ph="/// Global instance used when no BsonMapper are passed in LiteDatabase ctor ... " />
-                <marker date="1538154121263" expanded="true" signature="2060:2292" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="2358:2516" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="2791:3083" ph="/// A custom callback to change MemberInfo behavior when converting to MemberMapper. ... " />
-                <marker date="1538154121263" expanded="true" signature="3279:3385" ph="/// Indicate that mapper do not serialize null values (default false) ... " />
-                <marker date="1538154121263" expanded="true" signature="3441:3536" ph="/// Apply .Trim() in strings when serialize (default true) ... " />
-                <marker date="1538154121263" expanded="true" signature="3706:3803" ph="/// Get/Set that mapper must include fields (default: false) ... " />
-                <marker date="1538154121263" expanded="true" signature="3853:3988" ph="/// Get/Set that mapper must include non public (private, protected and internal) (default: false) ... " />
-                <marker date="1538154121263" expanded="true" signature="4108:5899" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="4439:4580" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="5325:5660" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="5478:5651" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="5697:5890" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="5905:6000" ph="/// Register a custom type serializer/deserialize function ... " />
-                <marker date="1538154121263" expanded="true" signature="6094:6303" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="6309:6404" ph="/// Register a custom type serializer/deserialize function ... " />
-                <marker date="1538154121263" expanded="true" signature="6516:6700" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="6706:6801" ph="/// Map your entity class to BsonDocument using fluent API ... " />
-                <marker date="1538154121263" expanded="true" signature="6841:6894" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="6900:7008" ph="/// Returns JSON path from a strong typed document using current mapper ... " />
-                <marker date="1538154121263" expanded="true" signature="7075:7158" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="7164:7273" ph="/// Returns field name from a strong typed document using current mapper ... " />
-                <marker date="1538154121263" expanded="true" signature="7341:7436" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="7442:7550" ph="/// Get Query object from a strong typed predicate using current mapper ... " />
-                <marker date="1538154121263" expanded="true" signature="7616:7685" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="7691:7805" ph="/// Use lower camel case resolution for convert property names to field names ... " />
-                <marker date="1538154121263" expanded="true" signature="7842:7981" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="7987:8105" ph="/// Uses lower camel case with delimiter to convert property names to field names ... " />
-                <marker date="1538154121263" expanded="true" signature="8171:8338" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="8344:8462" ph="/// Get property mapper between typed .NET class and BsonDocument - Cache results ... " />
-                <marker date="1538154121263" expanded="true" signature="8515:8855" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="8617:8822" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="8861:9058" ph="/// Use this method to override how your class can be, by default, mapped from entity to Bson document. ... " />
-                <marker date="1538154121263" expanded="true" signature="9122:12035" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="9188:9264" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="9672:12002" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="9737:11994" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="10916:11287" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="12041:12139" ph="/// Gets MemberInfo that refers to Id from a document object. ... " />
-                <marker date="1538154121263" expanded="true" signature="12217:12572" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="12578:12693" ph="/// Returns all member that will be have mapper between POCO class to document ... " />
-                <marker date="1538154121263" expanded="true" signature="12765:13799" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="13153:13267" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="13524:13651" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="13805:13934" ph="/// Register a property mapper as DbRef to serialize/deserialize only document reference _id ... " />
-                <marker date="1538154121263" expanded="true" signature="14032:14241" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="14247:14405" ph="/// Register a property as a DbRef - implement a custom Serialize/Deserialize actions to convert entity to $id, $ ... " />
-                <marker date="1538154121263" expanded="true" signature="14506:15729" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="14657:15178" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="14986:15169" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="15259:15721" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="15523:15610" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="15735:15897" ph="/// Register a property as a DbRefList - implement a custom Serialize/Deserialize actions to convert entity to $i ... " />
-                <marker date="1538154121263" expanded="true" signature="15998:17566" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="16156:16811" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="16359:16765" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="16397:16755" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="16522:16741" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="16892:17558" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="17141:17480" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="17371:17468" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="17701:17939" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="18061:18122" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="18248:18379" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="18440:20465" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="19348:19635" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="19839:20005" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="20530:20771" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="20835:21479" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="21053:21179" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="21190:21441" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="21364:21431" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="21573:21856" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="21643:21850" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="21935:22461" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="22093:22455" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="22193:22447" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="22599:22824" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="22949:23031" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="23099:25300" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="23358:23579" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="24864:25074" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="25379:25553" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="25639:25916" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="25753:25883" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="25992:26850" ph="{...}" />
-                <marker date="1538154121263" expanded="true" signature="26494:26817" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E7FE05A-5928-4996-8CFE-23DFC2A26585/0e/9dc95f7b/LiteEngine.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="603" column="35" selection-start-line="603" selection-start-column="35" selection-end-line="603" selection-end-column="35" />
-              <folding>
-                <marker date="1538204377411" expanded="true" signature="0:304" ph="/* Decompiled with JetBrains decompiler ... */" />
-                <marker date="1538204377411" expanded="false" signature="312:426" ph="..." />
-                <marker date="1538204377411" expanded="true" signature="444:44874" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="449:707" ph="/// A public class that take care of all engine data structure access - it´s basic implementation of a NoSql data ... " />
-                <marker date="1538204377411" expanded="true" signature="747:44872" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="879:1058" ph="/// Max dirty pages used in memory for sort operation. After this limit, persist all pages into disk, clear memor ... " />
-                <marker date="1538204377411" expanded="true" signature="1543:1638" ph="/// Returns first value from an index (first is min value) ... " />
-                <marker date="1538204377411" expanded="true" signature="1696:2435" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="1936:2429" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="2574:3313" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="2814:3307" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="3319:3489" ph="/// Count all nodes from a query execution - do not deserialize documents to count. If query is null, use Collect ... " />
-                <marker date="1538204377411" expanded="true" signature="3550:4492" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="3695:4486" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="4498:4630" ph="/// Check if has at least one node in a query execution - do not deserialize documents to check ... " />
-                <marker date="1538204377411" expanded="true" signature="4685:5513" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="4912:5507" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="5632:5774" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="5780:5888" ph="/// Drop collection including all documents, indexes and extended pages ... " />
-                <marker date="1538204377411" expanded="true" signature="5938:6352" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="6141:6343" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="6468:7468" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="6770:7459" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="7474:7583" ph="/// Implement delete command based on _id value. Returns true if deleted ... " />
-                <marker date="1538204377411" expanded="true" signature="7639:7715" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="7839:9093" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="8122:9084" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="8490:9056" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="8666:9046" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="9099:9197" ph="/// Find for documents in a collection using Query definition ... " />
-                <marker date="1538204377411" expanded="true" signature="9309:11266" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="9698:11110" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="9742:10250" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="9875:9952" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="9967:10240" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="10374:11046" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="10448:10939" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="10497:10858" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="10642:10735" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="11124:11167" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="11272:11385" ph="/// Find first or default document based in collection based on Query filter ... " />
-                <marker date="1538204377411" expanded="true" signature="11449:11552" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="11696:11914" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="11920:12020" ph="/// Returns all documents inside collection order by _id index. ... " />
-                <marker date="1538204377411" expanded="true" signature="12084:12163" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="12169:12325" ph="/// Find for documents in a collection using Query definition. Support for include reference documents. Use Path  ... " />
-                <marker date="1538204377411" expanded="true" signature="12456:13556" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="12629:13550" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="12682:13515" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="12995:13505" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="13145:13493" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="13288:13428" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="13562:13681" ph="/// EXPERIMENTAL Find with sort operation - use memory or disk (temp file) to sort ... " />
-                <marker date="1538204377411" expanded="true" signature="13821:17100" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="14225:17094" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="14560:17086" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="15108:16426" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="15308:16414" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="15530:16400" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="15817:16185" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="16241:16384" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="16734:17041" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="17106:17221" ph="/// Create a new index (or do nothing if already exists) to a collection/field ... " />
-                <marker date="1538204377411" expanded="true" signature="17303:17388" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="17394:17509" ph="/// Create a new index (or do nothing if already exists) to a collection/field ... " />
-                <marker date="1538204377411" expanded="true" signature="17610:19066" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="18203:19057" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="18682:19028" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="19185:19964" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="19552:19955" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="20093:20548" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="20238:20542" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="20390:20534" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="20554:20658" ph="/// Get internal information about database. Can filter collections ... " />
-                <marker date="1538204377411" expanded="true" signature="20689:23069" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="20729:23063" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="20905:22341" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="21061:22279" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="21816:22250" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="22384:23054" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="23075:23179" ph="/// Implements insert documents in a collection - returns _id value ... " />
-                <marker date="1538204377411" expanded="true" signature="23281:23536" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="23474:23495" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="23542:23684" ph="/// Implements insert documents in a collection - use a buffer to commit transaction in each buffer count ... " />
-                <marker date="1538204377411" expanded="true" signature="23794:24305" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="24074:24296" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="24146:24268" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="24311:24426" ph="/// Bulk documents to a collection - use data chunks for most efficient insert ... " />
-                <marker date="1538204377411" expanded="true" signature="24562:25076" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="25236:27480" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="25298:25566" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="25708:26551" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="25840:26476" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="26620:26751" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="27283:27474" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="27486:27646" ph="/// Run a shell command from a string. Execute command in current database and returns an IEnumerable collection  ... " />
-                <marker date="1538204377411" expanded="true" signature="27694:28083" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="27892:28026" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="28127:28663" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="28361:28489" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="28669:28838" ph="/// Reduce disk size re-arranging unused spaces. Can change password. If temporary disk was not provided, use Mem ... " />
-                <marker date="1538204377411" expanded="true" signature="28915:31009" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="29087:31003" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="29132:30995" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="29263:30879" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="29348:30120" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="29950:30103" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="30387:30588" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="30433:30574" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="30897:30985" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="31015:31152" ph="/// Implement update command to a document inside a collection. Returns true if document was updated ... " />
-                <marker date="1538204377411" expanded="true" signature="31212:31446" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="31412:31433" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="31452:31587" ph="/// Implement update command to a document inside a collection. Return number of documents updated ... " />
-                <marker date="1538204377411" expanded="true" signature="31660:32241" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="31941:32232" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="32058:32204" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="32113:32194" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="32374:34196" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="33105:34171" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="33370:33567" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="33781:33898" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="34202:34534" ph="/// Implement upsert command to documents in a collection. Calls update on all documents, ... " />
-                <marker date="1538204377411" expanded="true" signature="34631:34873" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="34831:34852" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="34879:35174" ph="/// Implement upsert command to documents in a collection. Calls update on all documents, ... " />
-                <marker date="1538204377411" expanded="true" signature="35284:35901" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="35564:35892" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="35636:35864" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="35724:35818" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="35998:36450" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="36014:36132" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="36142:36444" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="36240:36433" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="36538:36602" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="36554:36596" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="36608:36812" ph="/// Get memory cache size limit. Works only with journal enabled (number in pages). If journal is disabled, pages ... " />
-                <marker date="1538204377411" expanded="true" signature="36837:36907" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="36853:36901" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="36992:37068" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="37008:37062" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="37074:37188" ph="/// Gets time waiting write lock operation before throw LiteException timeout ... " />
-                <marker date="1538204377411" expanded="true" signature="37216:37284" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="37232:37278" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="37369:37436" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="37385:37430" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="37704:37716" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="37951:37986" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="38043:38055" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="38311:38323" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="38329:38456" ph="/// Initialize LiteEngine using custom disk service implementation and full engine options ... " />
-                <marker date="1538204377411" expanded="true" signature="38610:39716" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="38915:39628" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="39655:39710" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="39823:40447" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="40453:40657" ph="/// Get the collection page only when needed. Gets from pager always to grantee that wil be the last (in case of  ... " />
-                <marker date="1538204377411" expanded="true" signature="40735:41106" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="40920:41071" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="41112:41209" ph="/// Encapsulate all operations in a single write transaction ... " />
-                <marker date="1538204377411" expanded="true" signature="41310:41779" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="41351:41773" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="41371:41592" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="41621:41765" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="41806:41924" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="41930:42037" ph="/// Initialize new datafile with header page + lock reserved area zone ... " />
-                <marker date="1538204377411" expanded="true" signature="42136:43490" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="42307:42444" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="42473:42603" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="42916:43452" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="43031:43444" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="43496:43595" ph="/// Upgrade datafile from v6 to new v7 format used in LiteDB 3 ... " />
-                <marker date="1538204377411" expanded="true" signature="43709:44868" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="43949:44669" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="44021:44661" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="44198:44651" ph="{...}" />
-                <marker date="1538204377411" expanded="true" signature="44279:44639" ph="{...}" />
+                <marker date="1538219577341" expanded="false" signature="6:327" ph="..." />
+                <marker date="1538219577341" expanded="true" signature="376:4854" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="422:4852" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="1231:1307" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="1376:1783" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="1852:2185" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="2450:4846" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="2737:2916" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="3033:3913" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="3257:3329" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="3413:3484" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="3618:3694" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="3986:4792" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="4198:4272" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="4356:4427" ph="{...}" />
+                <marker date="1538219577341" expanded="true" signature="4561:4637" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -661,8 +252,6 @@
         <option value="$PROJECT_DIR$/ConsoleApplication1/Program.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.Contract/Models/Exercises/MuscleGroup.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.Repository/MuscleGroupRepository.cs" />
-        <option value="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MuscleGroupsPageViewModel.cs" />
-        <option value="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/ExercisesPageViewModel.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.Repository/ExerciseRepository.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.App/Converters/GetSelectedMuscleHeadsConverter.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/ExerciseDialogViewModel.cs" />
@@ -695,12 +284,14 @@
         <option value="$PROJECT_DIR$/WorkoutManager.Contract/Models/ExerciseSet/DynamicExerciseSet.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.Contract/Models/ExerciseSet/IExerciseSet.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.Contract/Models/Misc/IEntity.cs" />
-        <option value="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingLogPageViewModel.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSet.xaml" />
         <option value="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSet.xaml.cs" />
         <option value="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/ExerciseSetDialog.xaml" />
         <option value="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/SessionExercise.xaml" />
         <option value="$PROJECT_DIR$/WorkoutManager.Repository/Repository.cs" />
+        <option value="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/ExercisesPageViewModel.cs" />
+        <option value="$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MuscleGroupsPageViewModel.cs" />
+        <option value="$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingLogPageViewModel.cs" />
       </list>
     </option>
   </component>
@@ -727,6 +318,24 @@
             <path>
               <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
               <item name="WorkoutManager" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="WorkoutManager" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="WorkoutManager.App" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="WorkoutManager" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="WorkoutManager.App" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="TrainingLog" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="WorkoutManager" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="WorkoutManager.App" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="TrainingLog" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Models" type="24d0babc:SolutionExplorerModelNode" />
             </path>
             <path>
               <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
@@ -812,7 +421,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139567000" />
+    <option name="totallyTimeSpent" value="140283000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -832,7 +441,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7899329" weight="0.23120567" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7899329" visible="true" weight="0.23120567" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8738255" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -845,7 +454,7 @@
       <window_info anchor="bottom" id="Unit Tests" order="12" weight="0.32907802" />
       <window_info anchor="bottom" id="Terminal" order="13" weight="0.32907802" />
       <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.50067115" side_tool="true" weight="0.32907802" />
-      <window_info anchor="bottom" id="Build" order="15" sideWeight="0.45436242" visible="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Build" order="15" sideWeight="0.45436242" weight="0.32907802" />
       <window_info anchor="bottom" id="Stacktrace" order="16" weight="0.32907802" />
       <window_info anchor="bottom" id="Messages" order="17" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -973,72 +582,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/ExercisesPageViewModel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MainWindowViewModel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/SessionExerciseDialog.xaml.cs" />
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/Exercises/Exercise.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="643">
-          <caret line="83" column="49" selection-start-line="83" selection-start-column="49" selection-end-line="83" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MotionsPageViewModel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MuscleGroupDialogViewModel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/SessionExerciseDialogViewModel.cs" />
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/SessionExerciseDialog.xaml" />
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Converters/DateTimeToDateConverter.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/ExerciseSetDialogViewModel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/SessionExercise.xaml.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="27" column="10" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingSessionDialogViewModel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-317">
-          <caret line="32" column="38" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Converters/RemoveExerciseSetConverter.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
@@ -1050,13 +593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="306" column="8" selection-start-line="306" selection-start-column="8" selection-end-line="306" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MuscleGroupsPageViewModel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="85" column="25" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -2264,36 +1800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E7FE05A-5928-4996-8CFE-23DFC2A26585/36/809bf381/LiteCollection`1.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="456" column="8" selection-start-line="456" selection-start-column="8" selection-end-line="456" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingLogPageViewModel.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <marker date="1538213000140" expanded="true" signature="6:327" ph="..." />
-            <marker date="1538213000140" expanded="true" signature="376:4736" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="422:4734" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="1231:1370" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="1439:1846" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="1915:2248" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="2513:4728" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="2915:3795" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="3139:3211" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="3295:3366" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="3500:3576" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="3868:4674" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="4080:4154" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="4238:4309" ph="{...}" />
-            <marker date="1538213000140" expanded="true" signature="4443:4519" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/Misc/IEntity.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -2380,26 +1886,302 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/ExerciseDialogViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-135">
+          <folding>
+            <marker date="1538137562336" expanded="false" signature="6:244" ph="..." />
+            <marker date="1538137562336" expanded="true" signature="291:4950" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="361:4948" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="1493:4875" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="2124:2238" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="2426:2543" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="2623:3400" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="2680:3049" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="2769:3031" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="3093:3384" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="3182:3366" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="3495:4280" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="3552:3925" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="3641:3907" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="3969:4264" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="4058:4246" ph="{...}" />
+            <marker date="1538137562336" expanded="true" signature="4338:4610" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0E7FE05A-5928-4996-8CFE-23DFC2A26585/36/809bf381/LiteCollection`1.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="161" column="16" selection-start-line="161" selection-start-column="16" selection-end-line="161" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/WorkoutManager.Repository/Repository.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="89" column="61" lean-forward="true" selection-start-line="89" selection-start-column="61" selection-end-line="89" selection-end-column="61" />
+        <state relative-caret-position="1214">
+          <caret line="86" column="12" lean-forward="true" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
           <folding>
-            <marker date="1538218866117" expanded="false" signature="6:224" ph="..." />
-            <marker date="1538218866117" expanded="true" signature="261:2997" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="308:1266" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="372:572" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="658:1260" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="1007:1071" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="1350:2995" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="1430:1502" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="1556:1614" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="1686:1895" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="1755:1881" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="1994:2210" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="2063:2196" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="2765:2989" ph="{...}" />
-            <marker date="1538218866117" expanded="true" signature="2834:2976" ph="{...}" />
+            <marker date="1538219367434" expanded="false" signature="6:148" ph="..." />
+            <marker date="1538219367434" expanded="true" signature="185:3160" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="232:1190" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="296:496" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="582:1184" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="931:995" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="1274:3158" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="1354:1426" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="1480:1538" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="1610:1819" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="1679:1805" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="1918:2134" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="1987:2120" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="2725:2895" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="2928:3152" ph="{...}" />
+            <marker date="1538219367434" expanded="true" signature="2997:3139" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/Exercises/ExercisedMuscle.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <marker date="1538143209659" expanded="false" signature="6:109" ph="..." />
+            <marker date="1538143209659" expanded="true" signature="161:1550" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="235:1548" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="468:567" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="662:721" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="772:1036" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="828:886" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="933:990" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="1182:1492" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="1236:1294" ph="{...}" />
+            <marker date="1538143209659" expanded="true" signature="1339:1396" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/Exercises/Exercise.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding>
+            <marker date="1538148334556" expanded="false" signature="6:109" ph="..." />
+            <marker date="1538148334556" expanded="true" signature="161:2594" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="328:2592" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="723:832" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="894:1007" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="1132:1207" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="1779:2043" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="1835:1893" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="1940:1997" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="2186:2484" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="2240:2298" ph="{...}" />
+            <marker date="1538148334556" expanded="true" signature="2343:2400" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/ExercisesPageViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="41" column="42" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+          <folding>
+            <marker date="1538219376329" expanded="false" signature="6:279" ph="..." />
+            <marker date="1538219376329" expanded="true" signature="326:4361" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="370:4359" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="827:1053" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="1107:1535" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="1591:1830" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="2213:4353" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="2437:3165" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="2580:2828" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="2724:2806" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="2962:3038" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="3253:3400" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="3496:4295" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="3646:3897" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="3795:3875" ph="{...}" />
+            <marker date="1538219376329" expanded="true" signature="4031:4107" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MainWindowViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1538144374558" expanded="false" signature="6:250" ph="..." />
+            <marker date="1538144374558" expanded="true" signature="297:1917" ph="{...}" />
+            <marker date="1538144374558" expanded="true" signature="338:1915" ph="{...}" />
+            <marker date="1538144374558" expanded="true" signature="659:1909" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/Exercises/JointMotion.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding>
+            <marker date="1537642924018" expanded="false" signature="6:56" ph="..." />
+            <marker date="1537642924018" expanded="true" signature="108:1203" ph="{...}" />
+            <marker date="1537642924018" expanded="true" signature="174:1201" ph="{...}" />
+            <marker date="1537642924018" expanded="true" signature="341:386" ph="{...}" />
+            <marker date="1537642924018" expanded="true" signature="433:697" ph="{...}" />
+            <marker date="1537642924018" expanded="true" signature="489:547" ph="{...}" />
+            <marker date="1537642924018" expanded="true" signature="594:651" ph="{...}" />
+            <marker date="1537642924018" expanded="true" signature="839:1145" ph="{...}" />
+            <marker date="1537642924018" expanded="true" signature="893:951" ph="{...}" />
+            <marker date="1537642924018" expanded="true" signature="996:1053" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MotionsPageViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+          <folding>
+            <marker date="1538137562346" expanded="false" signature="6:169" ph="..." />
+            <marker date="1538137562346" expanded="true" signature="216:1390" ph="{...}" />
+            <marker date="1538137562346" expanded="true" signature="256:1388" ph="{...}" />
+            <marker date="1538137562346" expanded="true" signature="678:809" ph="{...}" />
+            <marker date="1538137562346" expanded="true" signature="857:1046" ph="{...}" />
+            <marker date="1538137562346" expanded="true" signature="1125:1382" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MuscleGroupDialogViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1538137562354" expanded="false" signature="6:106" ph="..." />
+            <marker date="1538137562354" expanded="true" signature="153:720" ph="{...}" />
+            <marker date="1538137562354" expanded="true" signature="195:718" ph="{...}" />
+            <marker date="1538137562354" expanded="true" signature="457:712" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/Exercises/MuscleHead.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding>
+            <marker date="1537711378583" expanded="false" signature="6:56" ph="..." />
+            <marker date="1537711378583" expanded="true" signature="108:1214" ph="{...}" />
+            <marker date="1537711378583" expanded="true" signature="172:1212" ph="{...}" />
+            <marker date="1537711378583" expanded="true" signature="257:302" ph="{...}" />
+            <marker date="1537711378583" expanded="true" signature="443:707" ph="{...}" />
+            <marker date="1537711378583" expanded="true" signature="499:557" ph="{...}" />
+            <marker date="1537711378583" expanded="true" signature="604:661" ph="{...}" />
+            <marker date="1537711378583" expanded="true" signature="856:1156" ph="{...}" />
+            <marker date="1537711378583" expanded="true" signature="910:968" ph="{...}" />
+            <marker date="1537711378583" expanded="true" signature="1013:1070" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.Contract/Models/Exercises/MuscleGroup.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
+          <folding>
+            <marker date="1537811363177" expanded="false" signature="6:239" ph="..." />
+            <marker date="1537811363177" expanded="true" signature="291:1699" ph="{...}" />
+            <marker date="1537811363177" expanded="true" signature="357:1697" ph="{...}" />
+            <marker date="1537811363177" expanded="true" signature="602:722" ph="{...}" />
+            <marker date="1537811363177" expanded="true" signature="929:1193" ph="{...}" />
+            <marker date="1537811363177" expanded="true" signature="985:1043" ph="{...}" />
+            <marker date="1537811363177" expanded="true" signature="1090:1147" ph="{...}" />
+            <marker date="1537811363177" expanded="true" signature="1335:1641" ph="{...}" />
+            <marker date="1537811363177" expanded="true" signature="1389:1447" ph="{...}" />
+            <marker date="1537811363177" expanded="true" signature="1492:1549" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/Exercises/Models/MuscleGroupsPageViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="40" column="12" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
+          <folding>
+            <marker date="1538219474630" expanded="false" signature="6:279" ph="..." />
+            <marker date="1538219474630" expanded="true" signature="330:4095" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="375:4093" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="855:1010" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="1075:1230" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="1295:1528" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="1816:4087" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="2034:2785" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="2186:2436" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="2277:2414" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="2570:2646" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="2897:3742" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="3056:3309" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="3147:3287" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="3443:3519" ph="{...}" />
+            <marker date="1538219474630" expanded="true" signature="3835:4014" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/ExerciseSetDialogViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1538141856716" expanded="true" signature="98:342" ph="{...}" />
+            <marker date="1538141856716" expanded="true" signature="146:340" ph="{...}" />
+            <marker date="1538141856716" expanded="true" signature="275:334" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingSessionDialogViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="34" column="65" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="65" />
+          <folding>
+            <marker date="1538150492166" expanded="false" signature="6:279" ph="..." />
+            <marker date="1538150492166" expanded="true" signature="328:3552" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="377:523" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="603:3550" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="1191:1373" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="1442:1863" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="1478:1853" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="1992:3477" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="2194:2394" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="2531:3073" ph="{...}" />
+            <marker date="1538150492166" expanded="true" signature="2936:3012" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WorkoutManager.App/TrainingLog/Models/TrainingLogPageViewModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="32" column="9" lean-forward="true" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+          <folding>
+            <marker date="1538219577341" expanded="false" signature="6:327" ph="..." />
+            <marker date="1538219577341" expanded="true" signature="376:4854" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="422:4852" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="1231:1307" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="1376:1783" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="1852:2185" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="2450:4846" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="2737:2916" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="3033:3913" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="3257:3329" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="3413:3484" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="3618:3694" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="3986:4792" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="4198:4272" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="4356:4427" ph="{...}" />
+            <marker date="1538219577341" expanded="true" signature="4561:4637" ph="{...}" />
           </folding>
         </state>
       </provider>

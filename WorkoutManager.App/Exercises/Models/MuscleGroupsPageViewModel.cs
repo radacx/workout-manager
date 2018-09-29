@@ -21,11 +21,17 @@ namespace WorkoutManager.App.Exercises.Models
         
         private void LoadMuscleGroups() => MuscleGroups.AddRange(_muscleGroupRepository.GetAll());
 
-        private void DeleteMuscleGroup(MuscleGroup muscleGroup) => _muscleGroupRepository.Delete(muscleGroup);
+        private void DeleteMuscleGroup(MuscleGroup muscleGroup)
+        {
+            _muscleHeadRepository.DeleteRange(muscleGroup.Heads);
+            
+            _muscleGroupRepository.Delete(muscleGroup);
+        }
 
         private void CreateMuscleGroup(MuscleGroup muscleGroup)
         {
             _muscleHeadRepository.CreateRange(muscleGroup.Heads);
+            
             _muscleGroupRepository.Create(muscleGroup);
         }
 
@@ -34,6 +40,7 @@ namespace WorkoutManager.App.Exercises.Models
             var newHeads = muscleGroup.Heads.Where(head => head.Id == 0);
             
             _muscleHeadRepository.CreateRange(newHeads);
+            
             _muscleGroupRepository.Update(muscleGroup);
         }
 

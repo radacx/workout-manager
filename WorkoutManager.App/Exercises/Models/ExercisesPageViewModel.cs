@@ -39,18 +39,21 @@ namespace WorkoutManager.App.Exercises.Models
             _exerciseRepository.Update(exercise);
         }
 
-        private void DeleteExercise(Exercise exercise) => _exerciseRepository.Delete(exercise);
-        
-        private readonly Repository<Exercise> _exerciseRepository;
+        private void DeleteExercise(Exercise exercise)
+        {
+            _exercisedMuscleRepository.DeleteRange(exercise.PrimaryMuscles);
+            _exercisedMuscleRepository.DeleteRange(exercise.SecondaryMuscles);
+            
+            _exerciseRepository.Delete(exercise);
+        }
 
-        private readonly Repository<MuscleGroup> _muscleGroupRepository;
+        private readonly Repository<Exercise> _exerciseRepository;
 
         private readonly Repository<ExercisedMuscle> _exercisedMuscleRepository;
         
         public ExercisesPageViewModel(Repository<Exercise> exerciseRepository, Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository, Repository<ExercisedMuscle> exercisedMuscleRepository)
         {
             _exerciseRepository = exerciseRepository;
-            _muscleGroupRepository = muscleGroupRepository;
             _exercisedMuscleRepository = exercisedMuscleRepository;
             
             OpenCreateExerciseModalDialog = new Command(

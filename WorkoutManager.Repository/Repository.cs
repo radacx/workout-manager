@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using LiteDB;
-using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Repository
@@ -82,6 +80,13 @@ namespace WorkoutManager.Repository
         public void Update(TEntity item) => Execute(collection => collection.Update(item));
 
         public void Delete(TEntity item) => Execute(collection => collection.Delete(item.Id));
+        
+        public void DeleteRange(IEnumerable<TEntity> items)
+        {
+            var itemsSet = items.ToHashSet();
+            
+            Execute(collection => collection.Delete(entity => itemsSet.Contains(entity)));
+        }
 
         public void DeleteAll()
         {
