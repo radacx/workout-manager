@@ -6,6 +6,7 @@
         xmlns:views="clr-namespace:WorkoutManager.App.Exercises.Views"
         xmlns:models="clr-namespace:WorkoutManager.App.Exercises.Models"
         xmlns:exercises="clr-namespace:WorkoutManager.App.Exercises"
+        xmlns:trainingLog="clr-namespace:WorkoutManager.App.TrainingLog"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=models:MainWindowViewModel}"
         Title="MainWindow" Height="450" Width="800">
@@ -21,6 +22,7 @@
                 <exercises:MuscleGroupsPage DataContext="{Binding MuscleGroupsPage}" />
             </TabItem>
             <TabItem Header="Training log">
+                <trainingLog:TrainingLogPage DataContext="{Binding TrainingLogPage}" />
             </TabItem>
         </TabControl>
     </Grid>

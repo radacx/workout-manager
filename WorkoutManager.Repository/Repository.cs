@@ -1,16 +1,55 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using LiteDB;
+using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Repository
 {
+    internal class CustomMapper : BsonMapper
+    {
+        private static Type GetEntityInterface(Type type)
+        {
+            var interfaces = type.GetInterfaces();
+            var entityInterface = interfaces.FirstOrDefault(typ => typ == typeof(IEntity));
+
+            return entityInterface;
+        }
+        
+        protected override IEnumerable<MemberInfo> GetTypeMembers(Type type)
+        {
+            var memberInfos = base.GetTypeMembers(type).ToList();
+
+            var hasId = memberInfos.OfType<PropertyInfo>()
+                .ToList()
+                .Exists(
+                    property => property.PropertyType == typeof(IEntity).GetProperty(nameof(IEntity.Id))?.PropertyType
+                );
+
+            if (hasId)
+            {
+                return memberInfos;
+            }
+
+            var entityInterface = GetEntityInterface(type);
+
+            return entityInterface != null ? memberInfos.Concat(base.GetTypeMembers(entityInterface)) : memberInfos;
+        }
+    }   
+    
     public class Repository<TEntity>
-        where TEntity : class, IEntity, new()
+        where TEntity : class, IEntity
     {
         private readonly string _dbFileName;
 
+        static Repository()
+        {
+            BsonMapper.Global = new CustomMapper();
+        }
+        
         public Repository(string dbFileName)
         {
             _dbFileName = dbFileName;
@@ -33,7 +72,7 @@ namespace WorkoutManager.Repository
                 return action(collection);
             }    
         }
-
+        
         public virtual IEnumerable<TEntity> GetAll() => Execute(collection => collection.FindAll().ToList());
 
         public void Create(TEntity item) => Execute(collection => collection.Insert(item));
@@ -42,8 +81,15 @@ namespace WorkoutManager.Repository
 
         public void Update(TEntity item) => Execute(collection => collection.Update(item));
 
-        public void Delete(TEntity item) => Delete(item.Id);
-        
-        public void Delete(int itemId) => Execute(collection => collection.Delete(itemId));
+        public void Delete(TEntity item) => Execute(collection => collection.Delete(item.Id));
+
+        public void DeleteAll()
+        {
+            using (var db = new LiteDatabase(_dbFileName))
+            {
+                var collection = db.GetCollection<TEntity>();
+                db.DropCollection(collection.Name);
+            }   
+        }
     }
 }

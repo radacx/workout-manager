@@ -82,6 +82,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\DateTimeToDateConverter.cs" />
+    <Compile Include="Converters\RemoveExerciseSetConverter.cs" />
+    <Compile Include="TrainingLog\ExerciseSet.xaml.cs">
+      <DependentUpon>ExerciseSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrainingLog\ExerciseSetDialog.xaml.cs">
+      <DependentUpon>ExerciseSetDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrainingLog\Models\ExerciseSetDialogViewModel.cs" />
+    <Compile Include="TrainingLog\Models\TrainingLogPageViewModel.cs" />
+    <Compile Include="TrainingLog\Models\TrainingSessionDialogViewModel.cs" />
+    <Compile Include="TrainingLog\SessionExercise.xaml.cs">
+      <DependentUpon>SessionExercise.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrainingLog\TrainingLogPage.xaml.cs">
+      <DependentUpon>TrainingLogPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrainingLog\TrainingSessionDialog.xaml.cs">
+      <DependentUpon>TrainingSessionDialog.xaml</DependentUpon>
+    </Compile>
     <Page Include="Exercises\ExercisesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +157,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TrainingLog\ExerciseSet.xaml" />
+    <Page Include="TrainingLog\ExerciseSetDialog.xaml" />
+    <Page Include="TrainingLog\SessionExercise.xaml" />
+    <Page Include="TrainingLog\TrainingLogPage.xaml" />
+    <Page Include="TrainingLog\TrainingSessionDialog.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Misc\AsyncObservableCollection.cs" />

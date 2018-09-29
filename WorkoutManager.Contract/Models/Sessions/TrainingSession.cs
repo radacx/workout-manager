@@ -1,22 +1,29 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Sessions
-{
+{ 
     public class TrainingSession : IEntity, IEquatable<TrainingSession>
     {
+        private ObservableCollection<SessionExercise> _exercises = new ObservableCollection<SessionExercise>();
+        
         public int Id { get; set; }
         
         public DateTime Date { get; set; }
-        
-        public ICollection<SessionExercise> Exercises { get; } = new List<SessionExercise>();
 
-        public TrainingSession(DateTime date)
+        public IEnumerable<SessionExercise> Exercises
         {
-            Date = date;
+            get => _exercises;
+            set => _exercises = new ObservableCollection<SessionExercise>(value);
         }
 
+        public void AddExercise(SessionExercise exercise) => _exercises.Add(exercise);
+        
+        public void RemoveExercise(SessionExercise exercise) => _exercises.Remove(exercise);
+        
         public bool Equals(TrainingSession other)
         {
             if (ReferenceEquals(null, other))
@@ -46,7 +53,7 @@ namespace WorkoutManager.Contract.Models.Sessions
                 return true;
             }
 
-            return obj.GetType() == this.GetType() && Equals((TrainingSession) obj);
+            return obj.GetType() == GetType() && Equals((TrainingSession) obj);
         }
 
         public override int GetHashCode() => Id;

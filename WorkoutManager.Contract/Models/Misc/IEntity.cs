@@ -4,6 +4,6 @@ namespace WorkoutManager.Contract.Models.Misc
 {
     public interface IEntity : IEquatable<IEntity>
     {
-        int Id { get; }
+        int Id { get; set; }
     }
 }

@@ -7,5 +7,6 @@
         <converters:EnumConverter x:Key="EnumConverter" />
         <converters:DoesEnumMatchConverter x:Key="DoesEnumMatchConverter" />
         <converters:IsTextEmptyConverter x:Key="IsTextEmptyConverter" />
+        <converters:DateTimeToDateConverter x:Key="DateTimeToDateConverter" />
     </Application.Resources>
 </Application>

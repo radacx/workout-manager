@@ -26,12 +26,6 @@ namespace WorkoutManager.Contract.Models.Exercises
             MuscleGroup = muscleGroup;
         }
 
-        public void SetHeads(IEnumerable<MuscleHead> heads)
-        {
-            _usedHeads.Clear();
-            _usedHeads.AddRange(heads);
-        }
-        
         public bool Equals(ExercisedMuscle other)
         {
             if (ReferenceEquals(null, other))

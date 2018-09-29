@@ -1,0 +1,40 @@
+<UserControl x:Class="WorkoutManager.App.TrainingLog.ExerciseSet"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:exerciseSet="clr-namespace:WorkoutManager.Contract.Models.ExerciseSet;assembly=WorkoutManager.Contract"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=exerciseSet:IExerciseSet}"
+             d:DesignHeight="300" d:DesignWidth="300">
+<UserControl.Resources>
+    <DataTemplate DataType="{x:Type exerciseSet:DynamicExerciseSet}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Reps" />
+                <xctk:IntegerUpDown Value="{Binding Reps, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Weight" />
+                <xctk:DoubleUpDown Value="{Binding Weight, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type exerciseSet:IsometricExerciseSet}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Duration" />
+                <xctk:TimeSpanUpDown Value="{Binding Duration, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Weight" />
+                <xctk:DoubleUpDown Value="{Binding Weight, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+</UserControl.Resources>
+    
+    <ContentControl Content="{Binding}" />
+</UserControl>

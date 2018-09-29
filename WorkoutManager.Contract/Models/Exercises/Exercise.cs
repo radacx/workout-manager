@@ -30,7 +30,7 @@ namespace WorkoutManager.Contract.Models.Exercises
             set => _secondaryMuscles = value.ToList();
         }
 
-        public ICollection<JointMotion> Motions { get; set; } = new List<JointMotion>();
+        public IEnumerable<JointMotion> Motions { get; set; } = new List<JointMotion>();
         
         public Exercise()
         {
@@ -80,5 +80,7 @@ namespace WorkoutManager.Contract.Models.Exercises
         }
 
         public override int GetHashCode() => Id;
+
+        public override string ToString() => Name;
     }
 }

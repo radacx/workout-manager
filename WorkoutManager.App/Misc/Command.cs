@@ -50,9 +50,14 @@ namespace WorkoutManager.App.Misc
 
         public void Execute(object parameter)
         {
+            if (parameter == null)
+            {
+                throw new ArgumentNullException(nameof(parameter));
+            }
+            
             if (!(parameter is TParameter typedParameter))
             {
-                throw new ArgumentException("Invalid parameter type");
+                throw new ArgumentException($"Invalid parameter type, Expected: {typeof(TParameter).Name}, Actual: {parameter.GetType().Name}");
             }
 
             _action.Invoke(typedParameter);

@@ -46,6 +46,7 @@
     <Compile Include="MuscleGroupRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrainingSessionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
