@@ -27,7 +27,7 @@
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="False" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=MotionName,
+                            <DataTrigger Binding="{Binding Text, ElementName=MotionName, UpdateSourceTrigger=PropertyChanged,
                                 Converter={StaticResource IsTextEmptyConverter}}" Value="False"
                             >
                                 <Setter Property="IsEnabled" Value="True" />

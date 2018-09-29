@@ -60,7 +60,22 @@
         >
             <Label Content="Head name" />
             <TextBox Name="HeadName" Width="200" />
-            <Button Content="Add" Command="{Binding AddHead}" CommandParameter="{Binding Text, ElementName=HeadName}" />
+            <Button
+                Content="Add"
+                Command="{Binding AddHead}"
+                CommandParameter="{Binding Text, ElementName=HeadName}"
+            >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=HeadName, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IsTextEmptyConverter}}" Value="False">
+                                <Setter Property="IsEnabled" Value="True" />   
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
         
         <Label
