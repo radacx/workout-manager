@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:exerciseSet="clr-namespace:WorkoutManager.Contract.Models.ExerciseSet;assembly=WorkoutManager.Contract"
+             xmlns:timeSpanUpDown="clr-namespace:WorkoutManager.App.Controls.TimeSpanUpDown"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=exerciseSet:IExerciseSet}"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -13,7 +14,7 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Reps" />
-                <xctk:IntegerUpDown Value="{Binding Reps, Mode=TwoWay}" />
+                <xctk:IntegerUpDown Minimum="1" ClipValueToMinMax="True" Value="{Binding Reps, Mode=TwoWay}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Weight" />
@@ -26,7 +27,13 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Duration" />
-                <xctk:TimeSpanUpDown Value="{Binding Duration, Mode=TwoWay}" />
+                <timeSpanUpDown:TimeSpanUpDown
+                    Width="100"
+                    MinTime="00:00:01"
+                    MaxTime="00:59:59"
+                    Value="{Binding Duration, Mode=TwoWay}"
+                    TimeFormat="Seconds"
+                />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Weight" />

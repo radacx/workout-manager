@@ -10,7 +10,7 @@ namespace WorkoutManager.App.Converters
         {
             if (value is string text)
             {
-                return text.Trim().Length == 0;
+                return string.IsNullOrEmpty(text);
             }
 
             return null;

@@ -16,6 +16,11 @@
             <e p="MultiSelect.xaml.cs" t="Include" />
             <e p="MultiSelectItem.cs" t="Include" />
           </e>
+          <e p="TimeSpanUpDown" t="Include">
+            <e p="TimeFormat.cs" t="Include" />
+            <e p="TimeSpanUpDown.xaml" t="Include" />
+            <e p="TimeSpanUpDown.xaml.cs" t="Include" />
+          </e>
         </e>
         <e p="Converters" t="Include">
           <e p="DateTimeToDateConverter.cs" t="Include" />

@@ -24,6 +24,7 @@ namespace WorkoutManager.Contract.Models.Exercises
         public ExercisedMuscle(MuscleGroup muscleGroup)
         {
             MuscleGroup = muscleGroup;
+            _usedHeads.AddRange(muscleGroup.Heads);
         }
 
         public bool Equals(ExercisedMuscle other)

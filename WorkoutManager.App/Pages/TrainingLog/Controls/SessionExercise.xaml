@@ -14,7 +14,6 @@
 </UserControl.Resources>
     <StackPanel>
         <TextBlock Text="{Binding Exercise.Name}" />
-        <TextBlock Text="{Binding Exercise.ContractionType}" />
         <Button
             Content="Add set"
             Command="{Binding OnAddExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"

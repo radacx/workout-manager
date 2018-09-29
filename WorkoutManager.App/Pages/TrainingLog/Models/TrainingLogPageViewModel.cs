@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Pages.TrainingLog.Dialogs;
@@ -65,7 +66,11 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             OpenAddSessionDialog = new Command(
                 () =>
                 {
-                    var trainingSession = new TrainingSession();
+                    var trainingSession = new TrainingSession()
+                    {
+                        Date = DateTime.Now
+                    };
+                    
                     var viewModel = new TrainingSessionDialogViewModel(trainingSession, exerciseRepository, exerciseSetDialogViewer)
                     {
                         SaveButtonTitle = "Create"
