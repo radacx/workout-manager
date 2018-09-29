@@ -1,12 +1,11 @@
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Exercises.UserControls;
 using WorkoutManager.App.Misc;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Repository;
-    
+using WorkoutManager.Service;
+
 namespace WorkoutManager.App.Exercises.Models
 {
     public class MuscleGroupsPageViewModel
@@ -19,39 +18,13 @@ namespace WorkoutManager.App.Exercises.Models
         
         public ICommand Delete { get; }
         
-        private void LoadMuscleGroups() => MuscleGroups.AddRange(_muscleGroupRepository.GetAll());
+        private void LoadMuscleGroups() => MuscleGroups.AddRange(_muscleGroupService.GetAll());
 
-        private void DeleteMuscleGroup(MuscleGroup muscleGroup)
-        {
-            _muscleHeadRepository.DeleteRange(muscleGroup.Heads);
-            
-            _muscleGroupRepository.Delete(muscleGroup);
-        }
-
-        private void CreateMuscleGroup(MuscleGroup muscleGroup)
-        {
-            _muscleHeadRepository.CreateRange(muscleGroup.Heads);
-            
-            _muscleGroupRepository.Create(muscleGroup);
-        }
-
-        private void UpdateMuscleGroup(MuscleGroup muscleGroup)
-        {
-            var newHeads = muscleGroup.Heads.Where(head => head.Id == 0);
-            
-            _muscleHeadRepository.CreateRange(newHeads);
-            
-            _muscleGroupRepository.Update(muscleGroup);
-        }
-
-        private readonly Repository<MuscleGroup> _muscleGroupRepository;
-
-        private readonly Repository<MuscleHead> _muscleHeadRepository;
+        private readonly MuscleGroupService _muscleGroupService;
         
-        public MuscleGroupsPageViewModel(Repository<MuscleGroup> muscleGroupRepository, Repository<MuscleHead> muscleHeadRepository)
+        public MuscleGroupsPageViewModel(MuscleGroupService muscleGroupService)
         {
-            _muscleGroupRepository = muscleGroupRepository;
-            _muscleHeadRepository = muscleHeadRepository;
+            _muscleGroupService = muscleGroupService;
             
             OpenCreateMuscleGroupDialog = new Command(
                 () =>
@@ -76,7 +49,7 @@ namespace WorkoutManager.App.Exercises.Models
 
                     MuscleGroups.Add(muscleGroup);
 
-                    Task.Run(() => CreateMuscleGroup(muscleGroup));
+                    Task.Run(() => _muscleGroupService.Create(muscleGroup));
                 });
             
             OpenEditMuscleGroupDialog = new Command<MuscleGroup>(
@@ -102,7 +75,7 @@ namespace WorkoutManager.App.Exercises.Models
 
                     MuscleGroups.Replace(originalMuscleGroup => Equals(originalMuscleGroup, muscleGroupClone), muscleGroupClone);
 
-                    Task.Run(() => UpdateMuscleGroup(muscleGroupClone));
+                    Task.Run(() => _muscleGroupService.Update(muscleGroupClone));
                 });
             
             Delete = new Command<MuscleGroup>(
@@ -110,7 +83,7 @@ namespace WorkoutManager.App.Exercises.Models
                 {
                     MuscleGroups.Remove(muscleGroup);
                     
-                    Task.Run(() => DeleteMuscleGroup(muscleGroup));
+                    Task.Run(() => _muscleGroupService.Delete(muscleGroup));
                 });
             
             Task.Run(() => LoadMuscleGroups());

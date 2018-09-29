@@ -4,6 +4,7 @@ using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
+using WorkoutManager.Service;
 
 namespace WorkoutManager.App.Exercises.Models
 {
@@ -29,11 +30,15 @@ namespace WorkoutManager.App.Exercises.Models
             var trainingSessionRepository = new TrainingSessionRepository(dbFileName);
             var sessionExerciseRepository = new Repository<SessionExercise>(dbFileName);
             var exerciseSetRepository = new Repository<IExerciseSet>(dbFileName);
+
+            var exerciseService = new ExerciseService(exerciseRepository, exercisedMuscleRepository);
+            var muscleGroupService = new MuscleGroupService(muscleGroupRepository, muscleHeadRepository);
+            var trainingSessionService = new TrainingSessionService(trainingSessionRepository, sessionExerciseRepository, exerciseSetRepository);
             
-            ExercisesPage = new ExercisesPageViewModel(exerciseRepository, motionsRepository, muscleGroupRepository, exercisedMuscleRepository);
+            ExercisesPage = new ExercisesPageViewModel(exerciseService, motionsRepository, muscleGroupRepository);
             MotionsPage = new MotionsPageViewModel(motionsRepository);
-            MuscleGroupsPage = new MuscleGroupsPageViewModel(muscleGroupRepository, muscleHeadRepository);
-            TrainingLogPage = new TrainingLogPageViewModel(trainingSessionRepository, exerciseRepository, sessionExerciseRepository, exerciseSetRepository);
+            MuscleGroupsPage = new MuscleGroupsPageViewModel(muscleGroupService);
+            TrainingLogPage = new TrainingLogPageViewModel(trainingSessionService, exerciseRepository);
         }
     }
 }

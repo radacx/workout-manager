@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Exercises.UserControls;
 using WorkoutManager.App.Misc;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Repository;
+using WorkoutManager.Service;
 
 namespace WorkoutManager.App.Exercises.Models
 {
@@ -19,42 +19,13 @@ namespace WorkoutManager.App.Exercises.Models
 
         public ICommand Delete { get; }
         
-        private void LoadExercises() => Exercises.AddRange(_exerciseRepository.GetAll());
+        private void LoadExercises() => Exercises.AddRange(_exerciseService.GetAll());
 
-        private void CreateExercise(Exercise exercise)
-        {
-            _exercisedMuscleRepository.CreateRange(exercise.PrimaryMuscles);
-            _exercisedMuscleRepository.CreateRange(exercise.SecondaryMuscles);
-            _exerciseRepository.Create(exercise);
-        }
-
-        private void EditExercise(Exercise exercise)
-        {
-            var newPrimaryMuscles = exercise.PrimaryMuscles.Where(muscle => muscle.Id == 0);
-            var newSecondaryMuscle = exercise.SecondaryMuscles.Where(muscle => muscle.Id == 0);
-            
-            _exercisedMuscleRepository.CreateRange(newPrimaryMuscles);
-            _exercisedMuscleRepository.CreateRange(newSecondaryMuscle);
-            
-            _exerciseRepository.Update(exercise);
-        }
-
-        private void DeleteExercise(Exercise exercise)
-        {
-            _exercisedMuscleRepository.DeleteRange(exercise.PrimaryMuscles);
-            _exercisedMuscleRepository.DeleteRange(exercise.SecondaryMuscles);
-            
-            _exerciseRepository.Delete(exercise);
-        }
-
-        private readonly Repository<Exercise> _exerciseRepository;
-
-        private readonly Repository<ExercisedMuscle> _exercisedMuscleRepository;
+        private readonly ExerciseService _exerciseService;
         
-        public ExercisesPageViewModel(Repository<Exercise> exerciseRepository, Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository, Repository<ExercisedMuscle> exercisedMuscleRepository)
+        public ExercisesPageViewModel(ExerciseService exerciseService, Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository)
         {
-            _exerciseRepository = exerciseRepository;
-            _exercisedMuscleRepository = exercisedMuscleRepository;
+            _exerciseService = exerciseService;
             
             OpenCreateExerciseModalDialog = new Command(
                 () =>
@@ -78,7 +49,7 @@ namespace WorkoutManager.App.Exercises.Models
 
                     Exercises.Add(exercise);
 
-                    Task.Run(() => CreateExercise(exercise));
+                    Task.Run(() => _exerciseService.Create(exercise));
                 }
             );
 
@@ -87,7 +58,7 @@ namespace WorkoutManager.App.Exercises.Models
                 {
                     Exercises.Remove(exercise);
 
-                    Task.Run(() => DeleteExercise(exercise));
+                    Task.Run(() => _exerciseService.Delete(exercise));
                 });
 
             OpenEditExerciseModalDialog = new Command<Exercise>(
@@ -111,7 +82,8 @@ namespace WorkoutManager.App.Exercises.Models
                     }
 
                     Exercises.Replace(oldExercise => oldExercise.Equals(exerciseClone), exerciseClone);
-                    Task.Run(() => EditExercise(exerciseClone));
+                    
+                    Task.Run(() => _exerciseService.Update(exerciseClone));
                 });
 
             Task.Run(() => LoadExercises());
