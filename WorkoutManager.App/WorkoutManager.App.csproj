@@ -153,6 +153,7 @@
     <Compile Include="Converters\EnumConverter.cs" />
     <Compile Include="Converters\GetSelectedMuscleHeadsConverter.cs" />
     <Compile Include="Converters\IsTextEmptyConverter.cs" />
+    <Compile Include="Structures\CollectionViewShaper.cs" />
     <Compile Include="Utils\DialogViewer.cs" />
     <Page Include="Controls\MultiSelect\MultiSelect.xaml">
       <SubType>Designer</SubType>

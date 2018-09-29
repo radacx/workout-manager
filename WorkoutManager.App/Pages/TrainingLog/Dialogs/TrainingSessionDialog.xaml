@@ -20,6 +20,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
@@ -43,15 +44,28 @@
             Value="{Binding TrainingSession.Date}"
         />
         
-        <ComboBox
+        <Label
             Grid.Row="2"
+            Grid.Column="0"
+            Content="Bodyweight"
+        />
+        <xctk:DoubleUpDown
+            Grid.Row="2"
+            Grid.Column="1"
+            Value="{Binding TrainingSession.Bodyweight}"
+            Minimum="0"
+            ClipValueToMinMax="True"
+        />
+        
+        <ComboBox
+            Grid.Row="3"
             Grid.Column="0"
             Name="Exercises"
             ItemsSource="{Binding Exercises}"
             SelectedIndex="0"
         />
         <Button
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="1"
             Content="Add exercise"
             Command="{Binding AddExercise}"
@@ -59,12 +73,12 @@
         />
         
         <Label
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="0"
             Content="Exercises"
         />
         <ItemsControl
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             ItemsSource="{Binding TrainingSession.Exercises}">

@@ -14,26 +14,29 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
 {
     internal class TrainingLogPageViewModel
     {
-        public BulkObservableCollection<TrainingSession> TrainingSessions { get; } = new BulkObservableCollection<TrainingSession>();
+        public BulkObservableCollection<TrainingSession> TrainingSessions { get; } =
+            new BulkObservableCollection<TrainingSession>();
 
         public ICommand OpenAddSessionDialog { get; }
         
         public ICommand OpenEditSessionDialog { get; }
         
         public ICommand DeleteSession { get; }
-
+        
         private readonly TrainingSessionService _trainingSessionService;
 
         private readonly DialogViewer<TrainingSessionDialog> _trainingSessionDialogViewer;
-        
+
         private void LoadTrainingSessionsAsync()
             => Task.Run(() => TrainingSessions.AddRange(_trainingSessionService.GetAll()));
-
+        
         public TrainingLogPageViewModel(TrainingSessionService trainingSessionService, Repository<Exercise> exerciseRepository, DialogViewer<TrainingSessionDialog> trainingSessionDialogViewer, DialogViewer<ExerciseSetDialog> exerciseSetDialogViewer)
         {
             _trainingSessionService = trainingSessionService;
             _trainingSessionDialogViewer = trainingSessionDialogViewer;
-            
+
+            TrainingSessions.ShapeView().OrderByDescending(session => session.Date).Apply();
+                
             DeleteSession = new Command<TrainingSession>(session =>
                 {
                     TrainingSessions.Remove(session);
@@ -41,12 +44,12 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                     Task.Run(() => _trainingSessionService.Delete(session));
                 }
             );
-
+                
             OpenEditSessionDialog = new Command<TrainingSession>(
                 trainingSession =>
                 {
                     var trainingSessionClone = trainingSession.Clone();
-                    var viewModel = new TrainingSessionDialogViewModel(trainingSessionClone, exerciseRepository, exerciseSetDialogViewer)
+                    var viewModel = new TrainingSessionDialogViewModel(trainingSessionClone, trainingSessionService, exerciseRepository, exerciseSetDialogViewer)
                     {
                         SaveButtonTitle = "Save"
                     };
@@ -59,7 +62,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                     }
 
                     TrainingSessions.Replace(session => Equals(session, trainingSessionClone), trainingSessionClone);
-
+                    
                     Task.Run(() => _trainingSessionService.Update(trainingSessionClone));
                 });
 
@@ -71,7 +74,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                         Date = DateTime.Now
                     };
                     
-                    var viewModel = new TrainingSessionDialogViewModel(trainingSession, exerciseRepository, exerciseSetDialogViewer)
+                    var viewModel = new TrainingSessionDialogViewModel(trainingSession, trainingSessionService, exerciseRepository, exerciseSetDialogViewer)
                     {
                         SaveButtonTitle = "Create"
                     };
@@ -84,7 +87,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                     }
 
                     TrainingSessions.Add(trainingSession);
-
+                    
                     Task.Run(() => _trainingSessionService.Create(trainingSession));
                 });
 

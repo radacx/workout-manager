@@ -14,6 +14,6 @@ namespace WorkoutManager.Service
 
         protected readonly Repository<TEntity> Repository;
 
-        public virtual IEnumerable<TEntity> GetAll() => Repository.GetAll();
+        public IEnumerable<TEntity> GetAll() => Repository.GetAll();
     }
 }

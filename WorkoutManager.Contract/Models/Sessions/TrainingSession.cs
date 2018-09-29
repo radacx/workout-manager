@@ -12,6 +12,8 @@ namespace WorkoutManager.Contract.Models.Sessions
         
         public int Id { get; set; }
         
+        public double Bodyweight { get; set; }
+        
         public DateTime Date { get; set; }
 
         public IEnumerable<SessionExercise> Exercises

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using WorkoutManager.App.Pages.TrainingLog.Dialogs;
 using WorkoutManager.App.Structures;
@@ -8,6 +9,7 @@ using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
+using WorkoutManager.Service;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Models
 {
@@ -33,13 +35,19 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
         public ICommand RemoveExerciseSet { get; }
         
         public ICommand RemoveExercise { get; }
-        
+
+        private readonly TrainingSessionService _trainingSessionService;
         private readonly Repository<Exercise> _exerciseRepository;
         private readonly DialogViewer<ExerciseSetDialog> _exerciseSetDialogViewer;
         
         private void InitializeDataAsync()
         {
             Exercises.AddRange(_exerciseRepository.GetAll());
+
+            TrainingSession.Bodyweight = _trainingSessionService.GetAll()
+                .OrderByDescending(session => session.Date)
+                .First()
+                .Bodyweight;
             
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         }
@@ -59,8 +67,9 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             }
         }
         
-        public TrainingSessionDialogViewModel(TrainingSession trainingSession, Repository<Exercise> exerciseRepository, DialogViewer<ExerciseSetDialog> exerciseSetDialogViewer)
+        public TrainingSessionDialogViewModel(TrainingSession trainingSession, TrainingSessionService trainingSessionService, Repository<Exercise> exerciseRepository, DialogViewer<ExerciseSetDialog> exerciseSetDialogViewer)
         {
+            _trainingSessionService = trainingSessionService;
             _exerciseRepository = exerciseRepository;
             _exerciseSetDialogViewer = exerciseSetDialogViewer;
             

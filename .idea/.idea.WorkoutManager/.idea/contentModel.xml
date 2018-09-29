@@ -110,6 +110,7 @@
         <e p="Structures" t="Include">
           <e p="AsyncObservableCollection.cs" t="Include" />
           <e p="BulkObservableCollection.cs" t="Include" />
+          <e p="CollectionViewShaper.cs" t="Include" />
           <e p="Command.cs" t="Include" />
         </e>
         <e p="Utils" t="Include">

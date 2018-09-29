@@ -10,7 +10,7 @@ namespace WorkoutManager.App.Structures
     {
         private const string CountString = "Count";
         private const string IndexerName = "Item[]";
-        
+
         public void AddRange(IEnumerable<TItem> items)
         {
             var itemsList = items.ToList();
@@ -41,7 +41,7 @@ namespace WorkoutManager.App.Structures
             }
 
             base.SetItem(itemIndex, item);  
-                
+            
             OnPropertyChanged(new PropertyChangedEventArgs(IndexerName));
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
