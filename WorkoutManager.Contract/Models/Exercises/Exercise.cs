@@ -5,8 +5,6 @@ using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Exercises
 {
-    //    TODO create category class and user can create category for exercises, muscle groups, motions..
-
     public class Exercise : IEntity, IEquatable<Exercise>
     {
         public int Id { get; set; }
@@ -15,6 +13,8 @@ namespace WorkoutManager.Contract.Models.Exercises
         
         public ContractionType ContractionType { get; set; }
 
+        public double RelativeBodyweight { get; set; }
+        
         private List<ExercisedMuscle> _primaryMuscles = new List<ExercisedMuscle>();
         private List<ExercisedMuscle> _secondaryMuscles = new List<ExercisedMuscle>();
 

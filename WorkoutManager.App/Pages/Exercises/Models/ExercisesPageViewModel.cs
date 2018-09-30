@@ -47,6 +47,10 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                         return;
                     }
 
+                    if (!viewModel.IsBodyweightExercise)
+                    {
+                        exercise.RelativeBodyweight = 0;
+                    }
                     Exercises.Add(exercise);
 
                     Task.Run(() => _exerciseService.Create(exercise));
@@ -68,7 +72,8 @@ namespace WorkoutManager.App.Pages.Exercises.Models
 
                     var viewModel = new ExerciseDialogViewModel(exerciseClone, motionsRepository, muscleGroupRepository)
                     {
-                        SaveButtonTitle = "Save"
+                        SaveButtonTitle = "Save",
+                        IsBodyweightExercise = exercise.RelativeBodyweight > 0
                     };
 
                     var dialogResult = _exerciseDialogViewer.WithContext(viewModel).Show();
@@ -78,6 +83,10 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                         return;
                     }
 
+                    if (!viewModel.IsBodyweightExercise)
+                    {
+                        exerciseClone.RelativeBodyweight = 0;
+                    }
                     Exercises.Replace(oldExercise => oldExercise.Equals(exerciseClone), exerciseClone);
                     
                     Task.Run(() => _exerciseService.Update(exerciseClone));

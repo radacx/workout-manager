@@ -45,9 +45,10 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             Exercises.AddRange(_exerciseRepository.GetAll());
 
             TrainingSession.Bodyweight = _trainingSessionService.GetAll()
-                .OrderByDescending(session => session.Date)
-                .First()
-                .Bodyweight;
+                    .OrderByDescending(session => session.Date)
+                    .FirstOrDefault()
+                    ?.Bodyweight
+                ?? 0;
             
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         }

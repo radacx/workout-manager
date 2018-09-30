@@ -8,6 +8,7 @@
         xmlns:multiSelect="clr-namespace:WorkoutManager.App.Controls.MultiSelect"
         xmlns:models1="clr-namespace:WorkoutManager.App.Pages.Exercises.Models"
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=models1:ExerciseDialogViewModel}"
         Title="NewExerciseDialog" Height="450" Width="800">
@@ -28,37 +29,65 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0"
                Target="{Binding ElementName=ExerciseName}" Content="_Name" />
         <TextBox Grid.Row="0" Grid.Column="1"
                  Name="ExerciseName" Text="{Binding Exercise.Name}" />
         
-        <Label Grid.Row="1" Grid.Column="0"
+        <CheckBox
+            Grid.Row="1"
+            Grid.Column="0"
+            Name="IsBodyweightExercise"
+            IsChecked="{Binding IsBodyweightExercise}"
+            Content="Relative bodyweight"
+        />
+        <xctk:DoubleUpDown
+            Grid.Row="1"
+            Grid.Column="1"
+            Value="{Binding Exercise.RelativeBodyweight}"
+            Minimum="0"
+            Maximum="100"
+            ClipValueToMinMax="True"
+        >
+            <xctk:DoubleUpDown.Style>
+                <Style TargetType="xctk:DoubleUpDown">
+                    <Setter Property="Visibility" Value="Hidden" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=IsBodyweightExercise}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </xctk:DoubleUpDown.Style>
+        </xctk:DoubleUpDown>
+        
+        <Label Grid.Row="2" Grid.Column="0"
                Content="Contraction type" />
-        <RadioButton Grid.Row="1" Grid.Column="1"
+        <RadioButton Grid.Row="2" Grid.Column="1"
                      GroupName="ContractionType" Content="Dynamic"
                      IsChecked="{Binding Exercise.ContractionType, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static exercises:ContractionType.Dynamic}}" />
-        <RadioButton Grid.Row="1" Grid.Column="2"
+        <RadioButton Grid.Row="2" Grid.Column="2"
                      GroupName="ContractionType" Content="Isometric"
                      IsChecked="{Binding Exercise.ContractionType, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static exercises:ContractionType.Isometric}}" />
         
-        <Label Grid.Row="2" Grid.Column="0"
+        <Label Grid.Row="3" Grid.Column="0"
                Content="Joint motions"
         />
         <multiSelect:MultiSelect
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.Column="1"
             ItemsSource="{Binding Motions}"
             SelectedItems="{Binding Exercise.Motions}"
             GetItemText="{Binding GetJointMotionText}"
          />
         
-        <Label Grid.Row="3" Grid.Column="0"
+        <Label Grid.Row="4" Grid.Column="0"
                Content="Primary muscles"
         />
         <multiSelect:MultiSelect
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="1"
             ItemsSource="{Binding MuscleGroups}"
             SelectedItems="{Binding SelectedPrimaryMuscleGroups}"
@@ -66,7 +95,7 @@
         />
         
         <ItemsControl
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="2"
             ItemsSource="{Binding SelectedPrimaryMuscleGroups}"
         >
@@ -96,11 +125,11 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         
-        <Label Grid.Row="4" Grid.Column="0"
+        <Label Grid.Row="5" Grid.Column="0"
                Content="Secondary muscles"
         />
         <multiSelect:MultiSelect
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="1"
             ItemsSource="{Binding MuscleGroups}"
             SelectedItems="{Binding SelectedSecondaryMuscleGroups}"
@@ -108,7 +137,7 @@
         />
         
         <ItemsControl
-            Grid.Row="4"
+            Grid.Row="5"
             Grid.Column="2"
             ItemsSource="{Binding SelectedSecondaryMuscleGroups}"
         >
@@ -138,7 +167,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         
-        <Button Grid.Row="5" Grid.Column="1" Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
+        <Button Grid.Row="6" Grid.Column="1" Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="IsEnabled" Value="False" />

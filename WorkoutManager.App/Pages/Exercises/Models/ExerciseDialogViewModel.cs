@@ -11,6 +11,8 @@ namespace WorkoutManager.App.Pages.Exercises.Models
 {
     internal class ExerciseDialogViewModel : INotifyPropertyChanged
     {
+        public bool IsBodyweightExercise { get; set; }
+        
         public string SaveButtonTitle { get; set; }
         
         public Exercise Exercise { get; }
