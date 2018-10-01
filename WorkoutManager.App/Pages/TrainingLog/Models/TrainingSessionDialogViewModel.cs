@@ -8,6 +8,7 @@ using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
+using WorkoutManager.Contract.Models.User;
 using WorkoutManager.Repository;
 using WorkoutManager.Service;
 
@@ -36,10 +37,13 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
         
         public ICommand RemoveExercise { get; }
 
+        public UserPreferences UserPreferences => _userPreferencesService.Load();
+        
         private readonly TrainingSessionService _trainingSessionService;
         private readonly Repository<Exercise> _exerciseRepository;
+        private readonly UserPreferencesService _userPreferencesService;
         private readonly DialogViewer<ExerciseSetDialog> _exerciseSetDialogViewer;
-        
+       
         private void InitializeDataAsync()
         {
             Exercises.AddRange(_exerciseRepository.GetAll());
@@ -68,10 +72,11 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             }
         }
         
-        public TrainingSessionDialogViewModel(TrainingSession trainingSession, TrainingSessionService trainingSessionService, Repository<Exercise> exerciseRepository, DialogViewer<ExerciseSetDialog> exerciseSetDialogViewer)
+        public TrainingSessionDialogViewModel(TrainingSession trainingSession, TrainingSessionService trainingSessionService, Repository<Exercise> exerciseRepository, UserPreferencesService userPreferencesService, DialogViewer<ExerciseSetDialog> exerciseSetDialogViewer)
         {
             _trainingSessionService = trainingSessionService;
             _exerciseRepository = exerciseRepository;
+            _userPreferencesService = userPreferencesService;
             _exerciseSetDialogViewer = exerciseSetDialogViewer;
             
             TrainingSession = trainingSession;

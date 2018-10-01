@@ -7,25 +7,14 @@
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.MuscleGroups.Dialogs"
         d:DataContext="{d:DesignInstance Type=models1:MuscleGroupViewModel}"
         mc:Ignorable="d"
-        Title="MuscleGroupDialog" Height="450" Width="800">
-    <Grid Background="AliceBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
+        Height="450" Width="500">
+    <StackPanel Background="AliceBlue">           
         <Button
-            Grid.Row="0"
-            Grid.Column="0"
             IsDefault="True"
             Content="{Binding SaveButtonTitle}"
             Click="Save_OnClick"
+            Width="90"
+            HorizontalAlignment="Center"
         >
             <Button.Style>
                 <Style TargetType="Button">
@@ -39,55 +28,56 @@
             </Button.Style>
         </Button>
         
-        <Label
-            Grid.Row="1"
-            Grid.Column="0"
-            Content="_Name"
-            Target="{Binding ElementName=MuscleGroupName}"
-        />
-        <TextBox
-            Grid.Row="1"
-            Grid.Column="1"
-            Name="MuscleGroupName"
-            Text="{Binding MuscleGroup.Name}"
-        />
-       
-        <Button
-            Grid.Row="2"
-            Grid.Column="0"
-            Content="Add head"
-            Command="{Binding OpenAddMuscleHeadDialog}"
-        />
+        <StackPanel Orientation="Horizontal">
+            <Label
+                Content="_Name"
+                Target="{Binding ElementName=MuscleGroupName}"
+            />
+            <TextBox
+                Name="MuscleGroupName"
+                Text="{Binding MuscleGroup.Name}"
+                Width="120"
+            />
+        </StackPanel>
         
-        <Label
-            Grid.Row="3"
-            Grid.Column="0"
-            Content="Heads"
-        />
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Heads" />
+            
+            <Button
+                Content="Add head"
+                Command="{Binding OpenAddMuscleHeadDialog}"
+            />
+        </StackPanel>
+        
         <ItemsControl
-            Grid.Row="3"
-            Grid.Column="1"
             ItemsSource="{Binding MuscleGroup.Heads}"
+            Margin="10 0 0 0"
         >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" />
-                        <Button
-                            Content="Edit"
-                            Command="{Binding DataContext.OpenEditMuscleHeadDialog,
+                    <Border
+                        BorderThickness="2"
+                        BorderBrush="Navy"
+                        Margin="5 5 0 0"
+                    >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" />
+                            <Button
+                                Content="Edit"
+                                Command="{Binding DataContext.OpenEditMuscleHeadDialog,
                                 RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:MuscleGroupDialog}}"
-                            CommandParameter="{Binding}"
-                        />
-                        <Button
-                            Content="Remove"
-                            Command="{Binding DataContext.RemoveHead,
+                                CommandParameter="{Binding}"
+                            />
+                            <Button
+                                Content="Remove"
+                                Command="{Binding DataContext.RemoveHead,
                                 RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:MuscleGroupDialog}}"
-                            CommandParameter="{Binding}"
-                        />
-                    </StackPanel>
+                                CommandParameter="{Binding}"
+                            />
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </Grid>
+    </StackPanel>
 </Window>

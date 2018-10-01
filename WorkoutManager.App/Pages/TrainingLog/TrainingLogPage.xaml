@@ -13,26 +13,28 @@
             Content="Add session"
             Command="{Binding OpenAddSessionDialog}"
         /> 
-        <ItemsControl ItemsSource="{Binding TrainingSessions}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Date, Converter={StaticResource DateTimeToDateConverter}}" />
-                        <Button
-                            Content="Modify"
-                            Command="{Binding DataContext.OpenEditSessionDialog, RelativeSource={RelativeSource FindAncestor,
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding TrainingSessions}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Date, Converter={StaticResource DateTimeToDateConverter}}" />
+                            <Button
+                                Content="Modify"
+                                Command="{Binding DataContext.OpenEditSessionDialog, RelativeSource={RelativeSource FindAncestor,
                                 AncestorType=trainingLog:TrainingLogPage}}"
-                            CommandParameter="{Binding}"
-                        />
-                        <Button
-                            Content="Delete"
-                            Command="{Binding DataContext.DeleteSession, RelativeSource={RelativeSource FindAncestor,
+                                CommandParameter="{Binding}"
+                            />
+                            <Button
+                                Content="Delete"
+                                Command="{Binding DataContext.DeleteSession, RelativeSource={RelativeSource FindAncestor,
                                 AncestorType=trainingLog:TrainingLogPage}}"
-                            CommandParameter="{Binding}"
-                        />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl> 
+                                CommandParameter="{Binding}"
+                            />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl> 
+        </ScrollViewer>
     </StackPanel> 
 </UserControl>

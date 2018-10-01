@@ -8,9 +8,10 @@
         xmlns:motions="clr-namespace:WorkoutManager.App.Pages.Motions"
         xmlns:muscleGroups="clr-namespace:WorkoutManager.App.Pages.MuscleGroups"
         xmlns:trainingLog="clr-namespace:WorkoutManager.App.Pages.TrainingLog"
+        xmlns:userSettings="clr-namespace:WorkoutManager.App.Pages.UserSettings"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=pages:MainWindowViewModel}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Workout manager" Height="450" Width="800">
     <Grid Background="AliceBlue">
         <TabControl>
             <TabItem Header="Exercises">
@@ -24,6 +25,9 @@
             </TabItem>
             <TabItem Header="Training log">
                 <trainingLog:TrainingLogPage DataContext="{Binding TrainingLogPage}" />
+            </TabItem>
+            <TabItem Header="Settings">
+                <userSettings:UserPreferencesPage DataContext="{Binding UserPreferencesPage}" />
             </TabItem>
         </TabControl>
     </Grid>

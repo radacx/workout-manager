@@ -53,6 +53,8 @@
     <Compile Include="Models\Misc\IEntity.cs" />
     <Compile Include="Models\Sessions\SessionExercise.cs" />
     <Compile Include="Models\Sessions\TrainingSession.cs" />
+    <Compile Include="Models\User\WeightUnits.cs" />
+    <Compile Include="Models\User\UserPreferences.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

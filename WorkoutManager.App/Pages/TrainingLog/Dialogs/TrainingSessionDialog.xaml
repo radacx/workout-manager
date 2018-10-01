@@ -9,7 +9,7 @@
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=models:TrainingSessionDialogViewModel}"
-        Title="TrainingSessionDialog" Height="450" Width="800">
+        Height="450" Width="800">
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />    
@@ -77,21 +77,33 @@
             Grid.Column="0"
             Content="Exercises"
         />
-        <ItemsControl
+        <ScrollViewer
             Grid.Row="5"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            ItemsSource="{Binding TrainingSession.Exercises}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <controls:SessionExercise
-                        DataContext="{Binding}"
-                        OnAddExercise="{Binding DataContext.OpenAddExerciseSetDialog, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
-                        OnDeleteSet="{Binding DataContext.RemoveExerciseSet, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
-                        OnDeleteExercise="{Binding DataContext.RemoveExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
-                    />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            VerticalScrollBarVisibility="Auto"
+        >
+            <ItemsControl
+                ItemsSource="{Binding TrainingSession.Exercises}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BorderThickness="2"
+                            CornerRadius="1"
+                            BorderBrush="Navy"
+                            Margin="5 10 0 0"
+                        >
+                            <controls:SessionExercise
+                                DataContext="{Binding}"
+                                OnAddExercise="{Binding DataContext.OpenAddExerciseSetDialog, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                                OnDeleteSet="{Binding DataContext.RemoveExerciseSet, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                                OnDeleteExercise="{Binding DataContext.RemoveExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                                UserPreferences="{Binding DataContext.UserPreferences, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                            />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Window>

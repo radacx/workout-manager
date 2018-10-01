@@ -10,8 +10,9 @@
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance Type=models1:ExerciseDialogViewModel}"
-        Title="NewExerciseDialog" Height="450" Width="800">
+        Height="550" Width="700">
 <Window.Resources>
     <converters:GetSelectedMuscleHeadsConverter x:Key="GetSelectedMuscleHeadsConverter" />
 </Window.Resources>
@@ -102,6 +103,18 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Heads, Converter={StaticResource IsCollectionEmptyConverter}}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        
+                        <TextBlock Text="{Binding Name}" />
                         <multiSelect:MultiSelect
                             ItemsSource="{Binding Heads}"
                             GetItemText="{Binding DataContext.GetMuscleHeadText, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
@@ -119,7 +132,6 @@
                                 </Style>
                             </multiSelect:MultiSelect.Style>
                         </multiSelect:MultiSelect>
-                        <TextBlock Text="____________" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -144,6 +156,18 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Heads, Converter={StaticResource IsCollectionEmptyConverter}}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        
+                        <TextBlock Text="{Binding Name}" />
                         <multiSelect:MultiSelect
                             ItemsSource="{Binding Heads}"
                             GetItemText="{Binding DataContext.GetMuscleHeadText, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
@@ -161,7 +185,6 @@
                                 </Style>
                             </multiSelect:MultiSelect.Style>
                         </multiSelect:MultiSelect>
-                        <TextBlock Text="____________" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

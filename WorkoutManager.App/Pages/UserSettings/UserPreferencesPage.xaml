@@ -1,0 +1,47 @@
+<UserControl x:Class="WorkoutManager.App.Pages.UserSettings.UserPreferencesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:models="clr-namespace:WorkoutManager.App.Pages.UserSettings.Models"
+             xmlns:user="clr-namespace:WorkoutManager.Contract.Models.User;assembly=WorkoutManager.Contract"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=models:UserPreferencesPageViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Content="Weight units"
+        /> 
+        <RadioButton
+            Grid.Row="0"
+            Grid.Column="1"
+            GroupName="WeightUnits"
+            Content="{x:Static user:WeightUnits.Kilograms}"
+            IsChecked="{Binding UserPreferences.WeightUnits, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static user:WeightUnits.Kilograms}}" />
+        <RadioButton
+            Grid.Row="0"
+            Grid.Column="2"
+            GroupName="ContractionType"
+            Content="{x:Static user:WeightUnits.Pounds}"
+            IsChecked="{Binding UserPreferences.WeightUnits, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static user:WeightUnits.Pounds}}" />
+
+        <Button
+            Grid.Row="1"
+            Grid.Column="0"
+            Content="Save preferences"
+            Command="{Binding SavePreferences}"
+        />
+    </Grid>
+</UserControl>

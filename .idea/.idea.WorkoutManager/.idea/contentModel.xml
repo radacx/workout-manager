@@ -26,8 +26,10 @@
           <e p="DateTimeToDateConverter.cs" t="Include" />
           <e p="DoesEnumMatchConverter.cs" t="Include" />
           <e p="EnumConverter.cs" t="Include" />
+          <e p="ExerciseSetToTextConverter.cs" t="Include" />
           <e p="GetMultiSelectItemTextConverter.cs" t="Include" />
           <e p="GetSelectedMuscleHeadsConverter.cs" t="Include" />
+          <e p="IsEnumerableEmptyConverter.cs" t="Include" />
           <e p="IsTextEmptyConverter.cs" t="Include" />
           <e p="ItemToMultiSelectItemConverter.cs" t="Include" />
           <e p="RemoveExerciseSetConverter.cs" t="Include" />
@@ -36,6 +38,7 @@
         <e p="packages.config" t="Include" />
         <e p="Pages" t="Include">
           <e p="Exercises" t="Include">
+            <e p="Controls" t="Include" />
             <e p="Dialogs" t="Include">
               <e p="ExerciseDialog.xaml" t="Include" />
               <e p="ExerciseDialog.xaml.cs" t="Include" />
@@ -79,8 +82,6 @@
           </e>
           <e p="TrainingLog" t="Include">
             <e p="Controls" t="Include">
-              <e p="ExerciseSet.xaml" t="Include" />
-              <e p="ExerciseSet.xaml.cs" t="Include" />
               <e p="SessionExercise.xaml" t="Include" />
               <e p="SessionExercise.xaml.cs" t="Include" />
             </e>
@@ -97,6 +98,13 @@
             </e>
             <e p="TrainingLogPage.xaml" t="Include" />
             <e p="TrainingLogPage.xaml.cs" t="Include" />
+          </e>
+          <e p="UserSettings" t="Include">
+            <e p="Models" t="Include">
+              <e p="UserPreferencesPageViewModel.cs" t="Include" />
+            </e>
+            <e p="UserPreferencesPage.xaml" t="Include" />
+            <e p="UserPreferencesPage.xaml.cs" t="Include" />
           </e>
         </e>
         <e p="Properties" t="Include">
@@ -145,6 +153,10 @@
             <e p="SessionExercise.cs" t="Include" />
             <e p="TrainingSession.cs" t="Include" />
           </e>
+          <e p="User" t="Include">
+            <e p="UserPreferences.cs" t="Include" />
+            <e p="WeightUnits.cs" t="Include" />
+          </e>
         </e>
         <e p="obj" t="ExcludeRecursive" />
         <e p="Properties" t="Include">
@@ -176,6 +188,7 @@
         </e>
         <e p="Service.cs" t="Include" />
         <e p="TrainingSessionService.cs" t="Include" />
+        <e p="UserPreferencesService.cs" t="Include" />
         <e p="WorkoutManager.Service.csproj" t="IncludeRecursive" />
       </e>
       <e p="WorkoutManager.sln" t="IncludeFlat" />
