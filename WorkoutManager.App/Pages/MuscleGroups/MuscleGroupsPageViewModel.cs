@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Pages.MuscleGroups.Dialogs;
+using WorkoutManager.App.Pages.MuscleGroups.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Service;
 
-namespace WorkoutManager.App.Pages.MuscleGroups.Models
+namespace WorkoutManager.App.Pages.MuscleGroups
 {
     internal class MuscleGroupsPageViewModel
     {

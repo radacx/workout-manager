@@ -9,6 +9,7 @@
         xmlns:muscleGroups="clr-namespace:WorkoutManager.App.Pages.MuscleGroups"
         xmlns:trainingLog="clr-namespace:WorkoutManager.App.Pages.TrainingLog"
         xmlns:userSettings="clr-namespace:WorkoutManager.App.Pages.UserSettings"
+        xmlns:progress="clr-namespace:WorkoutManager.App.Pages.Progress"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=pages:MainWindowViewModel}"
         Title="Workout manager" Height="450" Width="800">
@@ -25,6 +26,9 @@
             </TabItem>
             <TabItem Header="Training log">
                 <trainingLog:TrainingLogPage DataContext="{Binding TrainingLogPage}" />
+            </TabItem>
+            <TabItem Header="Progress">
+                <progress:ProgressPage DataContext="{Binding ProgressPage}" />
             </TabItem>
             <TabItem Header="Settings">
                 <userSettings:UserPreferencesPage DataContext="{Binding UserPreferencesPage}" />

@@ -4,7 +4,7 @@ using WorkoutManager.App.Structures;
 using WorkoutManager.Contract.Models.User;
 using WorkoutManager.Service;
 
-namespace WorkoutManager.App.Pages.UserSettings.Models
+namespace WorkoutManager.App.Pages.UserSettings
 {
     internal class UserPreferencesPageViewModel
     {
@@ -14,10 +14,14 @@ namespace WorkoutManager.App.Pages.UserSettings.Models
 
         public ICommand SavePreferences { get; }
         
-        public UserPreferencesPageViewModel(UserPreferencesService userPreferencesService)
+        public ICommand ClearDatabase { get; }
+        
+        public UserPreferencesPageViewModel(UserPreferencesService userPreferencesService, DatabaseService databaseService)
         {
             _userPreferencesService = userPreferencesService;
 
+            ClearDatabase = new Command(databaseService.DropDatabase);
+            
             SavePreferences = new Command(
                 () => { _userPreferencesService.Update(UserPreferences); });
             

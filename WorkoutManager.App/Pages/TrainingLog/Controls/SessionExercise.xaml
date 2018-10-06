@@ -5,26 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
              xmlns:controls="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Controls"
-             xmlns:sessions="clr-namespace:WorkoutManager.Contract.Models.Sessions;assembly=WorkoutManager.Contract"
+             xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=sessions:SessionExercise}"
+             d:DataContext="{d:DesignInstance Type=models:SessionExerciseViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
 <UserControl.Resources>
     <converters:RemoveExerciseSetConverter x:Key="RemoveExerciseSetConverter" />    
     <converters:ExerciseSetToTextConverter x:Key="ExerciseSetToTextConverter" />
+    <converters:AddExerciseSetConverter x:Key="AddExerciseSetConverter" />
 </UserControl.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Exercise.Name}" />
+            <TextBlock Text="{Binding Exercise.Exercise.Name}" />
             <Button
                 Content="Add set"
                 Command="{Binding OnAddExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
-                CommandParameter="{Binding}"
-            />
+            >
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource AddExerciseSetConverter}">
+                        <Binding Path="Exercise.Exercise.ContractionType" />
+                        <Binding Path="Sets" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
             <Button
                 Content="Delete exercise"
                 Command="{Binding OnDeleteExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
-                CommandParameter="{Binding}"
+                CommandParameter="{Binding Exercise}"
             />
         </StackPanel>
         
@@ -47,8 +54,8 @@
                         >
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource RemoveExerciseSetConverter}">
-                                    <Binding Path="DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:SessionExercise}" />
                                     <Binding Path="" />
+                                    <Binding Path="DataContext.Sets" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:SessionExercise}" />
                                 </MultiBinding>
                             </Button.CommandParameter>
                         </Button>

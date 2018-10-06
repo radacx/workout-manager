@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using LiteDB;
 using WorkoutManager.Contract.Models.Misc;
+using WorkoutManager.Repository.Repositories;
 
 namespace WorkoutManager.Repository
 {
@@ -45,7 +46,15 @@ namespace WorkoutManager.Repository
 
         static Repository()
         {
-            BsonMapper.Global = new CustomMapper();
+            var mapper = new CustomMapper();
+            
+            ExercisedMuscleRepository.Register(mapper);
+            ExerciseRepository.Register(mapper);
+            MuscleGroupRepository.Register(mapper);
+            SessionExerciseRepository.Register(mapper);
+            TrainingSessionRepository.Register(mapper);
+            
+            BsonMapper.Global = mapper;
         }
         
         public Repository(string dbFileName)
@@ -53,15 +62,6 @@ namespace WorkoutManager.Repository
             _dbFileName = dbFileName;
         }
 
-        protected void Execute(Action<LiteCollection<TEntity>> action)
-        {
-            using (var db = new LiteDatabase(_dbFileName))
-            {
-                var collection = db.GetCollection<TEntity>();
-                action(collection);
-            }    
-        }
-        
         protected TResult Execute<TResult>(Func<LiteCollection<TEntity>, TResult> action)
         {
             using (var db = new LiteDatabase(_dbFileName))

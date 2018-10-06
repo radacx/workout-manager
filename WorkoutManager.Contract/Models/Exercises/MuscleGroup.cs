@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Exercises
 {
     public class MuscleGroup : IEntity, IEquatable<MuscleGroup>
     {
-        private ObservableCollection<MuscleHead> _heads = new ObservableCollection<MuscleHead>();
+        private List<MuscleHead> _heads = new List<MuscleHead>();
         
         public int Id { get; set; }
         
         public string Name { get; set; }
 
-        public IEnumerable<MuscleHead> Heads
+        public MuscleHead[] Heads
         {
-            get => _heads;
-            set => _heads = new ObservableCollection<MuscleHead>(value);
+            get => _heads.ToArray();
+            set => _heads = value.ToList();
         }
 
         public void AddHead(MuscleHead head) => _heads.Add(head);

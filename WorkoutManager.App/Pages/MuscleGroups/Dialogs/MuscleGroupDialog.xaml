@@ -50,7 +50,7 @@
         </StackPanel>
         
         <ItemsControl
-            ItemsSource="{Binding MuscleGroup.Heads}"
+            ItemsSource="{Binding Heads}"
             Margin="10 0 0 0"
         >
             <ItemsControl.ItemTemplate>

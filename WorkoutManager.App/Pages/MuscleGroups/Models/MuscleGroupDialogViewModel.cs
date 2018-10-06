@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Pages.MuscleGroups.Dialogs;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
@@ -10,6 +11,8 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
     internal class MuscleGroupViewModel
     {
         public MuscleGroup MuscleGroup { get; }
+        
+        public ObservedCollection<MuscleHead> Heads { get; }
         
         public string SaveButtonTitle { get; set; }
         
@@ -27,6 +30,8 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
             
             MuscleGroup = muscleGroup;
 
+            Heads = new ObservedCollection<MuscleHead>(muscleGroup.Heads, muscleGroup.AddHead, muscleGroup.RemoveHead);
+            
             OpenAddMuscleHeadDialog = new Command(
                 () =>
                 {
@@ -43,7 +48,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
                         return;
                     }
                     
-                    MuscleGroup.AddHead(muscleHead);
+                    Heads.Add(muscleHead);
                 }
             );
 
@@ -67,7 +72,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
                 });
             
             RemoveHead = new Command<MuscleHead>(
-                head => MuscleGroup.RemoveHead(head)
+                head => Heads.Remove(head)
             );
         }
     }

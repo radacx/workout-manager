@@ -49,7 +49,6 @@
     <Compile Include="Models\Exercises\Exercise.cs" />
     <Compile Include="Models\Exercises\JointMotion.cs" />
     <Compile Include="Models\Exercises\MuscleHead.cs" />
-    <Compile Include="Models\Misc\Date.cs" />
     <Compile Include="Models\Misc\IEntity.cs" />
     <Compile Include="Models\Sessions\SessionExercise.cs" />
     <Compile Include="Models\Sessions\TrainingSession.cs" />

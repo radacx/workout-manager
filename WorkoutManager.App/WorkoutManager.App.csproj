@@ -90,10 +90,14 @@
     <Compile Include="Controls\TimeSpanUpDown\TimeSpanUpDown.xaml.cs">
       <DependentUpon>TimeSpanUpDown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\AddExerciseSetConverter.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
+    <Compile Include="Converters\GetExerciseProgressConverter.cs" />
     <Compile Include="Converters\GetMultiSelectItemTextConverter.cs" />
+    <Compile Include="Converters\GetSessionExerciseViewModelConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\ItemToMultiSelectItemConverter.cs" />
+    <Compile Include="Converters\ProgressResultConverter.cs" />
     <Compile Include="Converters\RemoveExerciseSetConverter.cs" />
     <Compile Include="Converters\ExerciseSetToTextConverter.cs" />
     <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml.cs">
@@ -102,8 +106,9 @@
     <Compile Include="Pages\Exercises\ExercisesPage.xaml.cs">
       <DependentUpon>ExercisesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Exercises\ExercisesPageViewModel.cs" />
     <Compile Include="Pages\Exercises\Models\ExerciseDialogViewModel.cs" />
-    <Compile Include="Pages\Exercises\Models\ExercisesPageViewModel.cs" />
+    <Compile Include="Pages\Exercises\Models\ObservedCollection.cs" />
     <Compile Include="Pages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -113,10 +118,10 @@
       <DependentUpon>JointMotionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Motions\Models\JointMotionDialogViewModel.cs" />
-    <Compile Include="Pages\Motions\Models\MotionsPageViewModel.cs" />
     <Compile Include="Pages\Motions\MotionsPage.xaml.cs">
       <DependentUpon>MotionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Motions\MotionsPageViewModel.cs" />
     <Compile Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml.cs">
       <DependentUpon>MuscleGroupDialog.xaml</DependentUpon>
     </Compile>
@@ -124,11 +129,15 @@
       <DependentUpon>MuscleHeadDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MuscleGroups\Models\MuscleGroupDialogViewModel.cs" />
-    <Compile Include="Pages\MuscleGroups\Models\MuscleGroupsPageViewModel.cs" />
     <Compile Include="Pages\MuscleGroups\Models\MuscleHeadDialogViewModel.cs" />
     <Compile Include="Pages\MuscleGroups\MuscleGroupsPage.xaml.cs">
       <DependentUpon>MuscleGroupsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MuscleGroups\MuscleGroupsPageViewModel.cs" />
+    <Compile Include="Pages\Progress\ProgressPage.xaml.cs">
+      <DependentUpon>ProgressPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Progress\ProgressPageViewModel.cs" />
     <Compile Include="Pages\TrainingLog\Controls\SessionExercise.xaml.cs">
       <DependentUpon>SessionExercise.xaml</DependentUpon>
     </Compile>
@@ -139,7 +148,7 @@
       <DependentUpon>TrainingSessionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TrainingLog\Models\ExerciseSetDialogViewModel.cs" />
-    <Compile Include="Pages\TrainingLog\Models\TrainingLogPageViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Models\SessionExerciseViewModel.cs" />
     <Compile Include="Pages\TrainingLog\Models\TrainingSessionDialogViewModel.cs" />
     <Compile Include="Pages\TrainingLog\TrainingLogPage.xaml.cs">
       <DependentUpon>TrainingLogPage.xaml</DependentUpon>
@@ -152,10 +161,11 @@
     <Compile Include="Converters\EnumConverter.cs" />
     <Compile Include="Converters\GetSelectedMuscleHeadsConverter.cs" />
     <Compile Include="Converters\IsTextEmptyConverter.cs" />
-    <Compile Include="Pages\UserSettings\Models\UserPreferencesPageViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\TrainingLogPageViewModel.cs" />
     <Compile Include="Pages\UserSettings\UserPreferencesPage.xaml.cs">
       <DependentUpon>UserPreferencesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UserSettings\UserPreferencesPageViewModel.cs" />
     <Compile Include="Structures\CollectionViewShaper.cs" />
     <Compile Include="Utils\DialogViewer.cs" />
     <Page Include="Controls\MultiSelect\MultiSelect.xaml">
@@ -179,6 +189,7 @@
     <Page Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml" />
     <Page Include="Pages\MuscleGroups\Dialogs\MuscleHeadDialog.xaml" />
     <Page Include="Pages\MuscleGroups\MuscleGroupsPage.xaml" />
+    <Page Include="Pages\Progress\ProgressPage.xaml" />
     <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />
     <Page Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog.xaml" />
     <Page Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog.xaml" />
@@ -229,9 +240,6 @@
       <Project>{1365506b-5d8f-4539-b8f8-0d7819faeaf3}</Project>
       <Name>WorkoutManager.Service</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Exercises\Controls" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Pages.TrainingLog.Dialogs;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
@@ -16,15 +17,24 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
 {
     internal class RemoveExerciseSetParameters
     {
-        public SessionExercise Exercise { get; set; }
+        public ObservedCollection<IExerciseSet> Sets { get; set; }
         
         public IExerciseSet Set { get; set; }
+    }
+
+    internal class AddExerciseSetParameters
+    {
+        public ContractionType Type { get; set; }
+        
+        public ObservedCollection<IExerciseSet> Sets { get; set; }
     }
     
     internal class TrainingSessionDialogViewModel : INotifyPropertyChanged
     {
         public TrainingSession TrainingSession { get; }
 
+        public ObservedCollection<SessionExercise> SessionExercises { get; }
+        
         public string SaveButtonTitle { get; set; }
         
         public BulkObservableCollection<Exercise> Exercises { get; } = new BulkObservableCollection<Exercise>();
@@ -81,17 +91,23 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             
             TrainingSession = trainingSession;
 
+            SessionExercises = new ObservedCollection<SessionExercise>(
+                trainingSession.Exercises,
+                trainingSession.AddExercise,
+                trainingSession.RemoveExercise
+            );
+            
             AddExercise = new Command<Exercise>(
                 exercise =>
                 {
                     var sessionExercise = new SessionExercise(exercise);
-                    TrainingSession.AddExercise(sessionExercise);
+                    SessionExercises.Add(sessionExercise);
                 });
             
-            OpenAddExerciseSetDialog = new Command<SessionExercise>(
-                exercise =>
+            OpenAddExerciseSetDialog = new Command<AddExerciseSetParameters>(
+                parameters =>
                 {
-                    var set = CreateSet(exercise.Exercise.ContractionType);
+                    var set = CreateSet(parameters.Type);
                     var viewModel = new ExerciseSetDialogViewModel(set);
 
                     var dialogResult = _exerciseSetDialogViewer.WithContext(viewModel).Show();
@@ -101,14 +117,14 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                         return;
                     }
 
-                    exercise.AddSet(set);
+                    parameters.Sets.Add(set);
                 });
             
             RemoveExerciseSet = new Command<RemoveExerciseSetParameters>(
-                parameters => { parameters.Exercise.RemoveSet(parameters.Set); });
+                parameters => { parameters.Sets.Remove(parameters.Set); });
 
             RemoveExercise = new Command<SessionExercise>(
-                exercise => { TrainingSession.RemoveExercise(exercise); }
+                exercise => { SessionExercises.Remove(exercise); }
             );
             
             InitializeDataAsync();

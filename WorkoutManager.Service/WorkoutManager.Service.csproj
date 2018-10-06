@@ -38,8 +38,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseService.cs" />
     <Compile Include="ExerciseService.cs" />
     <Compile Include="MuscleGroupService.cs" />
+    <Compile Include="ProgressService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="TrainingSessionService.cs" />

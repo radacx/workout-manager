@@ -7,9 +7,14 @@
         xmlns:controls="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Controls"
         xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
+        xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=models:TrainingSessionDialogViewModel}"
         Height="450" Width="800">
+<Window.Resources>
+    <converters:GetSessionExerciseViewModelConverter x:Key="GetSessionExerciseViewModelConverter" />
+</Window.Resources>
+    
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />    
@@ -70,7 +75,18 @@
             Content="Add exercise"
             Command="{Binding AddExercise}"
             CommandParameter="{Binding SelectedItem, ElementName=Exercises}"
-        />
+        >
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Exercises, Converter={StaticResource IsCollectionEmptyConverter}}" Value="False">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         
         <Label
             Grid.Row="4"
@@ -84,7 +100,7 @@
             VerticalScrollBarVisibility="Auto"
         >
             <ItemsControl
-                ItemsSource="{Binding TrainingSession.Exercises}">
+                ItemsSource="{Binding SessionExercises}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border
@@ -94,7 +110,7 @@
                             Margin="5 10 0 0"
                         >
                             <controls:SessionExercise
-                                DataContext="{Binding}"
+                                DataContext="{Binding Converter={StaticResource GetSessionExerciseViewModelConverter}}"
                                 OnAddExercise="{Binding DataContext.OpenAddExerciseSetDialog, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
                                 OnDeleteSet="{Binding DataContext.RemoveExerciseSet, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
                                 OnDeleteExercise="{Binding DataContext.RemoveExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"

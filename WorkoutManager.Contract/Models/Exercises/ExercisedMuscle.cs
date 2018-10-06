@@ -13,9 +13,9 @@ namespace WorkoutManager.Contract.Models.Exercises
         
         public MuscleGroup MuscleGroup { get; set; }
 
-        public IEnumerable<MuscleHead> UsedHeads
+        public MuscleHead[] UsedHeads
         {
-            get => _usedHeads;
+            get => _usedHeads.ToArray();
             set => _usedHeads = value.ToList();
         }
 
@@ -27,6 +27,10 @@ namespace WorkoutManager.Contract.Models.Exercises
             _usedHeads.AddRange(muscleGroup.Heads);
         }
 
+        public void AddHead(MuscleHead head) => _usedHeads.Add(head);
+
+        public void RemoveHead(MuscleHead head) => _usedHeads.Remove(head);
+        
         public bool Equals(ExercisedMuscle other)
         {
             if (ReferenceEquals(null, other))

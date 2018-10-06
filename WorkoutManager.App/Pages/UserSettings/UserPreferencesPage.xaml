@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:models="clr-namespace:WorkoutManager.App.Pages.UserSettings.Models"
              xmlns:user="clr-namespace:WorkoutManager.Contract.Models.User;assembly=WorkoutManager.Contract"
+             xmlns:userSettings="clr-namespace:WorkoutManager.App.Pages.UserSettings"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=models:UserPreferencesPageViewModel}"
+             d:DataContext="{d:DesignInstance Type=userSettings:UserPreferencesPageViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
@@ -42,6 +42,13 @@
             Grid.Column="0"
             Content="Save preferences"
             Command="{Binding SavePreferences}"
+        />
+        
+        <Button
+            Grid.Row="1"
+            Grid.Column="1"
+            Content="Clear database"
+            Command="{Binding ClearDatabase}"
         />
     </Grid>
 </UserControl>

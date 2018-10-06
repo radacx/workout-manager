@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +26,8 @@ namespace WorkoutManager.App.Pages.Exercises.Models
         
         public Func<object, string> GetMuscleHeadText { get; }
         
+        public IEnumerable<JointMotion> SelectedMotions { get; }
+        
         public IEnumerable<MuscleGroup> SelectedPrimaryMuscleGroups { get; }
         
         public IEnumerable<MuscleGroup> SelectedSecondaryMuscleGroups { get; }
@@ -35,75 +36,64 @@ namespace WorkoutManager.App.Pages.Exercises.Models
         
         public Dictionary<MuscleGroup, IEnumerable<MuscleHead>> SelectedSecondaryMusclesHeads { get; }
         
-        private static MuscleGroup Convert(ExercisedMuscle muscle) => muscle.MuscleGroup;
+        private static MuscleGroup GetMuscleGroup(ExercisedMuscle muscle) => muscle.MuscleGroup;
         
         public ExerciseDialogViewModel(Exercise exercise, Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository)
         {
             Exercise = exercise;
 
-            var selectedPrimaryMuscleGroups = new ObservableCollection<MuscleGroup>(exercise.PrimaryMuscles.Select(Convert));
-            SelectedPrimaryMuscleGroups = selectedPrimaryMuscleGroups;
-            
-            var selectedSecondaryMuscleGroups = new ObservableCollection<MuscleGroup>(exercise.SecondaryMuscles.Select(Convert));
-            SelectedSecondaryMuscleGroups = selectedSecondaryMuscleGroups;
-
             SelectedPrimaryMusclesHeads = new Dictionary<MuscleGroup, IEnumerable<MuscleHead>>();
             
             foreach (var muscle in exercise.PrimaryMuscles)
             {
-               SelectedPrimaryMusclesHeads.Add(muscle.MuscleGroup, muscle.UsedHeads);
+                var muscleHeads = new ObservedCollection<MuscleHead>(muscle.UsedHeads, muscle.AddHead, muscle.RemoveHead);
+                SelectedPrimaryMusclesHeads.Add(muscle.MuscleGroup, muscleHeads);
             }
             
             SelectedSecondaryMusclesHeads = new Dictionary<MuscleGroup, IEnumerable<MuscleHead>>();
             
             foreach (var muscle in exercise.SecondaryMuscles)
             {
-                SelectedSecondaryMusclesHeads.Add(muscle.MuscleGroup, muscle.UsedHeads);
+                var muscleHeads = new ObservedCollection<MuscleHead>(muscle.UsedHeads, muscle.AddHead, muscle.RemoveHead);
+                SelectedSecondaryMusclesHeads.Add(muscle.MuscleGroup, muscleHeads);
             }
-
-            selectedPrimaryMuscleGroups.CollectionChanged += (sender, args) =>
-            {
-                if (args.NewItems != null)
-                {
-                    foreach (MuscleGroup muscleGroup in args.NewItems)
-                    {
-                        var muscle = new ExercisedMuscle(muscleGroup);
-                        exercise.AddPrimaryMuscle(muscle);
-                        SelectedPrimaryMusclesHeads.Add(muscleGroup, muscle.UsedHeads);
-                    }
-                }
-
-                if (args.OldItems != null)
-                {
-                    foreach (MuscleGroup muscleGroup in args.OldItems)
-                    {
-                        exercise.RemovePrimaryMuscle(muscleGroup);
-                        SelectedPrimaryMusclesHeads.Remove(muscleGroup);
-                    }
-                }  
-            };
             
-            selectedSecondaryMuscleGroups.CollectionChanged += (sender, args) =>
-            {
-                if (args.NewItems != null)
+            SelectedPrimaryMuscleGroups = new ObservedCollection<MuscleGroup>(exercise.PrimaryMuscles.Select(GetMuscleGroup),
+                muscleGroup =>
                 {
-                    foreach (MuscleGroup muscleGroup in args.NewItems)
-                    {
-                        var muscle = new ExercisedMuscle(muscleGroup);
-                        exercise.AddSecondaryMuscle(muscle);
-                        SelectedSecondaryMusclesHeads.Add(muscleGroup, muscle.UsedHeads);
-                    }
-                }
-
-                if (args.OldItems != null)
+                    var muscle = new ExercisedMuscle(muscleGroup);
+                    exercise.AddPrimaryMuscle(muscle);
+                        
+                    var muscleHeads = new ObservedCollection<MuscleHead>(muscle.UsedHeads, muscle.AddHead, muscle.RemoveHead);
+                    SelectedPrimaryMusclesHeads.Add(muscleGroup, muscleHeads);
+                },
+                muscleGroup =>
                 {
-                    foreach (MuscleGroup muscleGroup in args.OldItems)
-                    {
-                        exercise.RemoveSecondaryMuscle(muscleGroup);
-                        SelectedSecondaryMusclesHeads.Remove(muscleGroup);
-                    }
-                }  
-            };
+                    exercise.RemovePrimaryMuscle(muscleGroup);
+                    SelectedPrimaryMusclesHeads.Remove(muscleGroup);
+                });
+            
+            SelectedSecondaryMuscleGroups = new ObservedCollection<MuscleGroup>(exercise.SecondaryMuscles.Select(GetMuscleGroup),
+                muscleGroup =>
+                {
+                    var muscle = new ExercisedMuscle(muscleGroup);
+                    exercise.AddSecondaryMuscle(muscle);
+                        
+                    var muscleHeads = new ObservedCollection<MuscleHead>(muscle.UsedHeads, muscle.AddHead, muscle.RemoveHead);
+                    SelectedSecondaryMusclesHeads.Add(muscleGroup, muscleHeads);
+                },
+                muscleGroup =>
+                {
+                    exercise.RemoveSecondaryMuscle(muscleGroup);
+                    SelectedSecondaryMusclesHeads.Remove(muscleGroup);
+                });
+            
+           
+            SelectedMotions = new ObservedCollection<JointMotion>(
+                exercise.Motions,
+                exercise.AddMotion,
+                exercise.RemoveMotion
+            );
             
             Task.Run(
                 () =>

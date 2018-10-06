@@ -17,20 +17,24 @@ namespace WorkoutManager.Contract.Models.Exercises
         
         private List<ExercisedMuscle> _primaryMuscles = new List<ExercisedMuscle>();
         private List<ExercisedMuscle> _secondaryMuscles = new List<ExercisedMuscle>();
-
-        public IEnumerable<ExercisedMuscle> PrimaryMuscles
+        private List<JointMotion> _motions = new List<JointMotion>();
+        
+        public ExercisedMuscle[] PrimaryMuscles
         {
-            get => _primaryMuscles;
+            get => _primaryMuscles.ToArray();
             set => _primaryMuscles = value.ToList();
         }
 
-        public IEnumerable<ExercisedMuscle> SecondaryMuscles
+        public ExercisedMuscle[] SecondaryMuscles
         {
-            get => _secondaryMuscles;
+            get => _secondaryMuscles.ToArray();
             set => _secondaryMuscles = value.ToList();
         }
 
-        public IEnumerable<JointMotion> Motions { get; set; } = new List<JointMotion>();
+        public JointMotion[] Motions { 
+            get => _motions.ToArray();
+            set => _motions = value.ToList();
+        }
         
         public Exercise()
         {
@@ -46,6 +50,10 @@ namespace WorkoutManager.Contract.Models.Exercises
         
         public void RemoveSecondaryMuscle(MuscleGroup muscleGroup)
             => _secondaryMuscles.RemoveAll(muscle => muscle.MuscleGroup.Equals(muscleGroup));
+
+        public void AddMotion(JointMotion motion) => _motions.Add(motion);
+
+        public void RemoveMotion(JointMotion motion) => _motions.Remove(motion);
         
         public bool Equals(Exercise other)
         {

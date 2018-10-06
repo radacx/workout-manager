@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Misc;
@@ -11,12 +11,12 @@ namespace WorkoutManager.Contract.Models.Sessions
     {
         public int Id { get; set; }
         
-        private ObservableCollection<IExerciseSet> _sets = new ObservableCollection<IExerciseSet>();
+        private List<IExerciseSet> _sets = new List<IExerciseSet>();
         
-        public IEnumerable<IExerciseSet> Sets
+        public IExerciseSet[] Sets
         {
-            get => _sets;
-            set => _sets = new ObservableCollection<IExerciseSet>(value);
+            get => _sets.ToArray();
+            set => _sets = value.ToList();
         }
 
         public SessionExercise() {}

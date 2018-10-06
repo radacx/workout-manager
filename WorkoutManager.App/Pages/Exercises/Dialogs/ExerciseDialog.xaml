@@ -80,7 +80,7 @@
             Grid.Row="3"
             Grid.Column="1"
             ItemsSource="{Binding Motions}"
-            SelectedItems="{Binding Exercise.Motions}"
+            SelectedItems="{Binding SelectedMotions}"
             GetItemText="{Binding GetJointMotionText}"
          />
         

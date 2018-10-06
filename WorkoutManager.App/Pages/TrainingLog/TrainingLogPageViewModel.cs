@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Pages.TrainingLog.Dialogs;
+using WorkoutManager.App.Pages.TrainingLog.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Extensions;
@@ -10,7 +11,7 @@ using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
 using WorkoutManager.Service;
 
-namespace WorkoutManager.App.Pages.TrainingLog.Models
+namespace WorkoutManager.App.Pages.TrainingLog
 {
     internal class TrainingLogPageViewModel
     {

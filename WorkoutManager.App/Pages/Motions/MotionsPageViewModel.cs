@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Pages.Motions.Dialogs;
+using WorkoutManager.App.Pages.Motions.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Repository;
 
-namespace WorkoutManager.App.Pages.Motions.Models
+namespace WorkoutManager.App.Pages.Motions
 {
     internal class MotionsPageViewModel
     {
