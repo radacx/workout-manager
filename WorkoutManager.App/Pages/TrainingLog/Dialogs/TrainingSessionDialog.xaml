@@ -111,8 +111,6 @@
                         >
                             <controls:SessionExercise
                                 DataContext="{Binding Converter={StaticResource GetSessionExerciseViewModelConverter}}"
-                                OnAddExercise="{Binding DataContext.OpenAddExerciseSetDialog, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
-                                OnDeleteSet="{Binding DataContext.RemoveExerciseSet, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
                                 OnDeleteExercise="{Binding DataContext.RemoveExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
                                 UserPreferences="{Binding DataContext.UserPreferences, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
                             />

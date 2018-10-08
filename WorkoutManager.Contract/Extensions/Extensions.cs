@@ -16,31 +16,5 @@ namespace WorkoutManager.Contract.Extensions
 
             return descriptionAttribute?.Description;
         }
-        
-        public static T Clone<T>(this T source)
-        {
-            var ofT = typeof(T);
-            var result = (T) ofT.GetConstructor(Type.EmptyTypes)?.Invoke(null);
-
-            var objectFields = ofT.GetFields(
-                BindingFlags.NonPublic
-                | BindingFlags.Public
-                | BindingFlags.Instance
-                | BindingFlags.FlattenHierarchy
-            );
-
-            foreach (var fi in objectFields) {
-                if (fi.FieldType == typeof(string)) {
-                    var sourceString = (string) fi.GetValue(source);
-                    fi.SetValue(result, new string(sourceString.ToCharArray()));
-                }
-                else
-                {
-                    fi.SetValue(result, fi.GetValue(source));
-                }
-            }
-
-            return result;
-        }
     }
 }

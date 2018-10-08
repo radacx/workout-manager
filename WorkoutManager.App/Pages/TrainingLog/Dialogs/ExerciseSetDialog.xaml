@@ -51,7 +51,7 @@
         />
         
         <Button
-            Content="Submit"
+            Content="{Binding SaveButtonTitle}"
             IsDefault="True"
             Click="Submit_OnClick"
         />

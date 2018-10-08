@@ -62,6 +62,15 @@ namespace WorkoutManager.Repository
             _dbFileName = dbFileName;
         }
 
+        protected void Execute(Action<LiteCollection<TEntity>> action)
+        {
+            using (var db = new LiteDatabase(_dbFileName))
+            {
+                var collection = db.GetCollection<TEntity>();
+                action(collection);
+            }    
+        }
+        
         protected TResult Execute<TResult>(Func<LiteCollection<TEntity>, TResult> action)
         {
             using (var db = new LiteDatabase(_dbFileName))
@@ -81,12 +90,14 @@ namespace WorkoutManager.Repository
 
         public void Delete(TEntity item) => Execute(collection => collection.Delete(item.Id));
         
-        public void DeleteRange(IEnumerable<TEntity> items)
-        {
-            var itemsSet = items.ToHashSet();
-            
-            Execute(collection => collection.Delete(entity => itemsSet.Contains(entity)));
-        }
+        public void DeleteRange(IEnumerable<TEntity> items) => Execute(
+            collection =>
+            {
+                foreach (var item in items)
+                {
+                    collection.Delete(item.Id);
+                }
+            });
 
         public void DeleteAll()
         {

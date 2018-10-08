@@ -23,7 +23,6 @@
           </e>
         </e>
         <e p="Converters" t="Include">
-          <e p="AddExerciseSetConverter.cs" t="Include" />
           <e p="DateTimeToDateConverter.cs" t="Include" />
           <e p="DoesEnumMatchConverter.cs" t="Include" />
           <e p="EnumConverter.cs" t="Include" />
@@ -36,7 +35,6 @@
           <e p="IsTextEmptyConverter.cs" t="Include" />
           <e p="ItemToMultiSelectItemConverter.cs" t="Include" />
           <e p="ProgressResultConverter.cs" t="Include" />
-          <e p="RemoveExerciseSetConverter.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive" />
         <e p="packages.config" t="Include" />
@@ -122,6 +120,15 @@
           <e p="Resources.resx" t="Include" />
           <e p="Settings.Designer.cs" t="Include" />
           <e p="Settings.settings" t="Include" />
+        </e>
+        <e p="State" t="Include">
+          <e p="Actions" t="Include">
+            <e p="AddExercise.cs" t="Include" />
+          </e>
+          <e p="AppState.cs" t="Include" />
+          <e p="Reducers" t="Include">
+            <e p="JointMotionsReducer.cs" t="Include" />
+          </e>
         </e>
         <e p="Structures" t="Include">
           <e p="AsyncObservableCollection.cs" t="Include" />

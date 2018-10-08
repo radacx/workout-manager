@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using Force.DeepCloner;
 using WorkoutManager.App.Pages.Exercises.Dialogs;
 using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Structures;
@@ -24,12 +25,10 @@ namespace WorkoutManager.App.Pages.Exercises
         private void LoadExercises() => Exercises.AddRange(_exerciseService.GetAll());
 
         private readonly ExerciseService _exerciseService;
-        private readonly DialogViewer<ExerciseDialog> _exerciseDialogViewer;
         
-        public ExercisesPageViewModel(ExerciseService exerciseService, Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository, DialogViewer<ExerciseDialog> exerciseDialogViewer)
+        public ExercisesPageViewModel(ExerciseService exerciseService, Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository)
         {
             _exerciseService = exerciseService;
-            _exerciseDialogViewer = exerciseDialogViewer;
             
             OpenCreateExerciseModalDialog = new Command(
                 () =>
@@ -41,7 +40,7 @@ namespace WorkoutManager.App.Pages.Exercises
                         SaveButtonTitle = "Create"
                     };
 
-                    var dialogResult = _exerciseDialogViewer.WithContext(viewModel).Show();
+                    var dialogResult = DialogBuilder.Create<ExerciseDialog>().WithContext(viewModel).Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -69,7 +68,7 @@ namespace WorkoutManager.App.Pages.Exercises
             OpenEditExerciseModalDialog = new Command<Exercise>(
                 exercise =>
                 {
-                    var exerciseClone = exercise.Clone();
+                    var exerciseClone = exercise.DeepClone();
 
                     var viewModel = new ExerciseDialogViewModel(exerciseClone, motionsRepository, muscleGroupRepository)
                     {
@@ -77,7 +76,7 @@ namespace WorkoutManager.App.Pages.Exercises
                         IsBodyweightExercise = exercise.RelativeBodyweight > 0
                     };
 
-                    var dialogResult = _exerciseDialogViewer.WithContext(viewModel).Show();
+                    var dialogResult = DialogBuilder.Create<ExerciseDialog>().WithContext(viewModel).Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {

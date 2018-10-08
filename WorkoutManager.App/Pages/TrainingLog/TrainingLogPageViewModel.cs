@@ -1,11 +1,12 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Force.DeepCloner;
 using WorkoutManager.App.Pages.TrainingLog.Dialogs;
 using WorkoutManager.App.Pages.TrainingLog.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
-using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
@@ -26,22 +27,19 @@ namespace WorkoutManager.App.Pages.TrainingLog
         
         private readonly TrainingSessionService _trainingSessionService;
 
-        private readonly DialogViewer<TrainingSessionDialog> _trainingSessionDialogViewer;
-
         private void LoadTrainingSessionsAsync()
             => Task.Run(() => TrainingSessions.AddRange(_trainingSessionService.GetAll()));
         
-        public TrainingLogPageViewModel(TrainingSessionService trainingSessionService, Repository<Exercise> exerciseRepository, DialogViewer<TrainingSessionDialog> trainingSessionDialogViewer, UserPreferencesService userPreferencesService, DialogViewer<ExerciseSetDialog> exerciseSetDialogViewer)
+        public TrainingLogPageViewModel(TrainingSessionService trainingSessionService, Repository<Exercise> exerciseRepository, UserPreferencesService userPreferencesService)
         {
             _trainingSessionService = trainingSessionService;
-            _trainingSessionDialogViewer = trainingSessionDialogViewer;
 
             TrainingSessions.ShapeView().OrderByDescending(session => session.Date).Apply();
                 
             DeleteSession = new Command<TrainingSession>(session =>
                 {
                     TrainingSessions.Remove(session);
-                    
+
                     Task.Run(() => _trainingSessionService.Delete(session));
                 }
             );
@@ -49,13 +47,13 @@ namespace WorkoutManager.App.Pages.TrainingLog
             OpenEditSessionDialog = new Command<TrainingSession>(
                 trainingSession =>
                 {
-                    var trainingSessionClone = trainingSession.Clone();
-                    var viewModel = new TrainingSessionDialogViewModel(trainingSessionClone, trainingSessionService, exerciseRepository, userPreferencesService, exerciseSetDialogViewer)
+                    var trainingSessionClone = trainingSession.DeepClone();
+                    var viewModel = new TrainingSessionDialogViewModel(trainingSessionClone, exerciseRepository, userPreferencesService)
                     {
                         SaveButtonTitle = "Save"
                     };
 
-                    var dialogResult = _trainingSessionDialogViewer.WithContext(viewModel).Show();
+                    var dialogResult = DialogBuilder.Create<TrainingSessionDialog>().WithContext(viewModel).Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -70,17 +68,25 @@ namespace WorkoutManager.App.Pages.TrainingLog
             OpenAddSessionDialog = new Command(
                 () =>
                 {
-                    var trainingSession = new TrainingSession()
-                    {
-                        Date = DateTime.Now
-                    };
+                    var bodyweight = _trainingSessionService.GetAll()
+                            .OrderByDescending(session => session.Date)
+                            .FirstOrDefault()
+                            ?.Bodyweight
+                        ?? 0;
                     
-                    var viewModel = new TrainingSessionDialogViewModel(trainingSession, trainingSessionService, exerciseRepository, userPreferencesService, exerciseSetDialogViewer)
+                    var trainingSession = new TrainingSession
+                    {
+                        Date = DateTime.Now,
+                        Bodyweight = bodyweight
+                    };
+
+
+                    var viewModel = new TrainingSessionDialogViewModel(trainingSession, exerciseRepository, userPreferencesService)
                     {
                         SaveButtonTitle = "Create"
                     };
 
-                    var dialogResult = _trainingSessionDialogViewer.WithContext(viewModel).Show();
+                    var dialogResult = DialogBuilder.Create<TrainingSessionDialog>().WithContext(viewModel).Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {

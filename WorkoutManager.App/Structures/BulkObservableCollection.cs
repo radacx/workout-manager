@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using WorkoutManager.App.Annotations;
 
 namespace WorkoutManager.App.Structures
 {
@@ -10,6 +11,12 @@ namespace WorkoutManager.App.Structures
     {
         private const string CountString = "Count";
         private const string IndexerName = "Item[]";
+
+        public BulkObservableCollection() { }
+
+        public BulkObservableCollection([NotNull] List<TItem> list) : base(list) { }
+
+        public BulkObservableCollection([NotNull] IEnumerable<TItem> collection) : base(collection) { }
 
         public void AddRange(IEnumerable<TItem> items)
         {

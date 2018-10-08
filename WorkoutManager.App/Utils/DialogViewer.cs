@@ -10,26 +10,37 @@ namespace WorkoutManager.App.Utils
     
     internal interface IShowDialog {
         DialogResult Show();
+
+        IShowDialog WithContext(object dataContext);
     }
     
-    internal class DialogViewer<TDialogWindow> : IShowDialog
-        where TDialogWindow : Window, new()
+    internal static class DialogBuilder
     {
-        private object _dataContext;
-
-        public IShowDialog WithContext(object dataContext)
+        private class DialogViewer<TDialogWindow> : IShowDialog
+            where TDialogWindow : Window, new()
         {
-            _dataContext = dataContext;
+            private object _dataContext;
 
-            return this;
+            public DialogResult Show()
+            {
+                var dialog = new TDialogWindow() { DataContext = _dataContext };
+                var dialogResult = dialog.ShowDialog();
+
+                return dialogResult.HasValue && dialogResult.Value ? DialogResult.Ok : DialogResult.None;
+            }
+            
+            public IShowDialog WithContext(object dataContext)
+            {
+                var dialogViewer = new DialogViewer<TDialogWindow> { _dataContext = dataContext };
+
+                return dialogViewer;
+            }
         }
-        
-        public DialogResult Show()
-        {
-            var dialog = new TDialogWindow() { DataContext = _dataContext };
-            var dialogResult = dialog.ShowDialog();
 
-            return dialogResult.HasValue && dialogResult.Value ? DialogResult.Ok : DialogResult.None;
+        public static IShowDialog Create<TDialogWindow>()
+            where TDialogWindow : Window, new()
+        {
+            return new DialogViewer<TDialogWindow>();
         }
     }
 }

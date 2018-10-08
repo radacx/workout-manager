@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using Force.DeepCloner;
 using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Pages.MuscleGroups.Dialogs;
 using WorkoutManager.App.Structures;
@@ -21,13 +22,9 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
         public ICommand OpenEditMuscleHeadDialog { get; }
 
         public ICommand RemoveHead { get; }
-
-        private readonly DialogViewer<MuscleHeadDialog> _muscleHeadDialogViewer;
         
-        public MuscleGroupViewModel(MuscleGroup muscleGroup, DialogViewer<MuscleHeadDialog> muscleHeadDialogViewer)
+        public MuscleGroupViewModel(MuscleGroup muscleGroup)
         {
-            _muscleHeadDialogViewer = muscleHeadDialogViewer;
-            
             MuscleGroup = muscleGroup;
 
             Heads = new ObservedCollection<MuscleHead>(muscleGroup.Heads, muscleGroup.AddHead, muscleGroup.RemoveHead);
@@ -41,7 +38,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
                         SaveButtonTitle = "Add"
                     };
 
-                    var dialogResult = _muscleHeadDialogViewer.WithContext(viewModel).Show();
+                    var dialogResult = DialogBuilder.Create<MuscleHeadDialog>().WithContext(viewModel).Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -55,13 +52,13 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
             OpenEditMuscleHeadDialog = new Command<MuscleHead>(
                 muscleHead =>
                 {
-                    var muscleHeadClone = muscleHead.Clone();
+                    var muscleHeadClone = muscleHead.DeepClone();
                     var viewModel = new MuscleHeadDialogViewModel(muscleHeadClone)
                     {
                         SaveButtonTitle = "Save"
                     };
 
-                    var dialogResult = _muscleHeadDialogViewer.WithContext(viewModel).Show();
+                    var dialogResult = DialogBuilder.Create<MuscleHeadDialog>().WithContext(viewModel).Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {

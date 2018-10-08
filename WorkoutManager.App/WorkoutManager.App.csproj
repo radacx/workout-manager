@@ -35,11 +35,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99">
+      <HintPath>..\packages\DeepCloner.0.10.2\lib\net40\DeepCloner.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Redux, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Redux.NET.2.0.0\lib\netstandard1.1\Redux.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\..\..\..\..\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Reactive, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.4.0.0-preview.2.build.379\lib\net46\System.Reactive.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Interfaces.4.0.0-preview.2.build.379\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -90,7 +108,6 @@
     <Compile Include="Controls\TimeSpanUpDown\TimeSpanUpDown.xaml.cs">
       <DependentUpon>TimeSpanUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\AddExerciseSetConverter.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Converters\GetExerciseProgressConverter.cs" />
     <Compile Include="Converters\GetMultiSelectItemTextConverter.cs" />
@@ -98,7 +115,6 @@
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\ItemToMultiSelectItemConverter.cs" />
     <Compile Include="Converters\ProgressResultConverter.cs" />
-    <Compile Include="Converters\RemoveExerciseSetConverter.cs" />
     <Compile Include="Converters\ExerciseSetToTextConverter.cs" />
     <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml.cs">
       <DependentUpon>ExerciseDialog.xaml</DependentUpon>
@@ -166,6 +182,9 @@
       <DependentUpon>UserPreferencesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UserSettings\UserPreferencesPageViewModel.cs" />
+    <Compile Include="State\Actions\AddExercise.cs" />
+    <Compile Include="State\AppState.cs" />
+    <Compile Include="State\Reducers\JointMotionsReducer.cs" />
     <Compile Include="Structures\CollectionViewShaper.cs" />
     <Compile Include="Utils\DialogViewer.cs" />
     <Page Include="Controls\MultiSelect\MultiSelect.xaml">

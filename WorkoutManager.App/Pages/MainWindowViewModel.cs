@@ -54,17 +54,11 @@ namespace WorkoutManager.App.Pages
             var userPreferencesService = new UserPreferencesService(userPreferencesRepository);
             var databaseService = new DatabaseService(dbFileName);
             
-            var exerciseDialogViewer = new DialogViewer<ExerciseDialog>();
-            var motionDialogViewer = new DialogViewer<JointMotionDialog>();
-            var muscleGroupDialogViewer = new DialogViewer<MuscleGroupDialog>();
-            var muscleHeadDialogViewer = new DialogViewer<MuscleHeadDialog>();
-            var trainingSessionDialogViewer = new DialogViewer<TrainingSessionDialog>();
-            var exerciseSetDialogViewer = new DialogViewer<ExerciseSetDialog>();
             
-            ExercisesPage = new ExercisesPageViewModel(exerciseService, motionsRepository, muscleGroupRepository, exerciseDialogViewer);
-            MotionsPage = new MotionsPageViewModel(motionsRepository, motionDialogViewer);
-            MuscleGroupsPage = new MuscleGroupsPageViewModel(muscleGroupService, muscleGroupDialogViewer, muscleHeadDialogViewer);
-            TrainingLogPage = new TrainingLogPageViewModel(trainingSessionService, exerciseRepository, trainingSessionDialogViewer, userPreferencesService, exerciseSetDialogViewer);
+            ExercisesPage = new ExercisesPageViewModel(exerciseService, motionsRepository, muscleGroupRepository);
+            MotionsPage = new MotionsPageViewModel(motionsRepository);
+            MuscleGroupsPage = new MuscleGroupsPageViewModel(muscleGroupService);
+            TrainingLogPage = new TrainingLogPageViewModel(trainingSessionService, exerciseRepository, userPreferencesService);
             UserPreferencesPage = new UserPreferencesPageViewModel(userPreferencesService, databaseService);
             ProgressPage = new ProgressPageViewModel(exerciseRepository, trainingSessionRepository);
         }

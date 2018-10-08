@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Force.DeepCloner;
 using WorkoutManager.App.Pages.Motions.Dialogs;
 using WorkoutManager.App.Pages.Motions.Models;
 using WorkoutManager.App.Structures;
@@ -13,7 +14,6 @@ namespace WorkoutManager.App.Pages.Motions
     internal class MotionsPageViewModel
     {
         private readonly Repository<JointMotion> _motionRepository;
-        private readonly DialogViewer<JointMotionDialog> _motionDialogViewer;
         
         public BulkObservableCollection<JointMotion> Motions { get; } = new BulkObservableCollection<JointMotion>();
 
@@ -36,10 +36,9 @@ namespace WorkoutManager.App.Pages.Motions
 
         private void UpdateMotion(JointMotion motion) =>_motionRepository.Update(motion);
         
-        public MotionsPageViewModel(Repository<JointMotion> motionRepository, DialogViewer<JointMotionDialog> motionDialogViewer)
+        public MotionsPageViewModel(Repository<JointMotion> motionRepository)
         {
             _motionRepository = motionRepository;
-            _motionDialogViewer = motionDialogViewer;
             
             Delete = new Command<JointMotion>(DeleteMotion);
             
@@ -53,7 +52,7 @@ namespace WorkoutManager.App.Pages.Motions
                         SaveButtonTitle = "Create"
                     };
 
-                    var dialogResult = _motionDialogViewer.WithContext(viewModel).Show();
+                    var dialogResult = DialogBuilder.Create<JointMotionDialog>().WithContext(viewModel).Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -68,14 +67,14 @@ namespace WorkoutManager.App.Pages.Motions
             OpenEditMotionDialog = new Command<JointMotion>(
                 motion =>
                 {
-                    var motionClone = motion.Clone();
+                    var motionClone = motion.DeepClone();
 
                     var viewModel = new JointMotionDialogViewModel(motionClone)
                     {
                         SaveButtonTitle = "Save"
                     };
 
-                    var dialogResult = _motionDialogViewer.WithContext(viewModel).Show();
+                    var dialogResult = DialogBuilder.Create<JointMotionDialog>().WithContext(viewModel).Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {

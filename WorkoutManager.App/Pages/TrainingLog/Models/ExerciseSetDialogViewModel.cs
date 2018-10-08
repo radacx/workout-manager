@@ -6,6 +6,8 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
     {
         public IExerciseSet ExerciseSet { get; set; }
 
+        public string SaveButtonTitle { get; set; }
+        
         public ExerciseSetDialogViewModel(IExerciseSet exerciseSet)
         {
             ExerciseSet = exerciseSet;
