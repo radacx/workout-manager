@@ -14,11 +14,14 @@
 </UserControl.Resources>
     
     <StackPanel Background="AliceBlue">
+        <Button
+            Content="Refresh"
+            Command="{Binding Refresh}"
+        />
+        
         <ComboBox
             ItemsSource="{Binding Exercises}"
-            SelectedIndex="0"
-            IsSynchronizedWithCurrentItem="True"
-            SelectedItem="{Binding SelectedExercise}"
+            SelectedItem="{Binding SelectedExercise, Mode=TwoWay}"
         />
         
         <ItemsControl>

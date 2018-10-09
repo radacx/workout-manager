@@ -121,15 +121,6 @@
           <e p="Settings.Designer.cs" t="Include" />
           <e p="Settings.settings" t="Include" />
         </e>
-        <e p="State" t="Include">
-          <e p="Actions" t="Include">
-            <e p="AddExercise.cs" t="Include" />
-          </e>
-          <e p="AppState.cs" t="Include" />
-          <e p="Reducers" t="Include">
-            <e p="JointMotionsReducer.cs" t="Include" />
-          </e>
-        </e>
         <e p="Structures" t="Include">
           <e p="AsyncObservableCollection.cs" t="Include" />
           <e p="BulkObservableCollection.cs" t="Include" />

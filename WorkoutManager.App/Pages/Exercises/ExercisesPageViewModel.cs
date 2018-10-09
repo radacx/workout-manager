@@ -5,7 +5,6 @@ using WorkoutManager.App.Pages.Exercises.Dialogs;
 using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
-using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Repository;
 using WorkoutManager.Service;
