@@ -81,7 +81,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                         return;
                     }
 
-                    Sets.Replace(originalSet => originalSet.Equals(setClone), setClone);
+                    Sets.Replace(set, setClone);
                 });
             
             DeleteSet = new Command<IExerciseSet>(set => Sets.Remove(set));

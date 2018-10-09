@@ -88,6 +88,16 @@ namespace WorkoutManager.Repository
 
         public void Update(TEntity item) => Execute(collection => collection.Update(item));
 
+        public void UpdateRange(IEnumerable<TEntity> items) => Execute(
+            collection =>
+            {
+                foreach (var item in items)
+                {
+                    collection.Update(item);
+                }
+            }
+        );
+        
         public void Delete(TEntity item) => Execute(collection => collection.Delete(item.Id));
         
         public void DeleteRange(IEnumerable<TEntity> items) => Execute(

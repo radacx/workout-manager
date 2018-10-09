@@ -27,11 +27,14 @@ namespace WorkoutManager.Service
         public void Update(TrainingSession session)
         {
             var newSets = session.Exercises.SelectMany(exercise => exercise.Sets).Where(set => set.Id == 0);
+            var oldSets = session.Exercises.SelectMany(exercise => exercise.Sets).Where(set => set.Id != 0);
             var newExercises = session.Exercises.Where(exercise => exercise.Id == 0);
+            var oldExercises = session.Exercises.Where(exercise => exercise.Id != 0);
             
             _exerciseSetRepository.CreateRange(newSets);
+            _exerciseSetRepository.UpdateRange(oldSets);
             _sessionExerciseRepository.CreateRange(newExercises);
-            
+            _sessionExerciseRepository.UpdateRange(oldExercises);
             Repository.Update(session);
         }
 

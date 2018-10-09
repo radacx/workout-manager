@@ -52,5 +52,21 @@ namespace WorkoutManager.App.Structures
             OnPropertyChanged(new PropertyChangedEventArgs(IndexerName));
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
+        
+        public void Replace(TItem originalItem, TItem newItem)
+        {
+            var itemsList = Items.ToList();
+            var itemIndex = itemsList.IndexOf(originalItem);
+            
+            if (itemIndex == -1)
+            {
+                return;
+            }
+
+            base.SetItem(itemIndex, newItem);  
+            
+            OnPropertyChanged(new PropertyChangedEventArgs(IndexerName));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        }
     }
 }

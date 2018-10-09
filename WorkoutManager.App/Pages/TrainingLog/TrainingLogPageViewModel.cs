@@ -60,7 +60,7 @@ namespace WorkoutManager.App.Pages.TrainingLog
                         return;
                     }
 
-                    TrainingSessions.Replace(session => Equals(session, trainingSessionClone), trainingSessionClone);
+                    TrainingSessions.Replace(session => session.Equals(trainingSessionClone), trainingSessionClone);
                     
                     Task.Run(() => _trainingSessionService.Update(trainingSessionClone));
                 });
