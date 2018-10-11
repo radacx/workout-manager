@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 namespace WorkoutManager.App.Controls.MultiSelect
 {
-    public partial class MultiSelect : UserControl
+    internal partial class MultiSelect : UserControl
     {
         private bool _isInitialized;
         

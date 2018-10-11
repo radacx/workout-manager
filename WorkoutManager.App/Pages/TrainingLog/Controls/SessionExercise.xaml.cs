@@ -5,7 +5,7 @@ using WorkoutManager.Contract.Models.User;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Controls
 {
-    public partial class SessionExercise : UserControl
+    internal partial class SessionExercise : UserControl
     {
         public static readonly DependencyProperty UserPreferencesProperty = DependencyProperty.Register(
             nameof(UserPreferences),

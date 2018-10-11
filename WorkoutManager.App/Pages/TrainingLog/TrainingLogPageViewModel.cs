@@ -7,10 +7,8 @@ using WorkoutManager.App.Pages.TrainingLog.Dialogs;
 using WorkoutManager.App.Pages.TrainingLog.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
-using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.Sessions;
-using WorkoutManager.Repository;
-using WorkoutManager.Service;
+using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.TrainingLog
 {
@@ -30,7 +28,7 @@ namespace WorkoutManager.App.Pages.TrainingLog
         private void LoadTrainingSessionsAsync()
             => Task.Run(() => TrainingSessions.AddRange(_trainingSessionService.GetAll()));
         
-        public TrainingLogPageViewModel(TrainingSessionService trainingSessionService, Repository<Exercise> exerciseRepository, UserPreferencesService userPreferencesService)
+        public TrainingLogPageViewModel(TrainingSessionService trainingSessionService, DialogFactory<TrainingSessionDialog, TrainingSessionDialogViewModel> trainingSessionDialogFactory)
         {
             _trainingSessionService = trainingSessionService;
 
@@ -48,19 +46,19 @@ namespace WorkoutManager.App.Pages.TrainingLog
                 trainingSession =>
                 {
                     var trainingSessionClone = trainingSession.DeepClone();
-                    var viewModel = new TrainingSessionDialogViewModel(trainingSessionClone, exerciseRepository, userPreferencesService)
-                    {
-                        SaveButtonTitle = "Save"
-                    };
 
-                    var dialogResult = DialogBuilder.Create<TrainingSessionDialog>().WithContext(viewModel).Show();
+                    var dialog = trainingSessionDialogFactory.Get();
+                    dialog.Data.TrainingSession = trainingSessionClone;
+                    dialog.Data.SaveButtonTitle = "Save";
+                    
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
                         return;
                     }
 
-                    TrainingSessions.Replace(session => session.Equals(trainingSessionClone), trainingSessionClone);
+                    TrainingSessions.Replace(trainingSession, trainingSessionClone);
                     
                     Task.Run(() => _trainingSessionService.Update(trainingSessionClone));
                 });
@@ -80,13 +78,11 @@ namespace WorkoutManager.App.Pages.TrainingLog
                         Bodyweight = bodyweight
                     };
 
+                    var dialog = trainingSessionDialogFactory.Get();
+                    dialog.Data.TrainingSession = trainingSession;
+                    dialog.Data.SaveButtonTitle = "Create";
 
-                    var viewModel = new TrainingSessionDialogViewModel(trainingSession, exerciseRepository, userPreferencesService)
-                    {
-                        SaveButtonTitle = "Create"
-                    };
-
-                    var dialogResult = DialogBuilder.Create<TrainingSessionDialog>().WithContext(viewModel).Show();
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {

@@ -1,6 +1,6 @@
 namespace WorkoutManager.App.Controls.TimeSpanUpDown
 {
-    public enum TimeFormat
+    internal enum TimeFormat
     {
         Seconds,
         Seconds10Ths,

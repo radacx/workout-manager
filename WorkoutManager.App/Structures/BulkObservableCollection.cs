@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -36,11 +35,11 @@ namespace WorkoutManager.App.Structures
             OnPropertyChanged(new PropertyChangedEventArgs(IndexerName));
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
-
-        public void Replace(Predicate<TItem> predicate, TItem item)
+        
+        public void Replace(TItem originalItem, TItem item)
         {
             var itemsList = Items.ToList();
-            var itemIndex = itemsList.FindIndex(predicate);
+            var itemIndex = itemsList.FindIndex(i => ReferenceEquals(i, originalItem));
             
             if (itemIndex == -1)
             {
@@ -48,22 +47,6 @@ namespace WorkoutManager.App.Structures
             }
 
             base.SetItem(itemIndex, item);  
-            
-            OnPropertyChanged(new PropertyChangedEventArgs(IndexerName));
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        }
-        
-        public void Replace(TItem originalItem, TItem newItem)
-        {
-            var itemsList = Items.ToList();
-            var itemIndex = itemsList.IndexOf(originalItem);
-            
-            if (itemIndex == -1)
-            {
-                return;
-            }
-
-            base.SetItem(itemIndex, newItem);  
             
             OnPropertyChanged(new PropertyChangedEventArgs(IndexerName));
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));

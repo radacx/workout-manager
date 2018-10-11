@@ -6,7 +6,7 @@ using WorkoutManager.App.Annotations;
 
 namespace WorkoutManager.App.Controls.MultiSelect
 {
-    public class MultiSelectItem : INotifyPropertyChanged, IEquatable<MultiSelectItem>
+    internal class MultiSelectItem : INotifyPropertyChanged, IEquatable<MultiSelectItem>
     {
         private bool _isSelected;
         private object _item;
@@ -77,6 +77,6 @@ namespace WorkoutManager.App.Controls.MultiSelect
             return obj.GetType() == GetType() && Equals((MultiSelectItem) obj);
         }
 
-        public override int GetHashCode() => (_item != null ? _item.GetHashCode() : 0);
+        public override int GetHashCode() => _item != null ? _item.GetHashCode() : 0;
     }
 }

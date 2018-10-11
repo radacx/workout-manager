@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows.Data;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.Sessions;
-using WorkoutManager.Service;
+using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Converters
 {

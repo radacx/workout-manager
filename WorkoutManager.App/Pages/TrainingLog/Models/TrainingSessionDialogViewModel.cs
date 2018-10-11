@@ -1,20 +1,26 @@
 using System.ComponentModel;
 using System.Windows.Input;
-using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Structures;
+using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Contract.Models.User;
 using WorkoutManager.Repository;
-using WorkoutManager.Service;
+using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Models
 {
-    internal class TrainingSessionDialogViewModel : INotifyPropertyChanged
+    internal class TrainingSessionDialogViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public TrainingSession TrainingSession { get; }
+        public TrainingSession TrainingSession
+        {
+            get => _trainingSession;
+            set => SetField(ref _trainingSession, value);
+        }
 
-        public ObservedCollection<SessionExercise> SessionExercises { get; }
+        public ViewModelFactory<SessionExerciseViewModel> ViewModelFactory { get; }
+        
+        public ObservedCollection<SessionExercise> SessionExercises { get; set; }
         
         public string SaveButtonTitle { get; set; }
         
@@ -28,25 +34,31 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
         
         private readonly Repository<Exercise> _exerciseRepository;
         private readonly UserPreferencesService _userPreferencesService;
-       
+        private TrainingSession _trainingSession;
+
         private void InitializeDataAsync()
         {
-            Exercises.AddRange(_exerciseRepository.GetAll());  
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
+            Exercises.AddRange(_exerciseRepository.GetAll());
+            OnPropertyChanged(nameof(Exercises));
         }
         
-        public TrainingSessionDialogViewModel(TrainingSession trainingSession, Repository<Exercise> exerciseRepository, UserPreferencesService userPreferencesService)
+        public TrainingSessionDialogViewModel(Repository<Exercise> exerciseRepository, UserPreferencesService userPreferencesService, ViewModelFactory<SessionExerciseViewModel> viewModelFactory)
         {
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(TrainingSession))
+                {
+                    SessionExercises = new ObservedCollection<SessionExercise>(
+                        TrainingSession.Exercises,
+                        TrainingSession.AddExercise,
+                        TrainingSession.RemoveExercise
+                    );
+                }
+            };
+            
+            ViewModelFactory = viewModelFactory;
             _exerciseRepository = exerciseRepository;
             _userPreferencesService = userPreferencesService;
-            
-            TrainingSession = trainingSession;
-
-            SessionExercises = new ObservedCollection<SessionExercise>(
-                trainingSession.Exercises,
-                trainingSession.AddExercise,
-                trainingSession.RemoveExercise
-            );
             
             AddExercise = new Command<Exercise>(
                 exercise =>
@@ -61,7 +73,5 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             
             InitializeDataAsync();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

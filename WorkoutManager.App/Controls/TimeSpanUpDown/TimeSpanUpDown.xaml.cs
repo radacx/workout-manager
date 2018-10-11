@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace WorkoutManager.App.Controls.TimeSpanUpDown
 {
-	public class TimeSpanUpDown : TextBox
+	internal class TimeSpanUpDown : TextBox
     {
         #region MaxTime
 
@@ -160,7 +160,7 @@ namespace WorkoutManager.App.Controls.TimeSpanUpDown
 		    else if (timeSpan.TotalSeconds >= (60 * 60))
 		    {
 			    _formatString = "h:mm:ss";
-			    _maxCharacterValues = timeSpan.Hours.ToString() + ":59:59.999";
+			    _maxCharacterValues = timeSpan.Hours + ":59:59.999";
 		    }
 		    else if (timeSpan.TotalSeconds >= (10 * 60))
 		    {
@@ -170,7 +170,7 @@ namespace WorkoutManager.App.Controls.TimeSpanUpDown
 		    else if (timeSpan.TotalSeconds >= (60))
 		    {
 			    _formatString = "m:ss";
-			    _maxCharacterValues = timeSpan.Minutes.ToString() + ":59.999";
+			    _maxCharacterValues = timeSpan.Minutes + ":59.999";
 		    }
 		    else if (timeSpan.TotalSeconds >= (10))
 		    {
@@ -180,7 +180,7 @@ namespace WorkoutManager.App.Controls.TimeSpanUpDown
 		    else
 		    {
 			    _formatString = "s";
-			    _maxCharacterValues = timeSpan.Seconds.ToString() + ".999";
+			    _maxCharacterValues = timeSpan.Seconds + ".999";
 		    }
 
 
@@ -437,14 +437,20 @@ namespace WorkoutManager.App.Controls.TimeSpanUpDown
 	    protected override void OnSelectionChanged(RoutedEventArgs e)
 	    {
 		    base.OnSelectionChanged(e);
-		    
-		    if (Text.Length > SelectionStart)
-		    {
-			    if (":.".Contains(Text[SelectionStart]))
-				    SelectionStart++;
 
-			    if (SelectionLength != 1 && SelectionStart < Text.Length)
-				    SelectionLength = 1;
+		    if (Text.Length <= SelectionStart)
+		    {
+			    return;
+		    }
+
+		    if (":.".Contains(Text[SelectionStart]))
+		    {
+			    SelectionStart++;
+		    }
+
+		    if (SelectionLength != 1 && SelectionStart < Text.Length)
+		    {
+			    SelectionLength = 1;
 		    }
 	    }
 

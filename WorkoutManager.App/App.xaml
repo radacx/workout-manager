@@ -1,8 +1,7 @@
 ﻿<Application x:Class="WorkoutManager.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
-             StartupUri="Pages/MainWindow.xaml">
+             xmlns:converters="clr-namespace:WorkoutManager.App.Converters">
     <Application.Resources>
         <converters:EnumConverter x:Key="EnumConverter" />
         <converters:DoesEnumMatchConverter x:Key="DoesEnumMatchConverter" />

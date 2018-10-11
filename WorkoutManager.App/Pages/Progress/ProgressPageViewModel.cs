@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -10,7 +9,7 @@ using WorkoutManager.Repository;
 
 namespace WorkoutManager.App.Pages.Progress
 {
-    internal class ProgressPageViewModel : INotifyPropertyChanged
+    internal class ProgressPageViewModel : ViewModelBase
     {
         private readonly Repository<Exercise> _exerciseRepository;
         private readonly Repository<TrainingSession> _trainingSessionRepository;
@@ -23,16 +22,7 @@ namespace WorkoutManager.App.Pages.Progress
         public Exercise SelectedExercise
         {
             get => _selectedExercise;
-            set
-            {
-                if (Equals(value, _selectedExercise))
-                {
-                    return;
-                }
-                
-                _selectedExercise = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedExercise)));
-            }
+            set => SetField(ref _selectedExercise, value);
         }
 
         public DateTime DateFrom { get; set; }
@@ -76,12 +66,10 @@ namespace WorkoutManager.App.Pages.Progress
                             }
 
                             SelectedExercise = Exercises.First(exercise => exercise.Equals(previousSelection));
-                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedExercise)));
+                            OnPropertyChanged(nameof(SelectedExercise));
                         }
                     );
                 });
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

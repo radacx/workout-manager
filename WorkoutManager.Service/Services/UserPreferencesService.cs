@@ -2,7 +2,7 @@ using System.Linq;
 using WorkoutManager.Contract.Models.User;
 using WorkoutManager.Repository;
 
-namespace WorkoutManager.Service
+namespace WorkoutManager.Service.Services
 {
     public class UserPreferencesService
     {

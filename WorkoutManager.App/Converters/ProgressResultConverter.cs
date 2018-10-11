@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using WorkoutManager.Service;
+using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Converters
 {

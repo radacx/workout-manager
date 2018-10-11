@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using LiteDB;
+using WorkoutManager.Contract;
 using WorkoutManager.Contract.Models.Exercises;
 
 namespace WorkoutManager.Repository.Repositories
 {
     public class MuscleGroupRepository : Repository<MuscleGroup>
     {
-        public MuscleGroupRepository(string dbFileName) : base(dbFileName) { }
+        public MuscleGroupRepository(DatabaseConfiguration configuration) : base(configuration) { }
 
         public static void Register(BsonMapper mapper)
         {

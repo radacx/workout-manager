@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using Unity;
+using WorkoutManager.App.Config;
+using WorkoutManager.App.Pages;
 
 namespace WorkoutManager.App
 {
@@ -13,5 +11,19 @@ namespace WorkoutManager.App
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            var container = new UnityContainer();
+            Bootstrap.Register(container);
+            var mainWindow = container.Resolve<MainWindow>();
+
+            if (mainWindow == null)
+            {
+                throw new Exception("Main window was not resolved");
+            }
+            
+            Current.MainWindow = mainWindow;
+            Current.MainWindow.Show();
+        }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Input;
 using Force.DeepCloner;
-using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Pages.TrainingLog.Dialogs;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
@@ -11,11 +10,16 @@ using WorkoutManager.Contract.Models.Sessions;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Models
 {
-    internal class SessionExerciseViewModel 
-    {        
-        public SessionExercise Exercise { get; set; }
-        
-        public ObservedCollection<IExerciseSet> Sets { get; }
+    internal class SessionExerciseViewModel : ViewModelBase
+    {
+        private SessionExercise _exercise;
+        public SessionExercise Exercise
+        {
+            get => _exercise;
+            set => SetField(ref _exercise, value);
+        }
+
+        public ObservedCollection<IExerciseSet> Sets { get; set; }
 
         public ICommand OpenAddExerciseSetDialog { get; }
         
@@ -38,23 +42,30 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             }
         }
         
-        public SessionExerciseViewModel(SessionExercise exercise)
+        public SessionExerciseViewModel(DialogFactory<ExerciseSetDialog, ExerciseSetDialogViewModel> exerciseSetDialogFactory)
         {
-            Exercise = exercise;
-
-            Sets = new ObservedCollection<IExerciseSet>(exercise.Sets, exercise.AddSet, exercise.RemoveSet);
-            
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(Exercise))
+                {
+                    Sets = new ObservedCollection<IExerciseSet>(
+                        Exercise.Sets,
+                        Exercise.AddSet,
+                        Exercise.RemoveSet
+                    );
+                }
+            };
+                
             OpenAddExerciseSetDialog = new Command<ContractionType>(
                 type =>
                 {
                     var set = CreateSet(type);
 
-                    var viewModel = new ExerciseSetDialogViewModel(set)
-                    {
-                        SaveButtonTitle = "Create"
-                    };
+                    var dialog = exerciseSetDialogFactory.Get();
+                    dialog.Data.ExerciseSet = set;
+                    dialog.Data.SaveButtonTitle = "Create";
 
-                    var dialogResult = DialogBuilder.Create<ExerciseSetDialog>().WithContext(viewModel).Show();
+                    var dialogResult = dialog.Show();
                     
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -69,12 +80,11 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                 {
                     var setClone = set.DeepClone();
 
-                    var viewModel = new ExerciseSetDialogViewModel(setClone)
-                    {
-                        SaveButtonTitle = "Save"
-                    };
+                    var dialog = exerciseSetDialogFactory.Get();
+                    dialog.Data.ExerciseSet = setClone;
+                    dialog.Data.SaveButtonTitle = "Save";
 
-                    var dialogResult = DialogBuilder.Create<ExerciseSetDialog>().WithContext(viewModel).Show();
+                    var dialogResult = dialog.Show();
                     
                     if (dialogResult != DialogResult.Ok)
                     {

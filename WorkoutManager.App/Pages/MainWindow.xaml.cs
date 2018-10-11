@@ -1,18 +1,17 @@
 ﻿using System.Windows;
-using WorkoutManager.App.Pages;
 
-namespace WorkoutManager.App
+namespace WorkoutManager.App.Pages
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    internal partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainWindowViewModel vm)
         {
             InitializeComponent();
             
-            DataContext = new MainWindowViewModel();
+            DataContext = vm;
         }
     }
 }

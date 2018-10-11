@@ -6,8 +6,7 @@ using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Repository;
-using WorkoutManager.Service;
+using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.Exercises
 {
@@ -25,7 +24,7 @@ namespace WorkoutManager.App.Pages.Exercises
 
         private readonly ExerciseService _exerciseService;
         
-        public ExercisesPageViewModel(ExerciseService exerciseService, Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository)
+        public ExercisesPageViewModel(ExerciseService exerciseService, DialogFactory<ExerciseDialog, ExerciseDialogViewModel> exerciseDialogFactory)
         {
             _exerciseService = exerciseService;
             
@@ -34,22 +33,22 @@ namespace WorkoutManager.App.Pages.Exercises
                 {
                     var exercise = new Exercise();
 
-                    var viewModel = new ExerciseDialogViewModel(exercise, motionsRepository, muscleGroupRepository)
-                    {
-                        SaveButtonTitle = "Create"
-                    };
-
-                    var dialogResult = DialogBuilder.Create<ExerciseDialog>().WithContext(viewModel).Show();
+                    var dialog = exerciseDialogFactory.Get();
+                    dialog.Data.Exercise = exercise;
+                    dialog.Data.SaveButtonTitle = "Create";
+                    
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
                         return;
                     }
 
-                    if (!viewModel.IsBodyweightExercise)
+                    if (!dialog.Data.IsBodyweightExercise)
                     {
                         exercise.RelativeBodyweight = 0;
                     }
+                    
                     Exercises.Add(exercise);
 
                     Task.Run(() => _exerciseService.Create(exercise));
@@ -69,24 +68,23 @@ namespace WorkoutManager.App.Pages.Exercises
                 {
                     var exerciseClone = exercise.DeepClone();
 
-                    var viewModel = new ExerciseDialogViewModel(exerciseClone, motionsRepository, muscleGroupRepository)
-                    {
-                        SaveButtonTitle = "Save",
-                        IsBodyweightExercise = exercise.RelativeBodyweight > 0
-                    };
-
-                    var dialogResult = DialogBuilder.Create<ExerciseDialog>().WithContext(viewModel).Show();
+                    var dialog = exerciseDialogFactory.Get();
+                    dialog.Data.Exercise = exerciseClone;
+                    dialog.Data.SaveButtonTitle = "Save";
+                    dialog.Data.IsBodyweightExercise = exercise.RelativeBodyweight > 0;
+                    
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
                         return;
                     }
 
-                    if (!viewModel.IsBodyweightExercise)
+                    if (!dialog.Data.IsBodyweightExercise)
                     {
                         exerciseClone.RelativeBodyweight = 0;
                     }
-                    Exercises.Replace(oldExercise => oldExercise.Equals(exerciseClone), exerciseClone);
+                    Exercises.Replace(exercise, exerciseClone);
                     
                     Task.Run(() => _exerciseService.Update(exerciseClone));
                 });

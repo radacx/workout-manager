@@ -2,7 +2,7 @@ using System.Windows;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Dialogs
 {
-    public partial class TrainingSessionDialog : Window
+    internal partial class TrainingSessionDialog : Window
     {
         public TrainingSessionDialog()
         {

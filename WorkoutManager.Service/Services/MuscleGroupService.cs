@@ -2,7 +2,7 @@ using System.Linq;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Repository;
 
-namespace WorkoutManager.Service
+namespace WorkoutManager.Service.Services
 {
     public class MuscleGroupService : Service<MuscleGroup>
     {
@@ -25,8 +25,10 @@ namespace WorkoutManager.Service
         public void Update(MuscleGroup muscleGroup)
         {
             var newHeads = muscleGroup.Heads.Where(head => head.Id == 0);
+            var oldHeads = muscleGroup.Heads.Where(head => head.Id != 0);
             
             _muscleHeadRepository.CreateRange(newHeads);
+            _muscleHeadRepository.UpdateRange(oldHeads);
             
             Repository.Update(muscleGroup);
         }

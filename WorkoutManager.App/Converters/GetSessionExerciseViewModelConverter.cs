@@ -2,22 +2,31 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using WorkoutManager.App.Pages.TrainingLog.Models;
+using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Models.Sessions;
 
 namespace WorkoutManager.App.Converters
 {
-    internal class GetSessionExerciseViewModelConverter : IValueConverter
+    internal class GetSessionExerciseViewModelConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is SessionExercise exercise)
+            if (values.Length != 2)
             {
-                return new SessionExerciseViewModel(exercise);
+                return null;
             }
 
-            return null;
+            if (!(values[0] is SessionExercise exercise) || !(values[1] is ViewModelFactory<SessionExerciseViewModel> exerciseViewModelFactory))
+            {
+                return null;
+            }
+
+            var viewModel = exerciseViewModelFactory.Get();
+            viewModel.Exercise = exercise;
+
+            return viewModel;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null;
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => null;
     }
 }

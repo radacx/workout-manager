@@ -38,14 +38,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseService.cs" />
-    <Compile Include="ExerciseService.cs" />
-    <Compile Include="MuscleGroupService.cs" />
-    <Compile Include="ProgressService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
-    <Compile Include="TrainingSessionService.cs" />
-    <Compile Include="UserPreferencesService.cs" />
+    <Compile Include="Services\DatabaseService.cs" />
+    <Compile Include="Services\ExerciseService.cs" />
+    <Compile Include="Services\MuscleGroupService.cs" />
+    <Compile Include="Services\ProgressService.cs" />
+    <Compile Include="Services\TrainingSessionService.cs" />
+    <Compile Include="Services\UserPreferencesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WorkoutManager.Contract\WorkoutManager.Contract.csproj">

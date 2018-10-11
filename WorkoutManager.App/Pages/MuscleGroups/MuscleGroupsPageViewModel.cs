@@ -5,9 +5,8 @@ using WorkoutManager.App.Pages.MuscleGroups.Dialogs;
 using WorkoutManager.App.Pages.MuscleGroups.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
-using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Service;
+using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.MuscleGroups
 {
@@ -25,7 +24,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups
 
         private readonly MuscleGroupService _muscleGroupService;
         
-        public MuscleGroupsPageViewModel(MuscleGroupService muscleGroupService)
+        public MuscleGroupsPageViewModel(MuscleGroupService muscleGroupService, DialogFactory<MuscleGroupDialog, MuscleGroupDialogViewModel> muscleGroupDialogFactory)
         {
             _muscleGroupService = muscleGroupService;
             
@@ -34,12 +33,11 @@ namespace WorkoutManager.App.Pages.MuscleGroups
                 {
                     var muscleGroup = new MuscleGroup();
 
-                    var viewModel = new MuscleGroupViewModel(muscleGroup)
-                    {
-                        SaveButtonTitle = "Create"
-                    };
+                    var dialog = muscleGroupDialogFactory.Get();
+                    dialog.Data.MuscleGroup = muscleGroup;
+                    dialog.Data.SaveButtonTitle = "Create";
 
-                    var dialogResult = DialogBuilder.Create<MuscleGroupDialog>().WithContext(viewModel).Show();
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -56,19 +54,18 @@ namespace WorkoutManager.App.Pages.MuscleGroups
                 {
                     var muscleGroupClone = muscleGroup.DeepClone();
 
-                    var viewModel = new MuscleGroupViewModel(muscleGroupClone)
-                    {
-                        SaveButtonTitle = "Save"
-                    };
+                    var dialog = muscleGroupDialogFactory.Get();
+                    dialog.Data.MuscleGroup = muscleGroupClone;
+                    dialog.Data.SaveButtonTitle = "Save";
 
-                    var dialogResult = DialogBuilder.Create<MuscleGroupDialog>().WithContext(viewModel).Show();
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
                         return;
                     }
 
-                    MuscleGroups.Replace(originalMuscleGroup => Equals(originalMuscleGroup, muscleGroupClone), muscleGroupClone);
+                    MuscleGroups.Replace(muscleGroup, muscleGroupClone);
 
                     Task.Run(() => _muscleGroupService.Update(muscleGroupClone));
                 });

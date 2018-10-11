@@ -2,7 +2,7 @@ using System.Windows;
 
 namespace WorkoutManager.App.Pages.Motions.Dialogs
 {
-    public partial class JointMotionDialog : Window
+    internal partial class JointMotionDialog : Window
     {
         public JointMotionDialog()
         {

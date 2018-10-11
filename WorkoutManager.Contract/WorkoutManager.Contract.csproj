@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseConfiguration.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Models\ExerciseSet\DynamicExerciseSet.cs" />
     <Compile Include="Models\ExerciseSet\IExerciseSet.cs" />

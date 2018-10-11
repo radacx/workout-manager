@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Structures;
 using WorkoutManager.Contract.Models.User;
-using WorkoutManager.Service;
+using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.UserSettings
 {

@@ -13,11 +13,9 @@ namespace WorkoutManager.App.Structures
         private Predicate<object> _filter;
         private readonly List<SortDescription> _sortDescriptions;
         private readonly List<GroupDescription> _groupDescriptions;
-        private readonly IEnumerable<TSource> _source;
         
-        public CollectionViewShaper(ICollectionView view, IEnumerable<TSource> source)
+        public CollectionViewShaper(ICollectionView view)
         {
-            _source = source;
             _view = view ?? throw new ArgumentNullException(nameof(view));
             _filter = view.Filter;
             _sortDescriptions = view.SortDescriptions.ToList();
@@ -119,8 +117,7 @@ namespace WorkoutManager.App.Structures
             var expr = expression;
             while (expr != null && !(expr is ParameterExpression) && !(expr is ConstantExpression))
             {
-                var memberExpr = expr as MemberExpression;
-                if (memberExpr == null)
+                if (!(expr is MemberExpression memberExpr))
                 {
                     throw new ArgumentException("The selector body must contain only property or field access expressions");
                 }
@@ -137,12 +134,12 @@ namespace WorkoutManager.App.Structures
         public static CollectionViewShaper<TSource> ShapeView<TSource>(this IEnumerable<TSource> source)
         {
             var view = CollectionViewSource.GetDefaultView(source);
-            return new CollectionViewShaper<TSource>(view, source);
+            return new CollectionViewShaper<TSource>(view);
         }
      
         public static CollectionViewShaper<TSource> Shape<TSource>(this ICollectionView view)
         {
-            return new CollectionViewShaper<TSource>(view, view.SourceCollection.Cast<TSource>());
+            return new CollectionViewShaper<TSource>(view);
         }
     }
 }

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using WorkoutManager.App.Structures;
 
-namespace WorkoutManager.App.Pages.Exercises.Models
+namespace WorkoutManager.App.Structures
 {
     internal sealed class ObservedCollection<T>  : BulkObservableCollection<T>
     {   

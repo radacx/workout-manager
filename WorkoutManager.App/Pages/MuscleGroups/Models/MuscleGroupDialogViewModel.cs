@@ -1,19 +1,22 @@
 using System.Windows.Input;
 using Force.DeepCloner;
-using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Pages.MuscleGroups.Dialogs;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
-using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
 
 namespace WorkoutManager.App.Pages.MuscleGroups.Models
 {
-    internal class MuscleGroupViewModel
+    internal class MuscleGroupDialogViewModel : ViewModelBase
     {
-        public MuscleGroup MuscleGroup { get; }
-        
-        public ObservedCollection<MuscleHead> Heads { get; }
+        private MuscleGroup _muscleGroup;
+        public MuscleGroup MuscleGroup
+        {
+            get => _muscleGroup;
+            set => SetField(ref _muscleGroup, value);
+        }
+
+        public ObservedCollection<MuscleHead> Heads { get; set; }
         
         public string SaveButtonTitle { get; set; }
         
@@ -23,22 +26,30 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
 
         public ICommand RemoveHead { get; }
         
-        public MuscleGroupViewModel(MuscleGroup muscleGroup)
+        public MuscleGroupDialogViewModel(DialogFactory<MuscleHeadDialog, MuscleHeadDialogViewModel> muscleHeadDialogFactory)
         {
-            MuscleGroup = muscleGroup;
-
-            Heads = new ObservedCollection<MuscleHead>(muscleGroup.Heads, muscleGroup.AddHead, muscleGroup.RemoveHead);
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(MuscleGroup))
+                {
+                    Heads = new ObservedCollection<MuscleHead>(
+                        MuscleGroup.Heads,
+                        MuscleGroup.AddHead,
+                        MuscleGroup.RemoveHead
+                    );
+                }  
+            };
             
             OpenAddMuscleHeadDialog = new Command(
                 () =>
                 {
                     var muscleHead = new MuscleHead();
-                    var viewModel = new MuscleHeadDialogViewModel(muscleHead)
-                    {
-                        SaveButtonTitle = "Add"
-                    };
 
-                    var dialogResult = DialogBuilder.Create<MuscleHeadDialog>().WithContext(viewModel).Show();
+                    var dialog = muscleHeadDialogFactory.Get();
+                    dialog.Data.MuscleHead = muscleHead;
+                    dialog.Data.SaveButtonTitle = "Add";
+
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -53,19 +64,19 @@ namespace WorkoutManager.App.Pages.MuscleGroups.Models
                 muscleHead =>
                 {
                     var muscleHeadClone = muscleHead.DeepClone();
-                    var viewModel = new MuscleHeadDialogViewModel(muscleHeadClone)
-                    {
-                        SaveButtonTitle = "Save"
-                    };
+                    
+                    var dialog = muscleHeadDialogFactory.Get();
+                    dialog.Data.MuscleHead = muscleHeadClone;
+                    dialog.Data.SaveButtonTitle = "Save";
 
-                    var dialogResult = DialogBuilder.Create<MuscleHeadDialog>().WithContext(viewModel).Show();
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
                         return;
                     }
                     
-                    MuscleGroup.UpdateHead(muscleHeadClone);
+                    Heads.Replace(muscleHead, muscleHeadClone);
                 });
             
             RemoveHead = new Command<MuscleHead>(

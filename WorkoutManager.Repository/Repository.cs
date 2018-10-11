@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using LiteDB;
+using WorkoutManager.Contract;
 using WorkoutManager.Contract.Models.Misc;
 using WorkoutManager.Repository.Repositories;
 
@@ -42,7 +43,7 @@ namespace WorkoutManager.Repository
     public class Repository<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly string _dbFileName;
+        private readonly DatabaseConfiguration _configuration;
 
         static Repository()
         {
@@ -57,14 +58,16 @@ namespace WorkoutManager.Repository
             BsonMapper.Global = mapper;
         }
         
-        public Repository(string dbFileName)
+        public Repository(DatabaseConfiguration configuration)
         {
-            _dbFileName = dbFileName;
+            _configuration = configuration;
         }
 
+        private string FileName => _configuration.FileName;
+        
         protected void Execute(Action<LiteCollection<TEntity>> action)
         {
-            using (var db = new LiteDatabase(_dbFileName))
+            using (var db = new LiteDatabase(FileName))
             {
                 var collection = db.GetCollection<TEntity>();
                 action(collection);
@@ -73,7 +76,7 @@ namespace WorkoutManager.Repository
         
         protected TResult Execute<TResult>(Func<LiteCollection<TEntity>, TResult> action)
         {
-            using (var db = new LiteDatabase(_dbFileName))
+            using (var db = new LiteDatabase(FileName))
             {
                 var collection = db.GetCollection<TEntity>();
                 return action(collection);
@@ -111,7 +114,7 @@ namespace WorkoutManager.Repository
 
         public void DeleteAll()
         {
-            using (var db = new LiteDatabase(_dbFileName))
+            using (var db = new LiteDatabase(FileName))
             {
                 var collection = db.GetCollection<TEntity>();
                 db.DropCollection(collection.Name);

@@ -2,7 +2,7 @@ using System.Windows;
 
 namespace WorkoutManager.App.Pages.MuscleGroups.Dialogs
 {
-    public partial class MuscleGroupDialog : Window
+    internal partial class MuscleGroupDialog : Window
     {
         public MuscleGroupDialog()
         {

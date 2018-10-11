@@ -2,7 +2,7 @@ using System.Windows.Controls;
 
 namespace WorkoutManager.App.Pages.MuscleGroups
 {
-    public partial class MuscleGroupsPage : UserControl
+    internal partial class MuscleGroupsPage : UserControl
     {
         public MuscleGroupsPage()
         {

@@ -5,7 +5,7 @@ using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
 
-namespace WorkoutManager.Service
+namespace WorkoutManager.Service.Services
 {
     public class ProgressResult
     {
@@ -77,7 +77,7 @@ namespace WorkoutManager.Service
                     var exerciseVolume = GetExerciseVolume(exercise);
 
                     return sessionVolume
-                        + (exerciseVolume + relativeBodyweight / 100 * bodyweight * exercise.Sets.Count());
+                        + (exerciseVolume + relativeBodyweight / 100 * bodyweight * exercise.Sets.Length);
                 }
             );
         }

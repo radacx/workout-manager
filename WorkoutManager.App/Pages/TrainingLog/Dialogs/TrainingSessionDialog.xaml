@@ -1,4 +1,5 @@
 <Window x:Class="WorkoutManager.App.Pages.TrainingLog.Dialogs.TrainingSessionDialog"
+        x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -110,10 +111,16 @@
                             Margin="5 10 0 0"
                         >
                             <controls:SessionExercise
-                                DataContext="{Binding Converter={StaticResource GetSessionExerciseViewModelConverter}}"
                                 OnDeleteExercise="{Binding DataContext.RemoveExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
                                 UserPreferences="{Binding DataContext.UserPreferences, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
-                            />
+                            >
+                                <controls:SessionExercise.DataContext>
+                                    <MultiBinding Converter="{StaticResource GetSessionExerciseViewModelConverter}">
+                                        <Binding Path="" />
+                                        <Binding Path="DataContext.ViewModelFactory" RelativeSource="{RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}" />
+                                    </MultiBinding>
+                                </controls:SessionExercise.DataContext>
+                            </controls:SessionExercise>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

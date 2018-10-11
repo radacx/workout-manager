@@ -2,7 +2,7 @@
 
 namespace WorkoutManager.App.Pages.Exercises.Dialogs
 {
-    public partial class ExerciseDialog : Window
+    internal partial class ExerciseDialog : Window
     {
         public ExerciseDialog()
         {

@@ -45,7 +45,7 @@ namespace WorkoutManager.Contract.Models.Exercises
                 return true;
             }
 
-            return obj.GetType() == this.GetType() && Equals((JointMotion) obj);
+            return obj.GetType() == GetType() && Equals((JointMotion) obj);
         }
 
         public override int GetHashCode() => Id;

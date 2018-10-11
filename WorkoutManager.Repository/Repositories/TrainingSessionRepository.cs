@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using LiteDB;
+using WorkoutManager.Contract;
 using WorkoutManager.Contract.Models.Sessions;
 
 namespace WorkoutManager.Repository.Repositories
 {
     public class TrainingSessionRepository : Repository<TrainingSession>
     {
-        public TrainingSessionRepository(string dbFileName) : base(dbFileName) { }
+        public TrainingSessionRepository(DatabaseConfiguration configuration) : base(configuration) { }
 
         public static void Register(BsonMapper mapper)
         {

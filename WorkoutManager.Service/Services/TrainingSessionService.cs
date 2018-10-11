@@ -3,7 +3,7 @@ using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
 
-namespace WorkoutManager.Service
+namespace WorkoutManager.Service.Services
 {
     public class TrainingSessionService : Service<TrainingSession>
     {

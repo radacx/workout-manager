@@ -60,7 +60,7 @@ namespace WorkoutManager.Contract.Models.Exercises
                 return true;
             }
 
-            return obj.GetType() == this.GetType() && Equals((ExercisedMuscle) obj);
+            return obj.GetType() == GetType() && Equals((ExercisedMuscle) obj);
         }
 
         public override int GetHashCode() => Id;

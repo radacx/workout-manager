@@ -5,7 +5,6 @@ using WorkoutManager.App.Pages.Motions.Dialogs;
 using WorkoutManager.App.Pages.Motions.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
-using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Repository;
 
@@ -36,7 +35,7 @@ namespace WorkoutManager.App.Pages.Motions
 
         private void UpdateMotion(JointMotion motion) =>_motionRepository.Update(motion);
         
-        public MotionsPageViewModel(Repository<JointMotion> motionRepository)
+        public MotionsPageViewModel(Repository<JointMotion> motionRepository, DialogFactory<JointMotionDialog, JointMotionDialogViewModel> motionDialogFactory)
         {
             _motionRepository = motionRepository;
             
@@ -47,12 +46,11 @@ namespace WorkoutManager.App.Pages.Motions
                 {
                     var motion = new JointMotion();
 
-                    var viewModel = new JointMotionDialogViewModel(motion)
-                    {
-                        SaveButtonTitle = "Create"
-                    };
+                    var dialog = motionDialogFactory.Get();
+                    dialog.Data.Motion = motion;
+                    dialog.Data.SaveButtonTitle = "Create";
 
-                    var dialogResult = DialogBuilder.Create<JointMotionDialog>().WithContext(viewModel).Show();
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -69,19 +67,18 @@ namespace WorkoutManager.App.Pages.Motions
                 {
                     var motionClone = motion.DeepClone();
 
-                    var viewModel = new JointMotionDialogViewModel(motionClone)
-                    {
-                        SaveButtonTitle = "Save"
-                    };
+                    var dialog = motionDialogFactory.Get();
+                    dialog.Data.Motion = motionClone;
+                    dialog.Data.SaveButtonTitle = "Save";
 
-                    var dialogResult = DialogBuilder.Create<JointMotionDialog>().WithContext(viewModel).Show();
+                    var dialogResult = dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
                         return;
                     }
 
-                    Motions.Replace(originalMotion => originalMotion.Equals(motionClone), motionClone);
+                    Motions.Replace(motion, motionClone);
 
                     Task.Run(() => UpdateMotion(motionClone));
                 });
