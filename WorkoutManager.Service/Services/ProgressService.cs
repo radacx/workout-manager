@@ -53,10 +53,10 @@ namespace WorkoutManager.Service.Services
             }
         );
 
-        private static double GetExerciseVolume(SessionExercise exercise) => exercise.Sets.OfType<DynamicExerciseSet>()
+        private static double GetExerciseVolume(SessionExercise exercise, double bodyweightVolume) => exercise.Sets.OfType<DynamicExerciseSet>()
             .Aggregate(
                 0d,
-                (exerciseVolume, set) => exerciseVolume + (set.Reps * set.Weight)
+                (exerciseVolume, set) => exerciseVolume + set.Reps * (set.Weight + bodyweightVolume)
             );
 
         private static double GetTrainingSessionVolume(TrainingSession session, Exercise givenExercise)
@@ -72,12 +72,11 @@ namespace WorkoutManager.Service.Services
                         return sessionVolume;
                     }
                     
-                    var relativeBodyweight = exercise.Exercise.RelativeBodyweight;
+                    var bodyweightVolume = exercise.Exercise.RelativeBodyweight / 100 * bodyweight;
 
-                    var exerciseVolume = GetExerciseVolume(exercise);
+                    var exerciseVolume = GetExerciseVolume(exercise, bodyweightVolume);
 
-                    return sessionVolume
-                        + (exerciseVolume + relativeBodyweight / 100 * bodyweight * exercise.Sets.Length);
+                    return sessionVolume + exerciseVolume;
                 }
             );
         }
