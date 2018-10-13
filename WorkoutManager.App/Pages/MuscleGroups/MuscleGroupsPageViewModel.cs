@@ -30,6 +30,8 @@ namespace WorkoutManager.App.Pages.MuscleGroups
         {
             _muscleGroupService = muscleGroupService;
             
+            MuscleGroups.ShapeView().OrderBy(muscleGroup => muscleGroup.Name).Apply();
+            
             OpenCreateMuscleGroupDialog = new Command(
                 () =>
                 {

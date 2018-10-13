@@ -1,10 +1,11 @@
-using System;
+using System.Linq;
 using System.Windows.Input;
 using Force.DeepCloner;
+using PubSub.Core;
+using WorkoutManager.App.Events;
 using WorkoutManager.App.Pages.TrainingLog.Dialogs;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
-using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
 
@@ -27,22 +28,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
         
         public ICommand DeleteSet { get; }
         
-        private static IExerciseSet CreateSet(ContractionType type)
-        {
-            switch (type)
-            {
-                case ContractionType.Dynamic:
-                    return new DynamicExerciseSet();
-                
-                case ContractionType.Isometric:
-                    return new IsometricExerciseSet();
-                
-                default:
-                    throw new ArgumentException($"Invalid contraction type: {type}");
-            }
-        }
-        
-        public SessionExerciseViewModel(DialogFactory<ExerciseSetDialog, ExerciseSetDialogViewModel> exerciseSetDialogFactory)
+        public SessionExerciseViewModel(DialogFactory<ExerciseSetDialog, ExerciseSetDialogViewModel> exerciseSetDialogFactory, Hub eventAggregator)
         {
             PropertyChanged += (sender, args) =>
             {
@@ -55,25 +41,37 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                     );
                 }
             };
-                
-            OpenAddExerciseSetDialog = new Command<ContractionType>(
-                type =>
+
+            void OpenAddExerciseSet(SessionExercise sessionExercise)
+            {
+                var set = sessionExercise.Sets.LastOrDefault()?.DeepClone()
+                    ?? SetCreator.Create(sessionExercise.Exercise.ContractionType);
+
+                var dialog = exerciseSetDialogFactory.Get();
+                dialog.Data.ExerciseSet = set;
+                dialog.Data.SaveButtonTitle = "Create";
+
+                var dialogResult = dialog.Show();
+
+                if (dialogResult != DialogResult.Ok)
                 {
-                    var set = CreateSet(type);
+                    return;
+                }
 
-                    var dialog = exerciseSetDialogFactory.Get();
-                    dialog.Data.ExerciseSet = set;
-                    dialog.Data.SaveButtonTitle = "Create";
+                Sets.Add(set);
+            }
 
-                    var dialogResult = dialog.Show();
-                    
-                    if (dialogResult != DialogResult.Ok)
+            eventAggregator.Subscribe<SessionExerciseReAddedEvent>(
+                seEvent =>
+                {
+                    if (ReferenceEquals(Exercise, seEvent.SessionExercise))
                     {
-                        return;
+                        OpenAddExerciseSet(seEvent.SessionExercise);
                     }
-
-                    Sets.Add(set);
-                });
+                }
+            );
+            
+            OpenAddExerciseSetDialog = new Command<SessionExercise>(OpenAddExerciseSet);
             
             OpenEditExerciseSetDialog = new Command<IExerciseSet>(
                 set =>

@@ -48,7 +48,7 @@ namespace WorkoutManager.App.Config
             container.RegisterType<MuscleGroupService>(new SingletonLifetimeManager());
             container.RegisterType<TrainingSessionService>(new SingletonLifetimeManager());
             container.RegisterType<UserPreferencesService>(new SingletonLifetimeManager());
-
+            
             container.RegisterType<ExercisesPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<MotionsPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<MuscleGroupsPageViewModel>(new SingletonLifetimeManager());

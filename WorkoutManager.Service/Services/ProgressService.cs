@@ -39,7 +39,7 @@ namespace WorkoutManager.Service.Services
                 filteredSessions = filteredSessions.Where(session => session.Date <= filter.DateTo);
             }
 
-            return GetTotalVolume(filteredSessions, filter.Exercise);
+            return GetTotalVolume(filteredSessions, filter.Exercise).Where(result => result.Volume > 0);
         }
 
         private static IEnumerable<ProgressResult> GetTotalVolume(

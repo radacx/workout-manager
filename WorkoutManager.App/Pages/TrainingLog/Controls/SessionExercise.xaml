@@ -19,7 +19,7 @@
             <Button
                 Content="Add set"
                 Command="{Binding OpenAddExerciseSetDialog}"
-                CommandParameter="{Binding Exercise.Exercise.ContractionType}"
+                CommandParameter="{Binding Exercise}"
             />
             <Button
                 Content="Delete exercise"

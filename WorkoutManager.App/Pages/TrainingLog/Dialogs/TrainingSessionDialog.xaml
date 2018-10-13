@@ -73,8 +73,8 @@
         <Button
             Grid.Row="3"
             Grid.Column="1"
-            Content="Add exercise"
-            Command="{Binding AddExercise}"
+            Content="Add exercise set"
+            Command="{Binding AddExerciseSet}"
             CommandParameter="{Binding SelectedItem, ElementName=Exercises}"
         >
             <Button.Style>

@@ -39,6 +39,8 @@ namespace WorkoutManager.App.Pages.Motions
         {
             _motionRepository = motionRepository;
             
+            Motions.ShapeView().OrderBy(motion => motion.Name).Apply();
+            
             Delete = new Command<JointMotion>(DeleteMotion);
             
             OpenAddMotionDialog = new Command(

@@ -123,8 +123,8 @@ namespace WorkoutManager.App.Pages.Exercises.Models
             Task.Run(
                 () =>
                 {
-                    Motions.AddRange(motionsRepository.GetAll());
-                    MuscleGroups.AddRange(muscleGroupRepository.GetAll());
+                    Motions.AddRange(motionsRepository.GetAll().OrderBy(motion => motion.Name));
+                    MuscleGroups.AddRange(muscleGroupRepository.GetAll().OrderBy(muscleGroup => muscleGroup.Name));
                     OnPropertyChanged(string.Empty);
                 });
             

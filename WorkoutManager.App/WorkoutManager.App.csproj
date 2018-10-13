@@ -151,6 +151,7 @@
     <Compile Include="Converters\ProgressResultConverter.cs" />
     <Compile Include="Converters\ExerciseSetToTextConverter.cs" />
     <Compile Include="Events\MuscleGroupChangedEvent.cs" />
+    <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
     <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml.cs">
       <DependentUpon>ExerciseDialog.xaml</DependentUpon>
     </Compile>
@@ -222,6 +223,7 @@
     <Compile Include="Structures\ViewModelBase.cs" />
     <Compile Include="Utils\DialogFactory.cs" />
     <Compile Include="Utils\DialogResult.cs" />
+    <Compile Include="Utils\SetCreator.cs" />
     <Compile Include="Utils\ViewModelFactory.cs" />
     <Compile Include="Utils\WindowFactory.cs" />
     <Page Include="Controls\MultiSelect\MultiSelect.xaml">

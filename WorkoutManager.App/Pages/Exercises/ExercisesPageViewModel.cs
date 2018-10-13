@@ -32,6 +32,8 @@ namespace WorkoutManager.App.Pages.Exercises
         {
             _exerciseService = exerciseService;
             
+            Exercises.ShapeView().OrderBy(exercise => exercise.Name).Apply();
+            
             eventAggregator.Subscribe<MuscleGroupChangedEvent>(
                 mgEvent =>
                 {

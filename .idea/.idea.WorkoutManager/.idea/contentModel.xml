@@ -41,6 +41,7 @@
         </e>
         <e p="Events" t="Include">
           <e p="MuscleGroupChangedEvent.cs" t="Include" />
+          <e p="SessionExerciseReaddedEvent.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive" />
         <e p="packages.config" t="Include" />
@@ -138,6 +139,7 @@
         <e p="Utils" t="Include">
           <e p="DialogFactory.cs" t="Include" />
           <e p="DialogResult.cs" t="Include" />
+          <e p="SetCreator.cs" t="Include" />
           <e p="ViewModelFactory.cs" t="Include" />
           <e p="WindowFactory.cs" t="Include" />
         </e>
