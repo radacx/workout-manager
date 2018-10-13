@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Force.DeepCloner;
+using PubSub.Core;
+using WorkoutManager.App.Events;
 using WorkoutManager.App.Pages.MuscleGroups.Dialogs;
 using WorkoutManager.App.Pages.MuscleGroups.Models;
 using WorkoutManager.App.Structures;
@@ -24,7 +26,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups
 
         private readonly MuscleGroupService _muscleGroupService;
         
-        public MuscleGroupsPageViewModel(MuscleGroupService muscleGroupService, DialogFactory<MuscleGroupDialog, MuscleGroupDialogViewModel> muscleGroupDialogFactory)
+        public MuscleGroupsPageViewModel(MuscleGroupService muscleGroupService, DialogFactory<MuscleGroupDialog, MuscleGroupDialogViewModel> muscleGroupDialogFactory, Hub eventAggregator)
         {
             _muscleGroupService = muscleGroupService;
             
@@ -66,7 +68,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups
                     }
 
                     MuscleGroups.Replace(muscleGroup, muscleGroupClone);
-
+                    eventAggregator.Publish(new MuscleGroupChangedEvent(muscleGroupClone));
                     Task.Run(() => _muscleGroupService.Update(muscleGroupClone));
                 });
             

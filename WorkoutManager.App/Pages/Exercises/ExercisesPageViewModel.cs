@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Force.DeepCloner;
+using PubSub.Core;
+using Unity.Interception.Utilities;
+using WorkoutManager.App.Events;
 using WorkoutManager.App.Pages.Exercises.Dialogs;
 using WorkoutManager.App.Pages.Exercises.Models;
 using WorkoutManager.App.Structures;
@@ -24,9 +28,24 @@ namespace WorkoutManager.App.Pages.Exercises
 
         private readonly ExerciseService _exerciseService;
         
-        public ExercisesPageViewModel(ExerciseService exerciseService, DialogFactory<ExerciseDialog, ExerciseDialogViewModel> exerciseDialogFactory)
+        public ExercisesPageViewModel(ExerciseService exerciseService, DialogFactory<ExerciseDialog, ExerciseDialogViewModel> exerciseDialogFactory, Hub eventAggregator)
         {
             _exerciseService = exerciseService;
+            
+            eventAggregator.Subscribe<MuscleGroupChangedEvent>(
+                mgEvent =>
+                {
+                    var muscleGroup = mgEvent.MuscleGroup;
+
+                    foreach (var exercise in Exercises)
+                    {
+                        exercise.PrimaryMuscles.Where(muscle => Equals(muscle.MuscleGroup, muscleGroup))
+                            .ForEach(muscle => muscle.MuscleGroup = muscleGroup);
+
+                        exercise.SecondaryMuscles.Where(muscle => Equals(muscle.MuscleGroup, muscleGroup))
+                            .ForEach(muscle => muscle.MuscleGroup = muscleGroup);
+                    }
+                });
             
             OpenCreateExerciseModalDialog = new Command(
                 () =>

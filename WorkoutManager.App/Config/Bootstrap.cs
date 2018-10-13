@@ -1,5 +1,7 @@
 using System.Configuration;
+using PubSub.Core;
 using Unity;
+using Unity.Lifetime;
 using WorkoutManager.App.Pages;
 using WorkoutManager.App.Pages.Exercises;
 using WorkoutManager.App.Pages.Motions;
@@ -31,33 +33,34 @@ namespace WorkoutManager.App.Config
 
         public static void Register(IUnityContainer container)
         {
-            container.RegisterInstance(GetDatabaseConfiguration());
+            container.RegisterType<Hub>(new SingletonLifetimeManager());
             
-            container.RegisterType(typeof(Repository<>));
-            container.RegisterType<Repository<Exercise>, ExerciseRepository>();
-            container.RegisterType<Repository<ExercisedMuscle>, ExercisedMuscleRepository>();
-            container.RegisterType<Repository<MuscleGroup>, MuscleGroupRepository>();
-            container.RegisterType<Repository<SessionExercise>, SessionExerciseRepository>();
-            container.RegisterType<Repository<TrainingSession>, TrainingSessionRepository>();
+            container.RegisterInstance(GetDatabaseConfiguration(), new SingletonLifetimeManager());
+            container.RegisterType(typeof(Repository<>), new SingletonLifetimeManager());
+            container.RegisterType<Repository<Exercise>, ExerciseRepository>(new SingletonLifetimeManager());
+            container.RegisterType<Repository<ExercisedMuscle>, ExercisedMuscleRepository>(new SingletonLifetimeManager());
+            container.RegisterType<Repository<MuscleGroup>, MuscleGroupRepository>(new SingletonLifetimeManager());
+            container.RegisterType<Repository<SessionExercise>, SessionExerciseRepository>(new SingletonLifetimeManager());
+            container.RegisterType<Repository<TrainingSession>, TrainingSessionRepository>(new SingletonLifetimeManager());
             
-            container.RegisterType<ExerciseService>();
-            container.RegisterType<DatabaseService>();
-            container.RegisterType<MuscleGroupService>();
-            container.RegisterType<TrainingSessionService>();
-            container.RegisterType<UserPreferencesService>();
+            container.RegisterType<ExerciseService>(new SingletonLifetimeManager());
+            container.RegisterType<DatabaseService>(new SingletonLifetimeManager());
+            container.RegisterType<MuscleGroupService>(new SingletonLifetimeManager());
+            container.RegisterType<TrainingSessionService>(new SingletonLifetimeManager());
+            container.RegisterType<UserPreferencesService>(new SingletonLifetimeManager());
 
-            container.RegisterType<ExercisesPageViewModel>();
-            container.RegisterType<MotionsPageViewModel>();
-            container.RegisterType<MuscleGroupsPageViewModel>();
-            container.RegisterType<TrainingLogPageViewModel>();
-            container.RegisterType<UserPreferencesPageViewModel>();
-            container.RegisterType<ProgressPageViewModel>();
+            container.RegisterType<ExercisesPageViewModel>(new SingletonLifetimeManager());
+            container.RegisterType<MotionsPageViewModel>(new SingletonLifetimeManager());
+            container.RegisterType<MuscleGroupsPageViewModel>(new SingletonLifetimeManager());
+            container.RegisterType<TrainingLogPageViewModel>(new SingletonLifetimeManager());
+            container.RegisterType<UserPreferencesPageViewModel>(new SingletonLifetimeManager());
+            container.RegisterType<ProgressPageViewModel>(new SingletonLifetimeManager());
 
-            container.RegisterType(typeof(ViewModelFactory<>));
-            container.RegisterType<WindowFactory>();
-            container.RegisterType(typeof(DialogFactory<,>));
+            container.RegisterType(typeof(ViewModelFactory<>), new SingletonLifetimeManager());
+            container.RegisterType<WindowFactory>(new SingletonLifetimeManager());
+            container.RegisterType(typeof(DialogFactory<,>), new SingletonLifetimeManager());
             
-            container.RegisterType<MainWindow>();
+            container.RegisterType<MainWindow>(new SingletonLifetimeManager());
         }
     }
 }

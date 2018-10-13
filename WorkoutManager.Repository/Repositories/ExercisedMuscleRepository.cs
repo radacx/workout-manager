@@ -12,11 +12,11 @@ namespace WorkoutManager.Repository.Repositories
 
         public static void Register(BsonMapper mapper)
         {
-            mapper.Entity<ExercisedMuscle>().DbRef(x => x.UsedHeads);
+            mapper.Entity<ExercisedMuscle>().DbRef(x => x.MuscleGroup).DbRef(x => x.UsedHeads);
         }
 
         public override IEnumerable<ExercisedMuscle> GetAll() => Execute(
-            collection => collection.Include(x => x.UsedHeads).FindAll().ToList()
+            collection => collection.Include(x => x.MuscleGroup).Include(x => x.UsedHeads).FindAll().ToList()
         );
     }
 }

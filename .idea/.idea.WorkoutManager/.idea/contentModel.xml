@@ -39,6 +39,9 @@
           <e p="ItemToMultiSelectItemConverter.cs" t="Include" />
           <e p="ProgressResultConverter.cs" t="Include" />
         </e>
+        <e p="Events" t="Include">
+          <e p="MuscleGroupChangedEvent.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive" />
         <e p="packages.config" t="Include" />
         <e p="Pages" t="Include">
