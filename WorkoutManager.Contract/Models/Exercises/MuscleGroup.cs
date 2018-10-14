@@ -64,5 +64,7 @@ namespace WorkoutManager.Contract.Models.Exercises
         }
 
         public override int GetHashCode() => Id;
+
+        public override string ToString() => Name;
     }
 }

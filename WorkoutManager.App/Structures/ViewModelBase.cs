@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Unity.Interception.Utilities;
 using WorkoutManager.App.Annotations;
 
 namespace WorkoutManager.App.Structures
@@ -15,15 +16,17 @@ namespace WorkoutManager.App.Structures
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         
-        protected void SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value))
             {
-                return;
+                return false;
             }
 
             field = value;
             OnPropertyChanged(propertyName);
+
+            return true;
         }
     }
 }

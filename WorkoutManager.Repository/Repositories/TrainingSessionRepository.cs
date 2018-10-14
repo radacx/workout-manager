@@ -20,6 +20,11 @@ namespace WorkoutManager.Repository.Repositories
                 .Include(x => x.Exercises)
                 .Include(x => x.Exercises[0].Sets)
                 .Include(x => x.Exercises[0].Exercise)
+                .Include(x => x.Exercises[0].Exercise.Motions)
+                .Include(x => x.Exercises[0].Exercise.PrimaryMuscles)
+                .Include(x => x.Exercises[0].Exercise.PrimaryMuscles[0].MuscleGroup)
+                .Include(x => x.Exercises[0].Exercise.SecondaryMuscles)
+                .Include(x => x.Exercises[0].Exercise.SecondaryMuscles[0].MuscleGroup)
                 .FindAll()
                 .ToList()
         );

@@ -9,12 +9,13 @@ namespace WorkoutManager.Contract.Extensions
     {
         public static string GetDescription(this Enum value)
         {
-            var enumMember = value.GetType().GetMember(value.ToString()).FirstOrDefault();
+            var stringValue = value.ToString();
+            var enumMember = value.GetType().GetMember(stringValue).FirstOrDefault();
 
             var descriptionAttribute =
                 enumMember?.GetCustomAttribute(typeof(DescriptionAttribute)) as DescriptionAttribute;
 
-            return descriptionAttribute?.Description;
+            return descriptionAttribute?.Description ?? stringValue;
         }
     }
 }

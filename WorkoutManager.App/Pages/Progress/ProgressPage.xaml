@@ -5,36 +5,67 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:WorkoutManager.App.Pages.Progress"
-             xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
              d:DataContext="{d:DesignInstance Type=local:ProgressPageViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-<UserControl.Resources>
-    <converters:GetExerciseProgressConverter x:Key="GetExerciseProgressConverter" />
-    <converters:ProgressResultConverter x:Key="ProgressResultConverter" />
-</UserControl.Resources>
-    
     <StackPanel Background="AliceBlue">
         <Button
             Content="Refresh"
             Command="{Binding Refresh}"
         />
         
-        <ComboBox
-            ItemsSource="{Binding Exercises}"
-            SelectedItem="{Binding SelectedExercise, Mode=TwoWay}"
-        />
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Filter by" />
+            
+            <ComboBox
+                ItemsSource="{Binding FilterByOptions}"
+                SelectedItem="{Binding FilterBy}"
+            >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            
+            <ComboBox
+                ItemsSource="{Binding FilteringValueOptions}"
+                SelectedItem="{Binding SelectedFilteringValue}"
+            />
+        </StackPanel>
         
-        <ItemsControl>
-            <ItemsControl.ItemsSource>
-                <MultiBinding Converter="{StaticResource GetExerciseProgressConverter}">
-                    <Binding Path="TrainingSessions" />
-                    <Binding Path="SelectedExercise" />
-                </MultiBinding>
-            </ItemsControl.ItemsSource>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Group by"/> 
+            <ComboBox
+                ItemsSource="{Binding GroupByOptions}"
+                SelectedItem="{Binding GroupBy}"
+            >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Metric" />
+            <ComboBox
+                ItemsSource="{Binding MetricOptions}"
+                SelectedItem="{Binding Metric}"
+            >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        
+        <ItemsControl ItemsSource="{Binding Results}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBox Text="{Binding Mode=OneWay, Converter={StaticResource ProgressResultConverter}}" />
+                    <TextBox Text="{Binding Mode=OneWay}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

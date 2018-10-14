@@ -143,12 +143,10 @@
       <DependentUpon>TimeSpanUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
-    <Compile Include="Converters\GetExerciseProgressConverter.cs" />
     <Compile Include="Converters\GetMultiSelectItemTextConverter.cs" />
     <Compile Include="Converters\GetSessionExerciseViewModelConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\ItemToMultiSelectItemConverter.cs" />
-    <Compile Include="Converters\ProgressResultConverter.cs" />
     <Compile Include="Converters\ExerciseSetToTextConverter.cs" />
     <Compile Include="Events\MuscleGroupChangedEvent.cs" />
     <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
