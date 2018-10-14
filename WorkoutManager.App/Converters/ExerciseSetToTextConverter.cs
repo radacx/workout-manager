@@ -22,20 +22,9 @@ namespace WorkoutManager.App.Converters
             }
 
             var weightUnits = userPreferences.WeightUnits.GetDescription();
-            
-            switch (exerciseSet)
-            {
-                case DynamicExerciseSet dynamicSet:
 
-                    return $"{dynamicSet.Reps} @ {dynamicSet.Weight} {weightUnits}";
-                case IsometricExerciseSet isometricSet:
+            return $"{exerciseSet} {weightUnits}";
 
-                    return $"{isometricSet.Duration} @ {isometricSet.Weight} {weightUnits}";
-                
-                default:
-
-                    throw new ArgumentException($"Unknown exercise set: {exerciseSet.GetType().FullName}");
-            }
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => null;

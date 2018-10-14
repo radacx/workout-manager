@@ -44,5 +44,7 @@ namespace WorkoutManager.Contract.Models.ExerciseSet
         }
 
         public override int GetHashCode() => Id;
+
+        public override string ToString() => $"{Duration} @ {Weight}";
     }
 }

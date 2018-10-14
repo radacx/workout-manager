@@ -10,6 +10,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
         <Button
+            Content="Export"
+            Command="{Binding Export}"
+        />
+        <Button
             Content="Add session"
             Command="{Binding OpenAddSessionDialog}"
         /> 
