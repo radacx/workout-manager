@@ -15,17 +15,17 @@ namespace WorkoutManager.Contract.Models.Exercises
 
         public double RelativeBodyweight { get; set; }
         
-        private List<ExercisedMuscle> _primaryMuscles = new List<ExercisedMuscle>();
-        private List<ExercisedMuscle> _secondaryMuscles = new List<ExercisedMuscle>();
+        private List<MuscleGroup> _primaryMuscles = new List<MuscleGroup>();
+        private List<MuscleGroup> _secondaryMuscles = new List<MuscleGroup>();
         private List<JointMotion> _motions = new List<JointMotion>();
         
-        public ExercisedMuscle[] PrimaryMuscles
+        public MuscleGroup[] PrimaryMuscles
         {
             get => _primaryMuscles.ToArray();
             set => _primaryMuscles = value.ToList();
         }
 
-        public ExercisedMuscle[] SecondaryMuscles
+        public MuscleGroup[] SecondaryMuscles
         {
             get => _secondaryMuscles.ToArray();
             set => _secondaryMuscles = value.ToList();
@@ -41,15 +41,13 @@ namespace WorkoutManager.Contract.Models.Exercises
             ContractionType = ContractionType.Dynamic;
         }
 
-        public void AddPrimaryMuscle(ExercisedMuscle muscle) => _primaryMuscles.Add(muscle);
+        public void AddPrimaryMuscle(MuscleGroup muscle) => _primaryMuscles.Add(muscle);
 
-        public void AddSecondaryMuscle(ExercisedMuscle muscle) => _secondaryMuscles.Add(muscle);
+        public void AddSecondaryMuscle(MuscleGroup muscle) => _secondaryMuscles.Add(muscle);
 
-        public void RemovePrimaryMuscle(MuscleGroup muscleGroup)
-            => _primaryMuscles.RemoveAll(muscle => muscle.MuscleGroup.Equals(muscleGroup));
-        
-        public void RemoveSecondaryMuscle(MuscleGroup muscleGroup)
-            => _secondaryMuscles.RemoveAll(muscle => muscle.MuscleGroup.Equals(muscleGroup));
+        public void RemovePrimaryMuscle(MuscleGroup muscleGroup) => _primaryMuscles.Remove(muscleGroup);
+
+        public void RemoveSecondaryMuscle(MuscleGroup muscleGroup) => _secondaryMuscles.Remove(muscleGroup);
 
         public void AddMotion(JointMotion motion) => _motions.Add(motion);
 

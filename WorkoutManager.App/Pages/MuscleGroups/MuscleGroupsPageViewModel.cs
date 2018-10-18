@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Force.DeepCloner;
 using PubSub.Core;
-using WorkoutManager.App.Events;
 using WorkoutManager.App.Pages.MuscleGroups.Dialogs;
 using WorkoutManager.App.Pages.MuscleGroups.Models;
 using WorkoutManager.App.Structures;
@@ -70,7 +69,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups
                     }
 
                     MuscleGroups.Replace(muscleGroup, muscleGroupClone);
-                    eventAggregator.Publish(new MuscleGroupChangedEvent(muscleGroupClone));
+
                     Task.Run(() => _muscleGroupRepository.Update(muscleGroupClone));
                 });
             

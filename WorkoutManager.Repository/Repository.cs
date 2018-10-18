@@ -49,7 +49,6 @@ namespace WorkoutManager.Repository
         {
             var mapper = new CustomMapper();
             
-            ExercisedMuscleRepository.Register(mapper);
             ExerciseRepository.Register(mapper);
             SessionExerciseRepository.Register(mapper);
             TrainingSessionRepository.Register(mapper);

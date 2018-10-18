@@ -149,7 +149,6 @@
     <Compile Include="Converters\IsNumberZeroConverter.cs" />
     <Compile Include="Converters\ItemToMultiSelectItemConverter.cs" />
     <Compile Include="Converters\ExerciseSetToTextConverter.cs" />
-    <Compile Include="Events\MuscleGroupChangedEvent.cs" />
     <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
     <Compile Include="Pages\Categories\CategoryPage.xaml.cs">
       <DependentUpon>CategoryPage.xaml</DependentUpon>

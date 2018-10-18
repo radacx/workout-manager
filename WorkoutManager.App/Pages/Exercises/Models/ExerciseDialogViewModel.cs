@@ -37,8 +37,6 @@ namespace WorkoutManager.App.Pages.Exercises.Models
         public IEnumerable<MuscleGroup> SelectedPrimaryMuscleGroups { get; set; }
 
         public IEnumerable<MuscleGroup> SelectedSecondaryMuscleGroups { get; set; }
-
-        private static MuscleGroup GetMuscleGroup(ExercisedMuscle muscle) => muscle.MuscleGroup;
         
         public ExerciseDialogViewModel(Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository)
         {
@@ -56,14 +54,14 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                 );
                 
                 SelectedPrimaryMuscleGroups = new ObservedCollection<MuscleGroup>(
-                    Exercise.PrimaryMuscles.Select(GetMuscleGroup),
-                    muscleGroup => Exercise.AddPrimaryMuscle(new ExercisedMuscle(muscleGroup)),
+                    Exercise.PrimaryMuscles,
+                    Exercise.AddPrimaryMuscle,
                     Exercise.RemovePrimaryMuscle
                 );
                 
                 SelectedSecondaryMuscleGroups = new ObservedCollection<MuscleGroup>(
-                    Exercise.SecondaryMuscles.Select(GetMuscleGroup),
-                    muscleGroup => Exercise.AddSecondaryMuscle(new ExercisedMuscle(muscleGroup)),
+                    Exercise.SecondaryMuscles,
+                    Exercise.AddSecondaryMuscle,
                     Exercise.RemoveSecondaryMuscle
                 ); 
             };

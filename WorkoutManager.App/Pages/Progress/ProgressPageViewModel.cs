@@ -158,12 +158,12 @@ namespace WorkoutManager.App.Pages.Progress
                 case FilterBy.PrimaryMuscleGroup:
 
                     return exercise => exercise.Exercise.PrimaryMuscles.Any(
-                        muscle => muscle.MuscleGroup.Equals(SelectedFilteringValue)
+                        muscle => muscle.Equals(SelectedFilteringValue)
                     );
                 case FilterBy.SecondaryMuscleGroup:
 
                     return exercise => exercise.Exercise.SecondaryMuscles.Any(
-                        muscle => muscle.MuscleGroup.Equals(SelectedFilteringValue)
+                        muscle => muscle.Equals(SelectedFilteringValue)
                     );
                 case FilterBy.Category:
 
@@ -183,11 +183,8 @@ namespace WorkoutManager.App.Pages.Progress
 
                         if (typeName == typeof(MuscleGroup).FullName)
                         {
-                            var primaryMuscleGroups =
-                                exercise.Exercise.PrimaryMuscles.Select(muscle => muscle.MuscleGroup);
-
-                            var secondaryMuscleGroups =
-                                exercise.Exercise.SecondaryMuscles.Select(muscle => muscle.MuscleGroup);
+                            var primaryMuscleGroups = exercise.Exercise.PrimaryMuscles;
+                            var secondaryMuscleGroups = exercise.Exercise.SecondaryMuscles;
 
                             return primaryMuscleGroups.Concat(secondaryMuscleGroups).Any(category.Items.Contains);
                         }
