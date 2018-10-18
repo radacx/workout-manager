@@ -5,18 +5,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:exercises="clr-namespace:WorkoutManager.Contract.Models.Exercises;assembly=WorkoutManager.Contract"
-        xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
         xmlns:multiSelect="clr-namespace:WorkoutManager.App.Controls.MultiSelect"
         xmlns:models1="clr-namespace:WorkoutManager.App.Pages.Exercises.Models"
-        xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance Type=models1:ExerciseDialogViewModel}"
         Height="550" Width="700">
-<Window.Resources>
-    <converters:GetSelectedMuscleHeadsConverter x:Key="GetSelectedMuscleHeadsConverter" />
-</Window.Resources>
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -96,48 +91,6 @@
             GetItemText="{Binding GetMuscleGroupText}"
         />
         
-        <ItemsControl
-            Grid.Row="4"
-            Grid.Column="2"
-            ItemsSource="{Binding SelectedPrimaryMuscleGroups}"
-        >
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <StackPanel.Style>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Heads, Converter={StaticResource IsCollectionEmptyConverter}}" Value="False">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Style>
-                        
-                        <TextBlock Text="{Binding Name}" />
-                        <multiSelect:MultiSelect
-                            ItemsSource="{Binding Heads}"
-                            GetItemText="{Binding DataContext.GetMuscleHeadText, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
-                        >
-                            <multiSelect:MultiSelect.Style>
-                                <Style TargetType="multiSelect:MultiSelect">
-                                    <Setter Property="SelectedItems">
-                                        <Setter.Value>
-                                            <MultiBinding Converter="{StaticResource GetSelectedMuscleHeadsConverter}">
-                                                <Binding Path="" />
-                                                <Binding Path="DataContext.SelectedPrimaryMusclesHeads" RelativeSource="{RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}" />
-                                            </MultiBinding>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </multiSelect:MultiSelect.Style>
-                        </multiSelect:MultiSelect>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        
         <Label Grid.Row="5" Grid.Column="0"
                Content="Secondary muscles"
         />
@@ -148,48 +101,6 @@
             SelectedItems="{Binding SelectedSecondaryMuscleGroups}"
             GetItemText="{Binding GetMuscleGroupText}"
         />
-        
-        <ItemsControl
-            Grid.Row="5"
-            Grid.Column="2"
-            ItemsSource="{Binding SelectedSecondaryMuscleGroups}"
-        >
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <StackPanel.Style>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Heads, Converter={StaticResource IsCollectionEmptyConverter}}" Value="False">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Style>
-                        
-                        <TextBlock Text="{Binding Name}" />
-                        <multiSelect:MultiSelect
-                            ItemsSource="{Binding Heads}"
-                            GetItemText="{Binding DataContext.GetMuscleHeadText, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
-                        >
-                            <multiSelect:MultiSelect.Style>
-                                <Style TargetType="multiSelect:MultiSelect">
-                                    <Setter Property="SelectedItems">
-                                        <Setter.Value>
-                                            <MultiBinding Converter="{StaticResource GetSelectedMuscleHeadsConverter}">
-                                                <Binding Path="" />
-                                                <Binding Path="DataContext.SelectedSecondaryMusclesHeads" RelativeSource="{RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}" />
-                                            </MultiBinding>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </multiSelect:MultiSelect.Style>
-                        </multiSelect:MultiSelect>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
         
         <Button Grid.Row="6" Grid.Column="1" Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
             <Button.Style>

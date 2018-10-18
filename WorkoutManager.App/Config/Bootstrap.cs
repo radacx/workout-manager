@@ -40,14 +40,12 @@ namespace WorkoutManager.App.Config
             container.RegisterType(typeof(Repository<>), new SingletonLifetimeManager());
             container.RegisterType<Repository<Exercise>, ExerciseRepository>(new SingletonLifetimeManager());
             container.RegisterType<Repository<ExercisedMuscle>, ExercisedMuscleRepository>(new SingletonLifetimeManager());
-            container.RegisterType<Repository<MuscleGroup>, MuscleGroupRepository>(new SingletonLifetimeManager());
             container.RegisterType<Repository<SessionExercise>, SessionExerciseRepository>(new SingletonLifetimeManager());
             container.RegisterType<Repository<TrainingSession>, TrainingSessionRepository>(new SingletonLifetimeManager());
             container.RegisterType<Repository<Category>, CategoryRepository>(new SingletonLifetimeManager());
             
             container.RegisterType<ExerciseService>(new SingletonLifetimeManager());
             container.RegisterType<DatabaseService>(new SingletonLifetimeManager());
-            container.RegisterType<MuscleGroupService>(new SingletonLifetimeManager());
             container.RegisterType<TrainingSessionService>(new SingletonLifetimeManager());
             container.RegisterType<UserPreferencesService>(new SingletonLifetimeManager());
             

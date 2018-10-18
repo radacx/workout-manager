@@ -22,12 +22,8 @@ namespace WorkoutManager.Repository.Repositories
             collection => collection.Include(x => x.Motions)
                 .Include(x => x.PrimaryMuscles)
                 .Include(x => x.PrimaryMuscles[0].MuscleGroup)
-                .Include(x => x.PrimaryMuscles[0].MuscleGroup.Heads)
-                .Include(x => x.PrimaryMuscles[0].UsedHeads)
                 .Include(x => x.SecondaryMuscles)
                 .Include(x => x.SecondaryMuscles[0].MuscleGroup)
-                .Include(x => x.SecondaryMuscles[0].MuscleGroup.Heads)
-                .Include(x => x.SecondaryMuscles[0].UsedHeads)
                 .FindAll()
                 .ToList()
         );

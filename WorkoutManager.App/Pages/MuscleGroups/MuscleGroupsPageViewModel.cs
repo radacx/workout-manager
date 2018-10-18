@@ -8,7 +8,7 @@ using WorkoutManager.App.Pages.MuscleGroups.Models;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Service.Services;
+using WorkoutManager.Repository;
 
 namespace WorkoutManager.App.Pages.MuscleGroups
 {
@@ -22,13 +22,13 @@ namespace WorkoutManager.App.Pages.MuscleGroups
         
         public ICommand Delete { get; }
         
-        private void LoadMuscleGroups() => MuscleGroups.AddRange(_muscleGroupService.GetAll());
+        private void LoadMuscleGroups() => MuscleGroups.AddRange(_muscleGroupRepository.GetAll());
 
-        private readonly MuscleGroupService _muscleGroupService;
+        private readonly Repository<MuscleGroup> _muscleGroupRepository;
         
-        public MuscleGroupsPageViewModel(MuscleGroupService muscleGroupService, DialogFactory<MuscleGroupDialog, MuscleGroupDialogViewModel> muscleGroupDialogFactory, Hub eventAggregator)
+        public MuscleGroupsPageViewModel(Repository<MuscleGroup> muscleGroupRepository, DialogFactory<MuscleGroupDialog, MuscleGroupDialogViewModel> muscleGroupDialogFactory, Hub eventAggregator)
         {
-            _muscleGroupService = muscleGroupService;
+            _muscleGroupRepository = muscleGroupRepository;
             
             MuscleGroups.ShapeView().OrderBy(muscleGroup => muscleGroup.Name).Apply();
             
@@ -50,7 +50,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups
 
                     MuscleGroups.Add(muscleGroup);
 
-                    Task.Run(() => _muscleGroupService.Create(muscleGroup));
+                    Task.Run(() => _muscleGroupRepository.Create(muscleGroup));
                 });
             
             OpenEditMuscleGroupDialog = new Command<MuscleGroup>(
@@ -71,7 +71,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups
 
                     MuscleGroups.Replace(muscleGroup, muscleGroupClone);
                     eventAggregator.Publish(new MuscleGroupChangedEvent(muscleGroupClone));
-                    Task.Run(() => _muscleGroupService.Update(muscleGroupClone));
+                    Task.Run(() => _muscleGroupRepository.Update(muscleGroupClone));
                 });
             
             Delete = new Command<MuscleGroup>(
@@ -79,7 +79,7 @@ namespace WorkoutManager.App.Pages.MuscleGroups
                 {
                     MuscleGroups.Remove(muscleGroup);
                     
-                    Task.Run(() => _muscleGroupService.Delete(muscleGroup));
+                    Task.Run(() => _muscleGroupRepository.Delete(muscleGroup));
                 });
             
             Task.Run(() => LoadMuscleGroups());

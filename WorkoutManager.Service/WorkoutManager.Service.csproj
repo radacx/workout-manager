@@ -42,7 +42,6 @@
     <Compile Include="Service.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\ExerciseService.cs" />
-    <Compile Include="Services\MuscleGroupService.cs" />
     <Compile Include="Services\TrainingSessionService.cs" />
     <Compile Include="Services\UserPreferencesService.cs" />
   </ItemGroup>

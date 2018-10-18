@@ -51,7 +51,6 @@ namespace WorkoutManager.Repository
             
             ExercisedMuscleRepository.Register(mapper);
             ExerciseRepository.Register(mapper);
-            MuscleGroupRepository.Register(mapper);
             SessionExerciseRepository.Register(mapper);
             TrainingSessionRepository.Register(mapper);
             CategoryRepository.Register(mapper);

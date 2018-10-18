@@ -45,7 +45,6 @@
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ExercisedMuscleRepository.cs" />
     <Compile Include="Repositories\ExerciseRepository.cs" />
-    <Compile Include="Repositories\MuscleGroupRepository.cs" />
     <Compile Include="Repositories\SessionExerciseRepository.cs" />
     <Compile Include="Repositories\TrainingSessionRepository.cs" />
     <Compile Include="Repository.cs" />

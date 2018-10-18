@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:models1="clr-namespace:WorkoutManager.App.Pages.MuscleGroups.Models"
-        xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.MuscleGroups.Dialogs"
         d:DataContext="{d:DesignInstance Type=models1:MuscleGroupDialogViewModel}"
         mc:Ignorable="d"
         Height="450" Width="500">
@@ -40,45 +39,5 @@
                 Width="120"
             />
         </StackPanel>
-        
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Heads" />
-            
-            <Button
-                Content="Add head"
-                Command="{Binding OpenAddMuscleHeadDialog}"
-            />
-        </StackPanel>
-        
-        <ItemsControl
-            ItemsSource="{Binding Heads}"
-            Margin="10 0 0 0"
-        >
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border
-                        BorderThickness="2"
-                        BorderBrush="Navy"
-                        Margin="5 5 0 0"
-                    >
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" />
-                            <Button
-                                Content="Edit"
-                                Command="{Binding DataContext.OpenEditMuscleHeadDialog,
-                                RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:MuscleGroupDialog}}"
-                                CommandParameter="{Binding}"
-                            />
-                            <Button
-                                Content="Remove"
-                                Command="{Binding DataContext.RemoveHead,
-                                RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:MuscleGroupDialog}}"
-                                CommandParameter="{Binding}"
-                            />
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
     </StackPanel>
 </Window>

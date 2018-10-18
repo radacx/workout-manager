@@ -50,7 +50,6 @@
     <Compile Include="Models\Exercises\ContractionType.cs" />
     <Compile Include="Models\Exercises\Exercise.cs" />
     <Compile Include="Models\Exercises\JointMotion.cs" />
-    <Compile Include="Models\Exercises\MuscleHead.cs" />
     <Compile Include="Models\Misc\IEntity.cs" />
     <Compile Include="Models\Progress\ProgressResult.cs" />
     <Compile Include="Models\Sessions\SessionExercise.cs" />

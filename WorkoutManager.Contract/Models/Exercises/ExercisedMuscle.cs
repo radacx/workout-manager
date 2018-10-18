@@ -1,35 +1,20 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Exercises
 {
     public class ExercisedMuscle : IEntity, IEquatable<ExercisedMuscle>
     {
-        private List<MuscleHead> _usedHeads = new List<MuscleHead>();
-        
         public int Id { get; set; }
         
         public MuscleGroup MuscleGroup { get; set; }
-
-        public MuscleHead[] UsedHeads
-        {
-            get => _usedHeads.ToArray();
-            set => _usedHeads = value.ToList();
-        }
 
         public ExercisedMuscle() { }
 
         public ExercisedMuscle(MuscleGroup muscleGroup)
         {
             MuscleGroup = muscleGroup;
-            _usedHeads.AddRange(muscleGroup.Heads);
         }
-
-        public void AddHead(MuscleHead head) => _usedHeads.Add(head);
-
-        public void RemoveHead(MuscleHead head) => _usedHeads.Remove(head);
         
         public bool Equals(ExercisedMuscle other)
         {

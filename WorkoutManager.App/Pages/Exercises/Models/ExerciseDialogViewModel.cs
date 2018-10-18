@@ -38,10 +38,6 @@ namespace WorkoutManager.App.Pages.Exercises.Models
 
         public IEnumerable<MuscleGroup> SelectedSecondaryMuscleGroups { get; set; }
 
-        public Dictionary<MuscleGroup, IEnumerable<MuscleHead>> SelectedPrimaryMusclesHeads { get; set; }
-
-        public Dictionary<MuscleGroup, IEnumerable<MuscleHead>> SelectedSecondaryMusclesHeads { get; set; }
-
         private static MuscleGroup GetMuscleGroup(ExercisedMuscle muscle) => muscle.MuscleGroup;
         
         public ExerciseDialogViewModel(Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository)
@@ -58,65 +54,17 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                     Exercise.AddMotion,
                     Exercise.RemoveMotion
                 );
-
-                SelectedPrimaryMusclesHeads = new Dictionary<MuscleGroup, IEnumerable<MuscleHead>>();
-            
-                foreach (var muscle in Exercise.PrimaryMuscles)
-                {
-                    var muscleHeads = new ObservedCollection<MuscleHead>(muscle.UsedHeads, muscle.AddHead, muscle.RemoveHead);
-                    SelectedPrimaryMusclesHeads.Add(muscle.MuscleGroup, muscleHeads);
-                }
-                
-                SelectedSecondaryMusclesHeads = new Dictionary<MuscleGroup, IEnumerable<MuscleHead>>();
-
-                foreach (var muscle in Exercise.SecondaryMuscles)
-                {
-                    var muscleHeads = new ObservedCollection<MuscleHead>(muscle.UsedHeads, muscle.AddHead, muscle.RemoveHead);
-                    SelectedSecondaryMusclesHeads.Add(muscle.MuscleGroup, muscleHeads);
-                }
                 
                 SelectedPrimaryMuscleGroups = new ObservedCollection<MuscleGroup>(
                     Exercise.PrimaryMuscles.Select(GetMuscleGroup),
-                    muscleGroup =>
-                    {
-                        var muscle = new ExercisedMuscle(muscleGroup);
-                        Exercise.AddPrimaryMuscle(muscle);
-
-                        var muscleHeads = new ObservedCollection<MuscleHead>(
-                            muscle.UsedHeads,
-                            muscle.AddHead,
-                            muscle.RemoveHead
-                        );
-
-                        SelectedPrimaryMusclesHeads.Add(muscleGroup, muscleHeads);
-                    },
-                    muscleGroup =>
-                    {
-                        Exercise.RemovePrimaryMuscle(muscleGroup);
-                        SelectedPrimaryMusclesHeads.Remove(muscleGroup);
-                    }
+                    muscleGroup => Exercise.AddPrimaryMuscle(new ExercisedMuscle(muscleGroup)),
+                    Exercise.RemovePrimaryMuscle
                 );
                 
                 SelectedSecondaryMuscleGroups = new ObservedCollection<MuscleGroup>(
                     Exercise.SecondaryMuscles.Select(GetMuscleGroup),
-                    muscleGroup =>
-                    {
-                        var muscle = new ExercisedMuscle(muscleGroup);
-                        Exercise.AddSecondaryMuscle(muscle);
-
-                        var muscleHeads = new ObservedCollection<MuscleHead>(
-                            muscle.UsedHeads,
-                            muscle.AddHead,
-                            muscle.RemoveHead
-                        );
-
-                        SelectedSecondaryMusclesHeads.Add(muscleGroup, muscleHeads);
-                    },
-                    muscleGroup =>
-                    {
-                        Exercise.RemoveSecondaryMuscle(muscleGroup);
-                        SelectedSecondaryMusclesHeads.Remove(muscleGroup);
-                    }
+                    muscleGroup => Exercise.AddSecondaryMuscle(new ExercisedMuscle(muscleGroup)),
+                    Exercise.RemoveSecondaryMuscle
                 ); 
             };
             
@@ -131,8 +79,6 @@ namespace WorkoutManager.App.Pages.Exercises.Models
             GetJointMotionText = motion => (motion as JointMotion)?.Name;
 
             GetMuscleGroupText = muscleGroup => (muscleGroup as MuscleGroup)?.Name;
-
-            GetMuscleHeadText = muscleHead => (muscleHead as MuscleHead)?.Name;
         }
     }
 }

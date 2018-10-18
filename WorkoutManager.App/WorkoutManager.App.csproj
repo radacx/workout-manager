@@ -183,11 +183,7 @@
     <Compile Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml.cs">
       <DependentUpon>MuscleGroupDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MuscleGroups\Dialogs\MuscleHeadDialog.xaml.cs">
-      <DependentUpon>MuscleHeadDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\MuscleGroups\Models\MuscleGroupDialogViewModel.cs" />
-    <Compile Include="Pages\MuscleGroups\Models\MuscleHeadDialogViewModel.cs" />
     <Compile Include="Pages\MuscleGroups\MuscleGroupsPage.xaml.cs">
       <DependentUpon>MuscleGroupsPage.xaml</DependentUpon>
     </Compile>
@@ -217,7 +213,6 @@
     </Compile>
     <Compile Include="Converters\DoesEnumMatchConverter.cs" />
     <Compile Include="Converters\EnumConverter.cs" />
-    <Compile Include="Converters\GetSelectedMuscleHeadsConverter.cs" />
     <Compile Include="Converters\IsTextEmptyConverter.cs" />
     <Compile Include="Pages\TrainingLog\TrainingLogPageViewModel.cs" />
     <Compile Include="Pages\UserSettings\UserPreferencesPage.xaml.cs">
@@ -254,7 +249,6 @@
     <Page Include="Pages\Motions\Dialogs\JointMotionDialog.xaml" />
     <Page Include="Pages\Motions\MotionsPage.xaml" />
     <Page Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml" />
-    <Page Include="Pages\MuscleGroups\Dialogs\MuscleHeadDialog.xaml" />
     <Page Include="Pages\MuscleGroups\MuscleGroupsPage.xaml" />
     <Page Include="Pages\Progress\ProgressPage.xaml" />
     <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />
