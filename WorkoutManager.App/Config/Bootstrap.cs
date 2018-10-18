@@ -5,7 +5,7 @@ using Unity.Lifetime;
 using WorkoutManager.App.Pages;
 using WorkoutManager.App.Pages.Exercises;
 using WorkoutManager.App.Pages.Motions;
-using WorkoutManager.App.Pages.MuscleGroups;
+using WorkoutManager.App.Pages.Muscles;
 using WorkoutManager.App.Pages.Progress;
 using WorkoutManager.App.Pages.TrainingLog;
 using WorkoutManager.App.Pages.UserSettings;
@@ -50,7 +50,7 @@ namespace WorkoutManager.App.Config
             
             container.RegisterType<ExercisesPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<MotionsPageViewModel>(new SingletonLifetimeManager());
-            container.RegisterType<MuscleGroupsPageViewModel>(new SingletonLifetimeManager());
+            container.RegisterType<MusclesPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<TrainingLogPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<UserPreferencesPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<ProgressPageViewModel>(new SingletonLifetimeManager());

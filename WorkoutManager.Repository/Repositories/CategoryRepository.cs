@@ -23,9 +23,9 @@ namespace WorkoutManager.Repository.Repositories
                 };
             }
 
-            if (itemType == typeof(MuscleGroup))
+            if (itemType == typeof(Muscle))
             {
-                return new MuscleGroup
+                return new Muscle
                 {
                     Id = id
                 };

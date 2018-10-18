@@ -1,10 +1,10 @@
 using System.Windows;
 
-namespace WorkoutManager.App.Pages.MuscleGroups.Dialogs
+namespace WorkoutManager.App.Pages.Muscles.Dialogs
 {
-    internal partial class MuscleGroupDialog : Window
+    internal partial class MuscleDialog : Window
     {
-        public MuscleGroupDialog()
+        public MuscleDialog()
         {
             InitializeComponent();
         }

@@ -36,13 +36,13 @@ namespace WorkoutManager.App.Pages.Categories.Models
             set => SetField(ref _options, value);
         }
 
-        public IEnumerable<Type> AllowedCategoryTypes { get; } = new[] { typeof(Exercise), typeof(MuscleGroup) };
+        public IEnumerable<Type> AllowedCategoryTypes { get; } = new[] { typeof(Exercise), typeof(Muscle) };
         
         private IEnumerable<Exercise> _exercises;
-        private IEnumerable<MuscleGroup> _muscleGroups;
+        private IEnumerable<Muscle> _muscles;
         
         private readonly Repository<Exercise> _exerciseRepository;
-        private readonly Repository<MuscleGroup> _muscleGroupRepository;
+        private readonly Repository<Muscle> _muscleRepository;
         private IEnumerable<IEntity> _options;
         private Type _selectedType;
         private ObservedCollection<IEntity> _categoryLinkedItems;
@@ -51,19 +51,19 @@ namespace WorkoutManager.App.Pages.Categories.Models
         private void LoadData()
         {
             _exercises = _exerciseRepository.GetAll();
-            _muscleGroups = _muscleGroupRepository.GetAll();
+            _muscles = _muscleRepository.GetAll();
 
             if (SelectedType.FullName == typeof(Exercise).FullName)
             {
                 Options = _exercises;
             }
-            else if (SelectedType.FullName == typeof(MuscleGroup).FullName)
+            else if (SelectedType.FullName == typeof(Muscle).FullName)
             {
-                Options = _muscleGroups;
+                Options = _muscles;
             }
         }
         
-        public CategoryDialogViewModel(Repository<Exercise> exerciseRepository, Repository<MuscleGroup> muscleGroupRepository)
+        public CategoryDialogViewModel(Repository<Exercise> exerciseRepository, Repository<Muscle> muscleRepository)
         {
             PropertyChanged += (sender, args) =>
             {
@@ -75,9 +75,9 @@ namespace WorkoutManager.App.Pages.Categories.Models
                         {
                             Options = _exercises;
                         }
-                        else if (SelectedType == typeof(MuscleGroup))
+                        else if (SelectedType == typeof(Muscle))
                         {
-                            Options = _muscleGroups;
+                            Options = _muscles;
                         }
                         else
                         {
@@ -105,7 +105,7 @@ namespace WorkoutManager.App.Pages.Categories.Models
             };
             
             _exerciseRepository = exerciseRepository;
-            _muscleGroupRepository = muscleGroupRepository;
+            _muscleRepository = muscleRepository;
 
             Task.Run(() => LoadData());
         }

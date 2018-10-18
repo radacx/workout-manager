@@ -22,23 +22,21 @@ namespace WorkoutManager.App.Pages.Exercises.Models
             set => SetField(ref _exercise, value);
         }
 
-        public List<MuscleGroup> MuscleGroups { get; } = new List<MuscleGroup>();
+        public List<Muscle> Muscles { get; } = new List<Muscle>();
 
         public List<JointMotion> Motions { get; } = new List<JointMotion>();
         
         public Func<object, string> GetJointMotionText { get; }
         
-        public Func<object, string> GetMuscleGroupText { get; }
-        
-        public Func<object, string> GetMuscleHeadText { get; }
-        
+        public Func<object, string> GetMuscleText { get; }
+
         public IEnumerable<JointMotion> SelectedMotions { get; set; }
 
-        public IEnumerable<MuscleGroup> SelectedPrimaryMuscleGroups { get; set; }
+        public IEnumerable<Muscle> SelectedPrimaryMuscles { get; set; }
 
-        public IEnumerable<MuscleGroup> SelectedSecondaryMuscleGroups { get; set; }
+        public IEnumerable<Muscle> SelectedSecondaryMuscles { get; set; }
         
-        public ExerciseDialogViewModel(Repository<JointMotion> motionsRepository, Repository<MuscleGroup> muscleGroupRepository)
+        public ExerciseDialogViewModel(Repository<JointMotion> motionsRepository, Repository<Muscle> muscleRepository)
         {
             PropertyChanged += (sender, args) =>
             {
@@ -53,13 +51,13 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                     Exercise.RemoveMotion
                 );
                 
-                SelectedPrimaryMuscleGroups = new ObservedCollection<MuscleGroup>(
+                SelectedPrimaryMuscles = new ObservedCollection<Muscle>(
                     Exercise.PrimaryMuscles,
                     Exercise.AddPrimaryMuscle,
                     Exercise.RemovePrimaryMuscle
                 );
                 
-                SelectedSecondaryMuscleGroups = new ObservedCollection<MuscleGroup>(
+                SelectedSecondaryMuscles = new ObservedCollection<Muscle>(
                     Exercise.SecondaryMuscles,
                     Exercise.AddSecondaryMuscle,
                     Exercise.RemoveSecondaryMuscle
@@ -70,13 +68,13 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                 () =>
                 {
                     Motions.AddRange(motionsRepository.GetAll().OrderBy(motion => motion.Name));
-                    MuscleGroups.AddRange(muscleGroupRepository.GetAll().OrderBy(muscleGroup => muscleGroup.Name));
+                    Muscles.AddRange(muscleRepository.GetAll().OrderBy(muscle => muscle.Name));
                     OnPropertyChanged(string.Empty);
                 });
             
             GetJointMotionText = motion => (motion as JointMotion)?.Name;
 
-            GetMuscleGroupText = muscleGroup => (muscleGroup as MuscleGroup)?.Name;
+            GetMuscleText = muscle => (muscle as Muscle)?.Name;
         }
     }
 }

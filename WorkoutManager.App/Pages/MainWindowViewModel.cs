@@ -1,7 +1,7 @@
 using WorkoutManager.App.Pages.Categories;
 using WorkoutManager.App.Pages.Exercises;
 using WorkoutManager.App.Pages.Motions;
-using WorkoutManager.App.Pages.MuscleGroups;
+using WorkoutManager.App.Pages.Muscles;
 using WorkoutManager.App.Pages.Progress;
 using WorkoutManager.App.Pages.TrainingLog;
 using WorkoutManager.App.Pages.UserSettings;
@@ -15,7 +15,7 @@ namespace WorkoutManager.App.Pages
         
         public MotionsPageViewModel MotionsPage { get; }
         
-        public MuscleGroupsPageViewModel MuscleGroupsPage { get; }
+        public MusclesPageViewModel MusclesPage { get; }
 
         public TrainingLogPageViewModel TrainingLogPage { get; }
         
@@ -28,7 +28,7 @@ namespace WorkoutManager.App.Pages
         public MainWindowViewModel(
             ExercisesPageViewModel exercisesPage,
             MotionsPageViewModel motionsPage,
-            MuscleGroupsPageViewModel muscleGroupsPage,
+            MusclesPageViewModel musclesPage,
             TrainingLogPageViewModel trainingLogPage,
             ProgressPageViewModel progressPage,
             UserPreferencesPageViewModel userPreferencesPage,
@@ -37,7 +37,7 @@ namespace WorkoutManager.App.Pages
         {
             ExercisesPage = exercisesPage;
             MotionsPage = motionsPage;
-            MuscleGroupsPage = muscleGroupsPage;
+            MusclesPage = musclesPage;
             TrainingLogPage = trainingLogPage;
             ProgressPage = progressPage;
             UserPreferencesPage = userPreferencesPage;

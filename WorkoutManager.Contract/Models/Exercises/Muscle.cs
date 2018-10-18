@@ -3,13 +3,13 @@ using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Exercises
 {
-    public class MuscleGroup : IEntity, IEquatable<MuscleGroup>
+    public class Muscle : IEntity, IEquatable<Muscle>
     {
         public int Id { get; set; }
         
         public string Name { get; set; }
 
-        public bool Equals(MuscleGroup other)
+        public bool Equals(Muscle other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -24,7 +24,7 @@ namespace WorkoutManager.Contract.Models.Exercises
             return Id == other.Id;
         }
 
-        public bool Equals(IEntity other) => other is MuscleGroup muscle && Equals(muscle);
+        public bool Equals(IEntity other) => other is Muscle muscle && Equals(muscle);
 
         public override bool Equals(object obj)
         {
@@ -38,7 +38,7 @@ namespace WorkoutManager.Contract.Models.Exercises
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((MuscleGroup) obj);
+            return obj.GetType() == GetType() && Equals((Muscle) obj);
         }
 
         public override int GetHashCode() => Id;

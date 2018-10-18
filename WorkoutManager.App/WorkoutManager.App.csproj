@@ -179,14 +179,14 @@
       <DependentUpon>MotionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Motions\MotionsPageViewModel.cs" />
-    <Compile Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml.cs">
-      <DependentUpon>MuscleGroupDialog.xaml</DependentUpon>
+    <Compile Include="Pages\Muscles\Dialogs\MuscleDialog.xaml.cs">
+      <DependentUpon>MuscleDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MuscleGroups\Models\MuscleGroupDialogViewModel.cs" />
-    <Compile Include="Pages\MuscleGroups\MuscleGroupsPage.xaml.cs">
-      <DependentUpon>MuscleGroupsPage.xaml</DependentUpon>
+    <Compile Include="Pages\Muscles\Models\MuscleDialogViewModel.cs" />
+    <Compile Include="Pages\Muscles\MusclesPage.xaml.cs">
+      <DependentUpon>MusclesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MuscleGroups\MuscleGroupsPageViewModel.cs" />
+    <Compile Include="Pages\Muscles\MusclesPageViewModel.cs" />
     <Compile Include="Pages\Progress\ProgressPage.xaml.cs">
       <DependentUpon>ProgressPage.xaml</DependentUpon>
     </Compile>
@@ -247,8 +247,8 @@
     </Page>
     <Page Include="Pages\Motions\Dialogs\JointMotionDialog.xaml" />
     <Page Include="Pages\Motions\MotionsPage.xaml" />
-    <Page Include="Pages\MuscleGroups\Dialogs\MuscleGroupDialog.xaml" />
-    <Page Include="Pages\MuscleGroups\MuscleGroupsPage.xaml" />
+    <Page Include="Pages\Muscles\Dialogs\MuscleDialog.xaml" />
+    <Page Include="Pages\Muscles\MusclesPage.xaml" />
     <Page Include="Pages\Progress\ProgressPage.xaml" />
     <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />
     <Page Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog.xaml" />

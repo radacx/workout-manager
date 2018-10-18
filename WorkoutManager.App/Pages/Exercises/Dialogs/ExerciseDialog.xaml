@@ -86,9 +86,9 @@
         <multiSelect:MultiSelect
             Grid.Row="4"
             Grid.Column="1"
-            ItemsSource="{Binding MuscleGroups}"
-            SelectedItems="{Binding SelectedPrimaryMuscleGroups}"
-            GetItemText="{Binding GetMuscleGroupText}"
+            ItemsSource="{Binding Muscles}"
+            SelectedItems="{Binding SelectedPrimaryMuscles}"
+            GetItemText="{Binding GetMuscleText}"
         />
         
         <Label Grid.Row="5" Grid.Column="0"
@@ -97,9 +97,9 @@
         <multiSelect:MultiSelect
             Grid.Row="5"
             Grid.Column="1"
-            ItemsSource="{Binding MuscleGroups}"
-            SelectedItems="{Binding SelectedSecondaryMuscleGroups}"
-            GetItemText="{Binding GetMuscleGroupText}"
+            ItemsSource="{Binding Muscles}"
+            SelectedItems="{Binding SelectedSecondaryMuscles}"
+            GetItemText="{Binding GetMuscleText}"
         />
         
         <Button Grid.Row="6" Grid.Column="1" Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
