@@ -26,7 +26,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0"
                Target="{Binding ElementName=ExerciseName}" Content="_Name" />
@@ -70,36 +69,26 @@
                      IsChecked="{Binding Exercise.ContractionType, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static exercises:ContractionType.Isometric}}" />
         
         <Label Grid.Row="3" Grid.Column="0"
-               Content="Joint motions"
-        />
-        <multiSelect:MultiSelect
-            Grid.Row="3"
-            Grid.Column="1"
-            ItemsSource="{Binding Motions}"
-            SelectedItems="{Binding SelectedMotions}"
-         />
-        
-        <Label Grid.Row="4" Grid.Column="0"
                Content="Primary muscles"
         />
         <multiSelect:MultiSelect
-            Grid.Row="4"
+            Grid.Row="3"
             Grid.Column="1"
             ItemsSource="{Binding Muscles}"
             SelectedItems="{Binding SelectedPrimaryMuscles}"
         />
         
-        <Label Grid.Row="5" Grid.Column="0"
+        <Label Grid.Row="4" Grid.Column="0"
                Content="Secondary muscles"
         />
         <multiSelect:MultiSelect
-            Grid.Row="5"
+            Grid.Row="4"
             Grid.Column="1"
             ItemsSource="{Binding Muscles}"
             SelectedItems="{Binding SelectedSecondaryMuscles}"
         />
         
-        <Button Grid.Row="6" Grid.Column="1" Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
+        <Button Grid.Row="5" Grid.Column="1" Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="IsEnabled" Value="False" />

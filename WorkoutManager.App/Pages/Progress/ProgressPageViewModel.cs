@@ -28,9 +28,6 @@ namespace WorkoutManager.App.Pages.Progress
         [Description("Secondary muscle group")]
         SecondaryMuscle,
         
-        [Description("Motion")]
-        Motion,
-        
         [Description("Exercise")]
         Exercise,
         
@@ -70,7 +67,6 @@ namespace WorkoutManager.App.Pages.Progress
         private readonly Repository<Exercise> _exerciseRepository;
         private readonly Repository<TrainingSession> _trainingSessionRepository;
         private readonly Repository<Muscle> _muscleRepository;
-        private readonly Repository<JointMotion> _motionsRepository;
         private readonly Repository<Category> _categoryRepository;
         private readonly UserPreferencesService _userPreferencesService;
         
@@ -86,7 +82,6 @@ namespace WorkoutManager.App.Pages.Progress
         private IEnumerable<TrainingSession> _trainingSessions = new List<TrainingSession>();
         private IEnumerable<Exercise> _exercises = new List<Exercise>();
         private IEnumerable<Muscle> _muscles = new List<Muscle>(); 
-        private IEnumerable<JointMotion> _motions = new List<JointMotion>();
         private IEnumerable<Category> _categories = new List<Category>();
         private IEnumerable<object> _filteringValueOptions;
 
@@ -140,7 +135,6 @@ namespace WorkoutManager.App.Pages.Progress
         {
             _exercises = _exerciseRepository.GetAll();
             _muscles = _muscleRepository.GetAll();
-            _motions = _motionsRepository.GetAll();
             _categories = _categoryRepository.GetAll();
             _trainingSessions = _trainingSessionRepository.GetAll().OrderByDescending(session => session.Date);
         }
@@ -152,9 +146,6 @@ namespace WorkoutManager.App.Pages.Progress
                 case FilterBy.Exercise:
 
                     return exercise => exercise.Exercise.Equals(SelectedFilteringValue);
-                case FilterBy.Motion:
-
-                    return exercise => exercise.Exercise.Motions.Contains(SelectedFilteringValue);
                 case FilterBy.PrimaryMuscle:
 
                     return exercise => exercise.Exercise.PrimaryMuscles.Any(
@@ -271,10 +262,6 @@ namespace WorkoutManager.App.Pages.Progress
                 case FilterBy.Exercise:
 
                     return _exercises;
-                
-                case FilterBy.Motion:
-
-                    return _motions;
                 case FilterBy.PrimaryMuscle:
                 case FilterBy.SecondaryMuscle:
 
@@ -337,14 +324,13 @@ namespace WorkoutManager.App.Pages.Progress
             return filteredSessions;
         }
         
-        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<Muscle> muscleRepository, Repository<JointMotion> motionsRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository)
+        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<Muscle> muscleRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository)
         {
             _userPreferencesService = userPreferencesService;
             _categoryRepository = categoryRepository;
             _exerciseRepository = exerciseRepository;
             _trainingSessionRepository = trainingSessionRepository;
             _muscleRepository = muscleRepository;
-            _motionsRepository = motionsRepository;
 
             Task.Run(() =>
                 {
@@ -404,10 +390,6 @@ namespace WorkoutManager.App.Pages.Progress
                             {
                                 case FilterBy.Exercise:
                                     options = _exercises;
-
-                                    break;
-                                case FilterBy.Motion:
-                                    options = _motions;
 
                                     break;
                                 case FilterBy.PrimaryMuscle:

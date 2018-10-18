@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:pages="clr-namespace:WorkoutManager.App.Pages"
         xmlns:exercises1="clr-namespace:WorkoutManager.App.Pages.Exercises"
-        xmlns:motions="clr-namespace:WorkoutManager.App.Pages.Motions"
         xmlns:trainingLog="clr-namespace:WorkoutManager.App.Pages.TrainingLog"
         xmlns:userSettings="clr-namespace:WorkoutManager.App.Pages.UserSettings"
         xmlns:progress="clr-namespace:WorkoutManager.App.Pages.Progress"
@@ -19,9 +18,6 @@
         <TabControl>
             <TabItem Header="Exercises">
                 <exercises1:ExercisesPage DataContext="{Binding ExercisesPage}" />
-            </TabItem>
-            <TabItem Header="Motions">
-                <motions:MotionsPage DataContext="{Binding MotionsPage}" />
             </TabItem>
             <TabItem Header="Muscle groups">
                 <muscles:MusclesPage DataContext="{Binding MusclesPage}" />

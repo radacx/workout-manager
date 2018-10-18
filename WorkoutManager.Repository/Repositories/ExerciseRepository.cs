@@ -13,13 +13,12 @@ namespace WorkoutManager.Repository.Repositories
         public static void Register(BsonMapper mapper)
         {
             mapper.Entity<Exercise>()
-                .DbRef(x => x.Motions)
                 .DbRef(x => x.PrimaryMuscles)
                 .DbRef(x => x.SecondaryMuscles);
         }
         
         public override IEnumerable<Exercise> GetAll() => Execute(
-            collection => collection.Include(x => x.Motions)
+            collection => collection
                 .Include(x => x.PrimaryMuscles)
                 .Include(x => x.SecondaryMuscles)
                 .FindAll()

@@ -3,8 +3,8 @@ using PubSub.Core;
 using Unity;
 using Unity.Lifetime;
 using WorkoutManager.App.Pages;
+using WorkoutManager.App.Pages.Categories;
 using WorkoutManager.App.Pages.Exercises;
-using WorkoutManager.App.Pages.Motions;
 using WorkoutManager.App.Pages.Muscles;
 using WorkoutManager.App.Pages.Progress;
 using WorkoutManager.App.Pages.TrainingLog;
@@ -49,12 +49,12 @@ namespace WorkoutManager.App.Config
             container.RegisterType<UserPreferencesService>(new SingletonLifetimeManager());
             
             container.RegisterType<ExercisesPageViewModel>(new SingletonLifetimeManager());
-            container.RegisterType<MotionsPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<MusclesPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<TrainingLogPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<UserPreferencesPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<ProgressPageViewModel>(new SingletonLifetimeManager());
-
+            container.RegisterType<CategoryPageViewModel>(new SingletonLifetimeManager());
+            
             container.RegisterType(typeof(ViewModelFactory<>), new SingletonLifetimeManager());
             container.RegisterType<WindowFactory>(new SingletonLifetimeManager());
             container.RegisterType(typeof(DialogFactory<,>), new SingletonLifetimeManager());

@@ -1,6 +1,5 @@
 using WorkoutManager.App.Pages.Categories;
 using WorkoutManager.App.Pages.Exercises;
-using WorkoutManager.App.Pages.Motions;
 using WorkoutManager.App.Pages.Muscles;
 using WorkoutManager.App.Pages.Progress;
 using WorkoutManager.App.Pages.TrainingLog;
@@ -12,8 +11,6 @@ namespace WorkoutManager.App.Pages
     internal class MainWindowViewModel : IViewModel
     {
         public ExercisesPageViewModel ExercisesPage { get; }
-        
-        public MotionsPageViewModel MotionsPage { get; }
         
         public MusclesPageViewModel MusclesPage { get; }
 
@@ -27,7 +24,6 @@ namespace WorkoutManager.App.Pages
         
         public MainWindowViewModel(
             ExercisesPageViewModel exercisesPage,
-            MotionsPageViewModel motionsPage,
             MusclesPageViewModel musclesPage,
             TrainingLogPageViewModel trainingLogPage,
             ProgressPageViewModel progressPage,
@@ -36,7 +32,6 @@ namespace WorkoutManager.App.Pages
         )
         {
             ExercisesPage = exercisesPage;
-            MotionsPage = motionsPage;
             MusclesPage = musclesPage;
             TrainingLogPage = trainingLogPage;
             ProgressPage = progressPage;

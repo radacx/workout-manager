@@ -170,14 +170,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Pages\MainWindowViewModel.cs" />
-    <Compile Include="Pages\Motions\Dialogs\JointMotionDialog.xaml.cs">
-      <DependentUpon>JointMotionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Motions\Models\JointMotionDialogViewModel.cs" />
-    <Compile Include="Pages\Motions\MotionsPage.xaml.cs">
-      <DependentUpon>MotionsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Motions\MotionsPageViewModel.cs" />
     <Compile Include="Pages\Muscles\Dialogs\MuscleDialog.xaml.cs">
       <DependentUpon>MuscleDialog.xaml</DependentUpon>
     </Compile>
@@ -244,8 +236,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Motions\Dialogs\JointMotionDialog.xaml" />
-    <Page Include="Pages\Motions\MotionsPage.xaml" />
     <Page Include="Pages\Muscles\Dialogs\MuscleDialog.xaml" />
     <Page Include="Pages\Muscles\MusclesPage.xaml" />
     <Page Include="Pages\Progress\ProgressPage.xaml" />

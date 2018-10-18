@@ -23,15 +23,11 @@ namespace WorkoutManager.App.Pages.Exercises.Models
 
         public List<Muscle> Muscles { get; } = new List<Muscle>();
 
-        public List<JointMotion> Motions { get; } = new List<JointMotion>();  
-
-        public IEnumerable<JointMotion> SelectedMotions { get; set; }
-
         public IEnumerable<Muscle> SelectedPrimaryMuscles { get; set; }
 
         public IEnumerable<Muscle> SelectedSecondaryMuscles { get; set; }
         
-        public ExerciseDialogViewModel(Repository<JointMotion> motionsRepository, Repository<Muscle> muscleRepository)
+        public ExerciseDialogViewModel(Repository<Muscle> muscleRepository)
         {
             PropertyChanged += (sender, args) =>
             {
@@ -39,13 +35,7 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                 {
                     return;
                 }
-                
-                SelectedMotions = new ObservedCollection<JointMotion>(
-                    Exercise.Motions,
-                    Exercise.AddMotion,
-                    Exercise.RemoveMotion
-                );
-                
+
                 SelectedPrimaryMuscles = new ObservedCollection<Muscle>(
                     Exercise.PrimaryMuscles,
                     Exercise.AddPrimaryMuscle,
@@ -62,7 +52,6 @@ namespace WorkoutManager.App.Pages.Exercises.Models
             Task.Run(
                 () =>
                 {
-                    Motions.AddRange(motionsRepository.GetAll().OrderBy(motion => motion.Name));
                     Muscles.AddRange(muscleRepository.GetAll().OrderBy(muscle => muscle.Name));
                     OnPropertyChanged(string.Empty);
                 });
