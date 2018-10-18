@@ -9,7 +9,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 <UserControl.Resources>
-    <converters:GetMultiSelectItemTextConverter x:Key="GetMultiSelectItemTextConverter" />
     <converters:ItemToMultiSelectItemConverter x:Key="ItemToMultiSelectItemConverter" />
 </UserControl.Resources>
     <ListView
@@ -31,19 +30,7 @@
         </ListView.Style>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextBlock>
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Text">
-                                <Setter.Value>
-                                    <MultiBinding Converter="{StaticResource GetMultiSelectItemTextConverter}">
-                                        <Binding Path="" />
-                                        <Binding Path="GetItemText" RelativeSource="{RelativeSource FindAncestor, AncestorType=multiSelect:MultiSelect}" />
-                                    </MultiBinding>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </TextBlock.Style>
+                <TextBlock Text="{Binding Item}">
                 </TextBlock>
             </DataTemplate>
         </ListView.ItemTemplate>

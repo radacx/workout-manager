@@ -77,7 +77,6 @@
             Grid.Column="1"
             ItemsSource="{Binding Motions}"
             SelectedItems="{Binding SelectedMotions}"
-            GetItemText="{Binding GetJointMotionText}"
          />
         
         <Label Grid.Row="4" Grid.Column="0"
@@ -88,7 +87,6 @@
             Grid.Column="1"
             ItemsSource="{Binding Muscles}"
             SelectedItems="{Binding SelectedPrimaryMuscles}"
-            GetItemText="{Binding GetMuscleText}"
         />
         
         <Label Grid.Row="5" Grid.Column="0"
@@ -99,7 +97,6 @@
             Grid.Column="1"
             ItemsSource="{Binding Muscles}"
             SelectedItems="{Binding SelectedSecondaryMuscles}"
-            GetItemText="{Binding GetMuscleText}"
         />
         
         <Button Grid.Row="6" Grid.Column="1" Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">

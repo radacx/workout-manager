@@ -143,7 +143,6 @@
       <DependentUpon>TimeSpanUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
-    <Compile Include="Converters\GetMultiSelectItemTextConverter.cs" />
     <Compile Include="Converters\GetSessionExerciseViewModelConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\IsNumberZeroConverter.cs" />

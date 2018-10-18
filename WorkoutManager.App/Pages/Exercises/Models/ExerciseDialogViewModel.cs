@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -24,11 +23,7 @@ namespace WorkoutManager.App.Pages.Exercises.Models
 
         public List<Muscle> Muscles { get; } = new List<Muscle>();
 
-        public List<JointMotion> Motions { get; } = new List<JointMotion>();
-        
-        public Func<object, string> GetJointMotionText { get; }
-        
-        public Func<object, string> GetMuscleText { get; }
+        public List<JointMotion> Motions { get; } = new List<JointMotion>();  
 
         public IEnumerable<JointMotion> SelectedMotions { get; set; }
 
@@ -71,10 +66,6 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                     Muscles.AddRange(muscleRepository.GetAll().OrderBy(muscle => muscle.Name));
                     OnPropertyChanged(string.Empty);
                 });
-            
-            GetJointMotionText = motion => (motion as JointMotion)?.Name;
-
-            GetMuscleText = muscle => (muscle as Muscle)?.Name;
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace WorkoutManager.App.Controls.MultiSelect
 {
@@ -34,19 +32,6 @@ namespace WorkoutManager.App.Controls.MultiSelect
         {
             get => (IList) GetValue(SelectedItemsProperty);
             set => SetValue(SelectedItemsProperty, value);
-        }
-
-        public static readonly DependencyProperty GetItemTextProperty = DependencyProperty.Register(
-            nameof(GetItemText),
-            typeof(Func<object, string>),
-            typeof(MultiSelect),
-            new PropertyMetadata(default(IValueConverter))
-        );
-
-        public Func<object, string> GetItemText
-        {
-            get => (Func<object, string>) GetValue(GetItemTextProperty);
-            set => SetValue(GetItemTextProperty, value);
         }
         
         public MultiSelect()
