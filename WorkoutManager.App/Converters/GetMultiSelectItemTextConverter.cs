@@ -14,9 +14,14 @@ namespace WorkoutManager.App.Converters
                 return null;
             }
 
-            if (!(values[0] is MultiSelectItem selection) || !(values[1] is Func<object, string> converter))
+            if (!(values[0] is MultiSelectItem selection))
             {
                 return null;
+            }
+            
+            if (!(values[1] is Func<object, string> converter))
+            {
+                return selection.Item.ToString();
             }
 
             return converter(selection.Item);

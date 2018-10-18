@@ -146,10 +146,19 @@
     <Compile Include="Converters\GetMultiSelectItemTextConverter.cs" />
     <Compile Include="Converters\GetSessionExerciseViewModelConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
+    <Compile Include="Converters\IsNumberZeroConverter.cs" />
     <Compile Include="Converters\ItemToMultiSelectItemConverter.cs" />
     <Compile Include="Converters\ExerciseSetToTextConverter.cs" />
     <Compile Include="Events\MuscleGroupChangedEvent.cs" />
     <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
+    <Compile Include="Pages\Categories\CategoryPage.xaml.cs">
+      <DependentUpon>CategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Categories\CategoryPageViewModel.cs" />
+    <Compile Include="Pages\Categories\Dialogs\CategoryDialog.xaml.cs">
+      <DependentUpon>CategoryDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Categories\Models\CategoryDialogViewModel.cs" />
     <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml.cs">
       <DependentUpon>ExerciseDialog.xaml</DependentUpon>
     </Compile>
@@ -229,6 +238,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TimeSpanUpDown\TimeSpanUpDown.xaml" />
+    <Page Include="Pages\Categories\CategoryPage.xaml" />
+    <Page Include="Pages\Categories\Dialogs\CategoryDialog.xaml" />
     <Page Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

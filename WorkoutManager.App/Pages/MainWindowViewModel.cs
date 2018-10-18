@@ -1,3 +1,4 @@
+using WorkoutManager.App.Pages.Categories;
 using WorkoutManager.App.Pages.Exercises;
 using WorkoutManager.App.Pages.Motions;
 using WorkoutManager.App.Pages.MuscleGroups;
@@ -18,6 +19,8 @@ namespace WorkoutManager.App.Pages
 
         public TrainingLogPageViewModel TrainingLogPage { get; }
         
+        public CategoryPageViewModel CategoryPage { get; }
+        
         public ProgressPageViewModel ProgressPage { get; }
         
         public UserPreferencesPageViewModel UserPreferencesPage { get; }
@@ -28,7 +31,8 @@ namespace WorkoutManager.App.Pages
             MuscleGroupsPageViewModel muscleGroupsPage,
             TrainingLogPageViewModel trainingLogPage,
             ProgressPageViewModel progressPage,
-            UserPreferencesPageViewModel userPreferencesPage
+            UserPreferencesPageViewModel userPreferencesPage,
+            CategoryPageViewModel categoryPage
         )
         {
             ExercisesPage = exercisesPage;
@@ -37,6 +41,7 @@ namespace WorkoutManager.App.Pages
             TrainingLogPage = trainingLogPage;
             ProgressPage = progressPage;
             UserPreferencesPage = userPreferencesPage;
+            CategoryPage = categoryPage;
         }
     }
 }

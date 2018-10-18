@@ -1,0 +1,57 @@
+<Window x:Class="WorkoutManager.App.Pages.Categories.Dialogs.CategoryDialog"
+        x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:models="clr-namespace:WorkoutManager.App.Pages.Categories.Models"
+        xmlns:multiSelect="clr-namespace:WorkoutManager.App.Controls.MultiSelect"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=models:CategoryDialogViewModel}"
+        Title="CategoryDialog" Height="450" Width="800">
+    <StackPanel Background="AliceBlue">
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Name" />
+            <TextBox
+                Name="CategoryName"
+                Width="120"
+                Text="{Binding Category.Name}"
+            />
+        </StackPanel>
+        
+        <ComboBox
+            ItemsSource="{Binding AllowedCategoryTypes}"
+            SelectedItem="{Binding SelectedType}"
+        />
+        
+        <multiSelect:MultiSelect
+            ItemsSource="{Binding Options}"
+            SelectedItems="{Binding CategoryLinkedItems}"
+        />
+        
+        <Button
+            Content="{Binding SubmitButtonTitle}"
+            IsDefault="True"
+            Click="Submit_OnClick"
+        >
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Text, ElementName=CategoryName, UpdateSourceTrigger=PropertyChanged,
+                                    Converter={StaticResource IsTextEmptyConverter}}" Value="False"
+                                />
+                                <Condition Binding="{Binding CategoryLinkedItems.Count,
+                                    Converter={StaticResource IsNumberZeroConverter}}" Value="False"
+                                />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+    </StackPanel>
+</Window>

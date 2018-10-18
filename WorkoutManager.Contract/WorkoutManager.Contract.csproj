@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="DatabaseConfiguration.cs" />
     <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Models\Categories\Category.cs" />
     <Compile Include="Models\ExerciseSet\DynamicExerciseSet.cs" />
     <Compile Include="Models\ExerciseSet\IExerciseSet.cs" />
     <Compile Include="Models\ExerciseSet\IsometricExerciseSet.cs" />

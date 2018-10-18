@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Structures;
 using WorkoutManager.Contract.Extensions;
+using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Progress;
@@ -32,6 +33,9 @@ namespace WorkoutManager.App.Pages.Progress
         
         [Description("Exercise")]
         Exercise,
+        
+        [Description("Category")]
+        Category,
     }
 
     internal enum FilterMetric
@@ -67,6 +71,7 @@ namespace WorkoutManager.App.Pages.Progress
         private readonly Repository<TrainingSession> _trainingSessionRepository;
         private readonly Repository<MuscleGroup> _muscleGroupRepository;
         private readonly Repository<JointMotion> _motionsRepository;
+        private readonly Repository<Category> _categoryRepository;
         private readonly UserPreferencesService _userPreferencesService;
         
         private object _selectedFilteringValue;
@@ -82,6 +87,7 @@ namespace WorkoutManager.App.Pages.Progress
         private IEnumerable<Exercise> _exercises = new List<Exercise>();
         private IEnumerable<MuscleGroup> _muscleGroups = new List<MuscleGroup>(); 
         private IEnumerable<JointMotion> _motions = new List<JointMotion>();
+        private IEnumerable<Category> _categories = new List<Category>();
         private IEnumerable<object> _filteringValueOptions;
 
         public IEnumerable<FilterBy> FilterByOptions { get; } = Enum.GetValues(typeof(FilterBy)).Cast<FilterBy>();
@@ -135,6 +141,7 @@ namespace WorkoutManager.App.Pages.Progress
             _exercises = _exerciseRepository.GetAll();
             _muscleGroups = _muscleGroupRepository.GetAll();
             _motions = _motionsRepository.GetAll();
+            _categories = _categoryRepository.GetAll();
             _trainingSessions = _trainingSessionRepository.GetAll().OrderByDescending(session => session.Date);
         }
 
@@ -158,6 +165,35 @@ namespace WorkoutManager.App.Pages.Progress
                     return exercise => exercise.Exercise.SecondaryMuscles.Any(
                         muscle => muscle.MuscleGroup.Equals(SelectedFilteringValue)
                     );
+                case FilterBy.Category:
+
+                    return exercise =>
+                    {
+                        if (!(SelectedFilteringValue is Category category))
+                        {
+                            throw new ArgumentException("Selected value is not a category");
+                        }
+
+                        var typeName = category.ItemType.FullName;
+
+                        if (typeName == typeof(Exercise).FullName)
+                        {
+                            return category.Items.Contains(exercise.Exercise);
+                        }
+
+                        if (typeName == typeof(MuscleGroup).FullName)
+                        {
+                            var primaryMuscleGroups =
+                                exercise.Exercise.PrimaryMuscles.Select(muscle => muscle.MuscleGroup);
+
+                            var secondaryMuscleGroups =
+                                exercise.Exercise.SecondaryMuscles.Select(muscle => muscle.MuscleGroup);
+
+                            return primaryMuscleGroups.Concat(secondaryMuscleGroups).Any(category.Items.Contains);
+                        }
+
+                        throw new ArgumentException("Invalid category type");
+                    };
                 default:
 
                     throw new ArgumentException("Invalid filter by");
@@ -246,6 +282,9 @@ namespace WorkoutManager.App.Pages.Progress
                 case FilterBy.SecondaryMuscleGroup:
 
                     return _muscleGroups;
+                case FilterBy.Category:
+
+                    return _categories;
                 default:
                     throw new ArgumentException("Invalid filter by option");
             }
@@ -301,9 +340,10 @@ namespace WorkoutManager.App.Pages.Progress
             return filteredSessions;
         }
         
-        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<MuscleGroup> muscleGroupRepository, Repository<JointMotion> motionsRepository, UserPreferencesService userPreferencesService)
+        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<MuscleGroup> muscleGroupRepository, Repository<JointMotion> motionsRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository)
         {
             _userPreferencesService = userPreferencesService;
+            _categoryRepository = categoryRepository;
             _exerciseRepository = exerciseRepository;
             _trainingSessionRepository = trainingSessionRepository;
             _muscleGroupRepository = muscleGroupRepository;

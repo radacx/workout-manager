@@ -54,6 +54,7 @@ namespace WorkoutManager.Repository
             MuscleGroupRepository.Register(mapper);
             SessionExerciseRepository.Register(mapper);
             TrainingSessionRepository.Register(mapper);
+            CategoryRepository.Register(mapper);
             
             BsonMapper.Global = mapper;
         }

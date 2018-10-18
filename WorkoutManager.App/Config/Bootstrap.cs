@@ -11,6 +11,7 @@ using WorkoutManager.App.Pages.TrainingLog;
 using WorkoutManager.App.Pages.UserSettings;
 using WorkoutManager.App.Utils;
 using WorkoutManager.Contract;
+using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
@@ -42,6 +43,7 @@ namespace WorkoutManager.App.Config
             container.RegisterType<Repository<MuscleGroup>, MuscleGroupRepository>(new SingletonLifetimeManager());
             container.RegisterType<Repository<SessionExercise>, SessionExerciseRepository>(new SingletonLifetimeManager());
             container.RegisterType<Repository<TrainingSession>, TrainingSessionRepository>(new SingletonLifetimeManager());
+            container.RegisterType<Repository<Category>, CategoryRepository>(new SingletonLifetimeManager());
             
             container.RegisterType<ExerciseService>(new SingletonLifetimeManager());
             container.RegisterType<DatabaseService>(new SingletonLifetimeManager());

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ExercisedMuscleRepository.cs" />
     <Compile Include="Repositories\ExerciseRepository.cs" />
     <Compile Include="Repositories\MuscleGroupRepository.cs" />

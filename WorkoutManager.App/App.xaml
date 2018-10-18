@@ -8,5 +8,6 @@
         <converters:IsTextEmptyConverter x:Key="IsTextEmptyConverter" />
         <converters:DateTimeToDateConverter x:Key="DateTimeToDateConverter" />
         <converters:IsCollectionEmptyConverter x:Key="IsCollectionEmptyConverter" />
+        <converters:IsNumberZeroConverter x:Key="IsNumberZeroConverter" />
     </Application.Resources>
 </Application>
