@@ -1,0 +1,3 @@
+Option for progress visualisation -> graphs
+
+Support for micro and macro cycles and periodization..
