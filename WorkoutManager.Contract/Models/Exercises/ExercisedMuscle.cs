@@ -13,9 +13,10 @@ namespace WorkoutManager.Contract.Models.Exercises
 
         public ExercisedMuscle() {}
         
-        public ExercisedMuscle(Muscle muscle)
+        public ExercisedMuscle(Muscle muscle, double relativeEngagement)
         {
             Muscle = muscle;
+            RelativeEngagement = relativeEngagement;
         }
 
         public bool Equals(ExercisedMuscle other)

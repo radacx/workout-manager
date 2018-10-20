@@ -59,7 +59,7 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                 }
             };
             
-            AddMuscle = new Command<Muscle>(muscle => ExercisedMuscles.Add(new ExercisedMuscle(muscle)));
+            AddMuscle = new Command<Muscle>(muscle => ExercisedMuscles.Add(new ExercisedMuscle(muscle, 100d)));
 
             RemoveMuscle = new Command<ExercisedMuscle>(muscle => ExercisedMuscles.Remove(muscle));
             

@@ -4,17 +4,24 @@ using WorkoutManager.Contract.Models.ExerciseSet;
 
 namespace WorkoutManager.App.Utils
 {
-    internal class SetCreator
+    internal static class SetCreator
     {
         public static IExerciseSet Create(ContractionType type)
         {
             switch (type)
             {
                 case ContractionType.Dynamic:
-                    return new DynamicExerciseSet();
+                    return new DynamicExerciseSet
+                    {
+                        Reps = 1
+                    };
                 
                 case ContractionType.Isometric:
-                    return new IsometricExerciseSet();
+
+                    return new IsometricExerciseSet
+                    {
+                        Duration = TimeSpan.FromSeconds(1)
+                    };
                 
                 default:
                     throw new ArgumentException($"Invalid contraction type: {type}");

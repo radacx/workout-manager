@@ -13,6 +13,19 @@
         d:DataContext="{d:DesignInstance Type=models1:ExerciseDialogViewModel}"
         Height="550" Width="700">
     <StackPanel Background="AliceBlue">
+        <Button Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=ExerciseName, Converter={StaticResource IsTextEmptyConverter}, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        
         <StackPanel Orientation="Horizontal">
             <Label Target="{Binding ElementName=ExerciseName}" Content="_Name" />
             
