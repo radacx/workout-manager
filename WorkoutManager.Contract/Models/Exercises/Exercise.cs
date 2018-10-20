@@ -15,19 +15,12 @@ namespace WorkoutManager.Contract.Models.Exercises
 
         public double RelativeBodyweight { get; set; }
         
-        private List<ExercisedMuscle> _primaryMuscles = new List<ExercisedMuscle>();
-        private List<ExercisedMuscle> _secondaryMuscles = new List<ExercisedMuscle>();
+        private List<ExercisedMuscle> _muscles = new List<ExercisedMuscle>();
         
-        public ExercisedMuscle[] PrimaryMuscles
+        public ExercisedMuscle[] Muscles
         {
-            get => _primaryMuscles.ToArray();
-            set => _primaryMuscles = value.ToList();
-        }
-
-        public ExercisedMuscle[] SecondaryMuscles
-        {
-            get => _secondaryMuscles.ToArray();
-            set => _secondaryMuscles = value.ToList();
+            get => _muscles.ToArray();
+            set => _muscles = value.ToList();
         }
         
         public Exercise()
@@ -35,14 +28,10 @@ namespace WorkoutManager.Contract.Models.Exercises
             ContractionType = ContractionType.Dynamic;
         }
 
-        public void AddPrimaryMuscle(ExercisedMuscle muscle) => _primaryMuscles.Add(muscle);
+        public void AddMuscle(ExercisedMuscle muscle) => _muscles.Add(muscle);
 
-        public void AddSecondaryMuscle(ExercisedMuscle muscle) => _secondaryMuscles.Add(muscle);
+        public void RemoveMuscle(ExercisedMuscle muscle) => _muscles.Remove(muscle);
 
-        public void RemovePrimaryMuscle(ExercisedMuscle muscle) => _primaryMuscles.Remove(muscle);
-
-        public void RemoveSecondaryMuscle(ExercisedMuscle muscle) => _secondaryMuscles.Remove(muscle);
-        
         public bool Equals(Exercise other)
         {
             if (ReferenceEquals(null, other))

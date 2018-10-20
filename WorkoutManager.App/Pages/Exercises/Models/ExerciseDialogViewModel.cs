@@ -22,21 +22,14 @@ namespace WorkoutManager.App.Pages.Exercises.Models
 
         public BulkObservableCollection<Muscle> AvailableMuscles { get; } = new BulkObservableCollection<Muscle>();
 
-        public ICommand AddPrimaryMuscle { get; }
+        public ICommand AddMuscle { get; }
         
-        public ICommand RemovePrimaryMuscle { get; }
+        public ICommand RemoveMuscle { get; }
         
-        public ICommand AddSecondaryMuscle { get; }
-        
-        public ICommand RemoveSecondaryMuscle { get; }
-        
-        public ObservedCollection<ExercisedMuscle> PrimaryExercisedMuscles { get; set; }
-        
-        public ObservedCollection<ExercisedMuscle> SecondaryExercisedMuscles { get; set; }
+        public ObservedCollection<ExercisedMuscle> ExercisedMuscles { get; set; }
 
         private bool IsMuscleAvailable(Muscle muscle)
-            => !PrimaryExercisedMuscles.Any(exercisedMuscle => exercisedMuscle.Muscle.Equals(muscle))
-                && !SecondaryExercisedMuscles.Any(exercisedMuscle => exercisedMuscle.Muscle.Equals(muscle));
+            => !ExercisedMuscles.Any(exercisedMuscle => exercisedMuscle.Muscle.Equals(muscle));
         
         public ExerciseDialogViewModel(Repository<Muscle> muscleRepository)
         {
@@ -50,43 +43,25 @@ namespace WorkoutManager.App.Pages.Exercises.Models
             {
                 if (args.PropertyName == nameof(Exercise))
                 {
-                    PrimaryExercisedMuscles = new ObservedCollection<ExercisedMuscle>(
-                        Exercise.PrimaryMuscles,
+                    ExercisedMuscles = new ObservedCollection<ExercisedMuscle>(
+                        Exercise.Muscles,
                         muscle =>
                         {
-                            Exercise.AddPrimaryMuscle(muscle);
+                            Exercise.AddMuscle(muscle);
                             availableMusclesShape.Apply();
                         },
                         muscle =>
                         {
-                            Exercise.RemovePrimaryMuscle(muscle);
-                            availableMusclesShape.Apply();
-                        }
-                    );
-                    
-                    SecondaryExercisedMuscles = new ObservedCollection<ExercisedMuscle>(
-                        Exercise.SecondaryMuscles,
-                        muscle =>
-                        {
-                            Exercise.AddSecondaryMuscle(muscle);
-                            availableMusclesShape.Apply();
-                        },
-                        muscle =>
-                        {
-                            Exercise.RemoveSecondaryMuscle(muscle);
+                            Exercise.RemoveMuscle(muscle);
                             availableMusclesShape.Apply();
                         }
                     );
                 }
             };
             
-            AddPrimaryMuscle = new Command<Muscle>(muscle => PrimaryExercisedMuscles.Add(new ExercisedMuscle(muscle)));
+            AddMuscle = new Command<Muscle>(muscle => ExercisedMuscles.Add(new ExercisedMuscle(muscle)));
 
-            RemovePrimaryMuscle = new Command<ExercisedMuscle>(muscle => PrimaryExercisedMuscles.Remove(muscle));
-            
-            AddSecondaryMuscle = new Command<Muscle>(muscle => SecondaryExercisedMuscles.Add(new ExercisedMuscle(muscle)));
-            
-            RemoveSecondaryMuscle = new Command<ExercisedMuscle>(muscle => SecondaryExercisedMuscles.Remove(muscle));
+            RemoveMuscle = new Command<ExercisedMuscle>(muscle => ExercisedMuscles.Remove(muscle));
             
             Task.Run(
                 () =>

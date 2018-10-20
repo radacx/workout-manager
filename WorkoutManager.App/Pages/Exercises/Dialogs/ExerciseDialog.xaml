@@ -74,23 +74,23 @@
                 Grid.Column="0"
                 Orientation="Horizontal"
             >
-                <Label Content="Primary muscles" />
+                <Label Content="Muscles" />
                 
                 <ComboBox
-                    Name="SelectedPrimaryMuscle"
+                    Name="SelectedMuscle"
                     ItemsSource="{Binding AvailableMuscles}"
                 />
                 
                 <Button
                     Content="Add"
-                    Command="{Binding AddPrimaryMuscle}"
-                    CommandParameter="{Binding SelectedItem, ElementName=SelectedPrimaryMuscle}"
+                    Command="{Binding AddMuscle}"
+                    CommandParameter="{Binding SelectedItem, ElementName=SelectedMuscle}"
                 >
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="IsEnabled" Value="False" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItem, ElementName=SelectedPrimaryMuscle,
+                                <DataTrigger Binding="{Binding SelectedItem, ElementName=SelectedMuscle,
                             Converter={StaticResource IsValueNullConverter}}" Value="False"
                                 >
                                     <Setter Property="IsEnabled" Value="True" />
@@ -104,65 +104,14 @@
             <ItemsControl
                 Grid.Row="1"
                 Grid.Column="0"
-                ItemsSource="{Binding PrimaryExercisedMuscles}"
+                ItemsSource="{Binding ExercisedMuscles}"
             >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Muscle}" />
                             <xctk:DoubleUpDown Value="{Binding RelativeEngagement}" Minimum="1" Maximum="100" />
-                            <Button Content="Remove" Command="{Binding DataContext.RemovePrimaryMuscle,
-                            RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
-                                    CommandParameter="{Binding}"
-                            />
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            
-            <StackPanel
-                Grid.Row="0"
-                Grid.Column="1"
-                Orientation="Horizontal"
-            >
-                <Label Content="Secondary muscles" />
-                
-                <ComboBox
-                    Name="SelectedSecondaryMuscle"
-                    ItemsSource="{Binding AvailableMuscles}"
-                />
-                
-                <Button
-                    Content="Add"
-                    Command="{Binding AddSecondaryMuscle}"
-                    CommandParameter="{Binding SelectedItem, ElementName=SelectedSecondaryMuscle}"
-                >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="IsEnabled" Value="False" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItem, ElementName=SelectedSecondaryMuscle,
-                                    Converter={StaticResource IsValueNullConverter}}" Value="False"
-                                >
-                                    <Setter Property="IsEnabled" Value="True" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-            </StackPanel>
-            
-            <ItemsControl
-                Grid.Row="1"
-                Grid.Column="1"
-                ItemsSource="{Binding SecondaryExercisedMuscles}"
-            >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Muscle}" />
-                            <xctk:DoubleUpDown Value="{Binding RelativeEngagement}" Minimum="1" Maximum="100" />
-                            <Button Content="Remove" Command="{Binding DataContext.RemoveSecondaryMuscle,
+                            <Button Content="Remove" Command="{Binding DataContext.RemoveMuscle,
                             RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
                                     CommandParameter="{Binding}"
                             />

@@ -10,33 +10,26 @@ namespace WorkoutManager.Service.Services
         
         public void Create(Exercise exercise)
         {
-            _exercisedMuscleRepository.CreateRange(exercise.PrimaryMuscles);
-            _exercisedMuscleRepository.CreateRange(exercise.SecondaryMuscles);
+            _exercisedMuscleRepository.CreateRange(exercise.Muscles);
             
             Repository.Create(exercise);
         }
 
         public void Update(Exercise exercise)
         {
-            var newPrimaryMuscles = exercise.PrimaryMuscles.Where(muscle => muscle.Id == 0);
-            var newSecondaryMuscle = exercise.SecondaryMuscles.Where(muscle => muscle.Id == 0);
-            var oldPrimaryMuscles = exercise.PrimaryMuscles.Where(muscle => muscle.Id != 0);
-            var oldSecondaryMuscles = exercise.SecondaryMuscles.Where(muscle => muscle.Id != 0);
+            var newMuscles = exercise.Muscles.Where(muscle => muscle.Id == 0);
+            var oldMuscles = exercise.Muscles.Where(muscle => muscle.Id != 0);
             
+            _exercisedMuscleRepository.CreateRange(newMuscles);
             
-            _exercisedMuscleRepository.CreateRange(newPrimaryMuscles);
-            _exercisedMuscleRepository.CreateRange(newSecondaryMuscle);
-            
-            _exercisedMuscleRepository.UpdateRange(oldPrimaryMuscles);
-            _exercisedMuscleRepository.UpdateRange(oldSecondaryMuscles);
+            _exercisedMuscleRepository.UpdateRange(oldMuscles);
             
             Repository.Update(exercise);
         }
         
         public void Delete(Exercise exercise)
         {
-            _exercisedMuscleRepository.DeleteRange(exercise.PrimaryMuscles);
-            _exercisedMuscleRepository.DeleteRange(exercise.SecondaryMuscles);
+            _exercisedMuscleRepository.DeleteRange(exercise.Muscles);
             
             Repository.Delete(exercise);    
         }

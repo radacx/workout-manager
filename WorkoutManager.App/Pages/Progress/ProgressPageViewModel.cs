@@ -131,14 +131,9 @@ namespace WorkoutManager.App.Pages.Progress
                 case FilterBy.Exercise:
 
                     return exercise => exercise.Exercise.Equals(SelectedFilteringValue);
-                case FilterBy.PrimaryMuscle:
+                case FilterBy.Muscle:
 
-                    return exercise => exercise.Exercise.PrimaryMuscles.Any(
-                        exercisedMuscle => exercisedMuscle.Muscle.Equals(SelectedFilteringValue)
-                    );
-                case FilterBy.SecondaryMuscle:
-
-                    return exercise => exercise.Exercise.SecondaryMuscles.Any(
+                    return exercise => exercise.Exercise.Muscles.Any(
                         exercisedMuscle => exercisedMuscle.Muscle.Equals(SelectedFilteringValue)
                     );
                 case FilterBy.Category:
@@ -159,10 +154,7 @@ namespace WorkoutManager.App.Pages.Progress
 
                         if (typeName == typeof(Muscle).FullName)
                         {
-                            var primaryMuscles = exercise.Exercise.PrimaryMuscles;
-                            var secondaryMuscles = exercise.Exercise.SecondaryMuscles;
-
-                            return primaryMuscles.Concat(secondaryMuscles).Any(category.Items.Contains);
+                            return exercise.Exercise.Muscles.Any(category.Items.Contains);
                         }
 
                         throw new ArgumentException("Invalid category type");
@@ -247,8 +239,7 @@ namespace WorkoutManager.App.Pages.Progress
                 case FilterBy.Exercise:
 
                     return _exercises;
-                case FilterBy.PrimaryMuscle:
-                case FilterBy.SecondaryMuscle:
+                case FilterBy.Muscle:
 
                     return _muscles;
                 case FilterBy.Category:
