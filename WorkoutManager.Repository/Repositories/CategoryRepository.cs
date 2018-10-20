@@ -12,30 +12,30 @@ namespace WorkoutManager.Repository.Repositories
     public class CategoryRepository : Repository<Category>
     {
         public CategoryRepository(DatabaseConfiguration configuration) : base(configuration) {}
-
-        private static IEntity CreateItem(Type itemType, int id)
-        {
-            if (itemType == typeof(Exercise))
-            {
-                return new Exercise
-                {
-                    Id = id
-                };
-            }
-
-            if (itemType == typeof(Muscle))
-            {
-                return new Muscle
-                {
-                    Id = id
-                };
-            }
-
-            throw new ArgumentException("Unknown type");
-        }
         
         public static void Register(BsonMapper mapper)
         {
+            IEntity CreateItem(Type itemType, int id)
+            {
+                if (itemType == typeof(Exercise))
+                {
+                    return new Exercise
+                    {
+                        Id = id
+                    };
+                }
+
+                if (itemType == typeof(Muscle))
+                {
+                    return new Muscle
+                    {
+                        Id = id
+                    };
+                }
+
+                throw new ArgumentException("Unknown type");
+            }
+            
             mapper.RegisterType(
                 category => new Dictionary<string, BsonValue>
                 {

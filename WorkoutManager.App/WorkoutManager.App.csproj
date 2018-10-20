@@ -14,6 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -146,6 +147,7 @@
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\IsNumberZeroConverter.cs" />
     <Compile Include="Converters\IsValueNullConverter.cs" />
+    <Compile Include="Events\ProgressFilterSelectedEvent.cs" />
     <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
     <Compile Include="Pages\Categories\CategoryPage.xaml.cs">
       <DependentUpon>CategoryPage.xaml</DependentUpon>
@@ -176,6 +178,14 @@
       <DependentUpon>MusclesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Muscles\MusclesPageViewModel.cs" />
+    <Compile Include="Pages\Progress\Dialogs\ProgressFilterDialog.xaml.cs">
+      <DependentUpon>ProgressFilterDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Progress\Dialogs\SelectFilterDialog.xaml.cs">
+      <DependentUpon>SelectFilterDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Progress\Models\ProgressFilterDialogViewModel.cs" />
+    <Compile Include="Pages\Progress\Models\SelectFilterDialogViewModel.cs" />
     <Compile Include="Pages\Progress\ProgressPage.xaml.cs">
       <DependentUpon>ProgressPage.xaml</DependentUpon>
     </Compile>
@@ -184,9 +194,7 @@
     <Compile Include="Pages\Progress\Structures\Calculators\IMetricsCalculator.cs" />
     <Compile Include="Pages\Progress\Structures\Calculators\MetricsCalculator.cs" />
     <Compile Include="Pages\Progress\Structures\Calculators\MuscleMetricCalculator.cs" />
-    <Compile Include="Pages\Progress\Structures\FilterBy.cs" />
-    <Compile Include="Pages\Progress\Structures\FilterMetric.cs" />
-    <Compile Include="Pages\Progress\Structures\GroupBy.cs" />
+    <Compile Include="Pages\Progress\Structures\ProgressFilterForDialog.cs" />
     <Compile Include="Pages\Progress\Structures\ProgressResult.cs" />
     <Compile Include="Pages\TrainingLog\Controls\SessionExercise.xaml.cs">
       <DependentUpon>SessionExercise.xaml</DependentUpon>
@@ -246,6 +254,8 @@
     </Page>
     <Page Include="Pages\Muscles\Dialogs\MuscleDialog.xaml" />
     <Page Include="Pages\Muscles\MusclesPage.xaml" />
+    <Page Include="Pages\Progress\Dialogs\ProgressFilterDialog.xaml" />
+    <Page Include="Pages\Progress\Dialogs\SelectFilterDialog.xaml" />
     <Page Include="Pages\Progress\ProgressPage.xaml" />
     <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />
     <Page Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog.xaml" />

@@ -1,8 +1,8 @@
 using System.ComponentModel;
 
-namespace WorkoutManager.App.Pages.Progress.Structures
+namespace WorkoutManager.Contract.Models.Progress
 {
-    internal enum FilterBy
+    public enum FilterBy
     {
         [Description("Muscle")]
         Muscle,

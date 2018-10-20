@@ -50,6 +50,10 @@
     <Compile Include="Models\Exercises\ContractionType.cs" />
     <Compile Include="Models\Exercises\Exercise.cs" />
     <Compile Include="Models\Misc\IEntity.cs" />
+    <Compile Include="Models\Progress\FilterBy.cs" />
+    <Compile Include="Models\Progress\FilterMetric.cs" />
+    <Compile Include="Models\Progress\GroupBy.cs" />
+    <Compile Include="Models\Progress\ProgressFilter.cs" />
     <Compile Include="Models\Sessions\SessionExercise.cs" />
     <Compile Include="Models\Sessions\TrainingSession.cs" />
     <Compile Include="Models\User\WeightUnits.cs" />

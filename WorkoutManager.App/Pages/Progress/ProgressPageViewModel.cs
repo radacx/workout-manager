@@ -4,12 +4,19 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PubSub.Core;
+using WorkoutManager.App.Events;
+using WorkoutManager.App.Pages.Progress.Dialogs;
+using WorkoutManager.App.Pages.Progress.Models;
 using WorkoutManager.App.Pages.Progress.Structures;
 using WorkoutManager.App.Pages.Progress.Structures.Calculators;
 using WorkoutManager.App.Structures;
+using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
+using WorkoutManager.Contract.Models.Misc;
+using WorkoutManager.Contract.Models.Progress;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
 using WorkoutManager.Service.Services;
@@ -24,8 +31,11 @@ namespace WorkoutManager.App.Pages.Progress
         private readonly Repository<Category> _categoryRepository;
         
         private readonly UserPreferencesService _userPreferencesService;
+
+        private readonly DialogFactory<ProgressFilterDialog, ProgressFilterDialogViewModel> _progressFilterDialogFactory;
+        private readonly DialogFactory<SelectFilterDialog, SelectFilterDialogViewModel> _selectFilterDialogFactory;
         
-        private object _filteringValue;
+        private IEntity _filteringValue;
         
         private FilterBy _filterBy = FilterBy.Exercise;
         private GroupBy _groupBy = GroupBy.Day ;
@@ -44,7 +54,7 @@ namespace WorkoutManager.App.Pages.Progress
         private IEnumerable<Muscle> _muscles = new List<Muscle>(); 
         private IEnumerable<Category> _categories = new List<Category>();
         
-        private IEnumerable<object> _filteringValueOptions;
+        private IEnumerable<IEntity> _filteringValueOptions;
         private bool _shouldFilterFrom;
         private bool _shouldFilterTill;
         private DateTime? _dateFrom;
@@ -56,19 +66,23 @@ namespace WorkoutManager.App.Pages.Progress
         public IEnumerable<FilterMetric> MetricOptions { get; } = Enum.GetValues(typeof(FilterMetric)).Cast<FilterMetric>();
         public IEnumerable<DayOfWeek> DayOfWeekOptions { get; } = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>();
         
+        public ICommand OpenAddFilterDialog { get; }
+        
+        public ICommand OpenSelectFilterDialog { get; }
+        
         public DayOfWeek StartingDayOfWeek
         {
             get => _startingDayOfWeek;
             set => SetField(ref _startingDayOfWeek, value);
         }
-
+        
         public IEnumerable<ProgressResult> Results
         {
             get => _results;
             set => SetField(ref _results, value);
         }
 
-        public object SelectedFilteringValue
+        public IEntity SelectedFilteringValue
         {
             get => _filteringValue;
             set => SetField(ref _filteringValue, value);
@@ -116,7 +130,7 @@ namespace WorkoutManager.App.Pages.Progress
             set => SetField(ref _metric, value);
         }
 
-        public IEnumerable<object> FilteringValueOptions
+        public IEnumerable<IEntity> FilteringValueOptions
         {
             get => _filteringValueOptions;
             set => SetField(ref _filteringValueOptions, value);
@@ -191,7 +205,7 @@ namespace WorkoutManager.App.Pages.Progress
             }
         }
         
-        private IEnumerable<object> GetFilteringValueOptions()
+        private IEnumerable<IEntity> GetFilteringValueOptions()
         {
             switch (FilterBy)
             {
@@ -259,14 +273,38 @@ namespace WorkoutManager.App.Pages.Progress
             return filteredSessions;
         }
         
-        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<Muscle> muscleRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository)
+        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<Muscle> muscleRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository, DialogFactory<ProgressFilterDialog, ProgressFilterDialogViewModel> progressFilterDialogFactory, Repository<ProgressFilter> progressFilterRepository, DialogFactory<SelectFilterDialog, SelectFilterDialogViewModel> selectFilterDialogFactory, Hub eventAggregator)
         {
             _userPreferencesService = userPreferencesService;
             _categoryRepository = categoryRepository;
+            _progressFilterDialogFactory = progressFilterDialogFactory;
+            _selectFilterDialogFactory = selectFilterDialogFactory;
             _exerciseRepository = exerciseRepository;
             _trainingSessionRepository = trainingSessionRepository;
             _muscleRepository = muscleRepository;
 
+            eventAggregator.Subscribe<ProgressFilterSelectedEvent>(
+                filterEvent =>
+                {
+                    var filter = filterEvent.Filter;
+
+                    if (filter.Metric.HasValue)
+                    {
+                        Metric = filter.Metric.Value;
+                    }
+
+                    if (filter.GroupBy.HasValue)
+                    {
+                        GroupBy = filter.GroupBy.Value;
+                    }
+
+                    if (filter.FilterBy.HasValue)
+                    {
+                        FilterBy = filter.FilterBy.Value;
+                        SelectedFilteringValue = filter.FilteringValue;
+                    }
+                });
+            
             Task.Run(() =>
                 {
                     LoadData();
@@ -302,6 +340,53 @@ namespace WorkoutManager.App.Pages.Progress
                 
                 Results = results;
             };
+            
+            OpenAddFilterDialog = new Command(
+                () =>
+                {
+                    var progressFilterForDialog = new ProgressFilterForDialog();
+
+                    var dialog = _progressFilterDialogFactory.Get();
+                    dialog.Data.ProgressFilter = progressFilterForDialog;
+                        
+                    var dialogResult = dialog.Show();
+
+                    if (dialogResult != DialogResult.Ok)
+                    {
+                        return;
+                    }
+
+                    var progressFilter = new ProgressFilter
+                    {
+                        Name = progressFilterForDialog.Name
+                    };
+                    
+                    if (progressFilterForDialog.RememberFilterBy)
+                    {
+                        progressFilter.FilterBy = _filterBy;
+                        progressFilter.FilteringValue = SelectedFilteringValue;
+                    }
+
+                    if (progressFilterForDialog.RememberGroupBy)
+                    {
+                        progressFilter.GroupBy = _groupBy;
+                    }
+
+                    if (progressFilterForDialog.RememberMetric)
+                    {
+                        progressFilter.Metric = _metric;
+                    }
+
+                    Task.Run(() => progressFilterRepository.Create(progressFilter));
+                });
+            
+            OpenSelectFilterDialog = new Command(
+                () =>
+                {
+                    var dialog = _selectFilterDialogFactory.Get();
+                    
+                    dialog.Show();
+                });
             
             Refresh = new Command(
                 () =>

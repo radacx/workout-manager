@@ -32,7 +32,7 @@ namespace WorkoutManager.App.Utils
         {
             private readonly TView _view;
             
-            public TViewModel Data { get; set; }
+            public TViewModel Data { get; }
 
             public Dialog(WindowFactory windowFactory, ViewModelFactory<TViewModel> viewModelFactory)
             {

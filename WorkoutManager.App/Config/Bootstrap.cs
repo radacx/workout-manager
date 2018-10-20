@@ -7,6 +7,7 @@ using WorkoutManager.App.Pages.Categories;
 using WorkoutManager.App.Pages.Exercises;
 using WorkoutManager.App.Pages.Muscles;
 using WorkoutManager.App.Pages.Progress;
+using WorkoutManager.App.Pages.Progress.Models;
 using WorkoutManager.App.Pages.TrainingLog;
 using WorkoutManager.App.Pages.UserSettings;
 using WorkoutManager.App.Utils;
@@ -54,6 +55,7 @@ namespace WorkoutManager.App.Config
             container.RegisterType<UserPreferencesPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<ProgressPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<CategoryPageViewModel>(new SingletonLifetimeManager());
+            container.RegisterType<SelectFilterDialogViewModel>(new SingletonLifetimeManager());
             
             container.RegisterType(typeof(ViewModelFactory<>), new SingletonLifetimeManager());
             container.RegisterType<WindowFactory>(new SingletonLifetimeManager());

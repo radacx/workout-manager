@@ -1,8 +1,8 @@
 using System.ComponentModel;
 
-namespace WorkoutManager.App.Pages.Progress.Structures
+namespace WorkoutManager.Contract.Models.Progress
 {
-    internal enum GroupBy
+    public enum GroupBy
     {
         [Description("Day")]
         Day,
