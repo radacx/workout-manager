@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using WorkoutManager.App.Structures;
 using WorkoutManager.Contract.Models.Categories;
@@ -10,7 +9,7 @@ using WorkoutManager.Repository;
 
 namespace WorkoutManager.App.Pages.Categories.Models
 {
-    internal class CategoryDialogViewModel : ViewModelBase, INotifyPropertyChanged
+    internal class CategoryDialogViewModel : ViewModelBase
     {
         public Category Category
         {

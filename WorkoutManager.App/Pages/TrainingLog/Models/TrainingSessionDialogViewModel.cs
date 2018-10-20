@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using PubSub.Core;
@@ -15,7 +14,7 @@ using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Models
 {
-    internal class TrainingSessionDialogViewModel : ViewModelBase, INotifyPropertyChanged
+    internal class TrainingSessionDialogViewModel : ViewModelBase
     {
         public TrainingSession TrainingSession
         {

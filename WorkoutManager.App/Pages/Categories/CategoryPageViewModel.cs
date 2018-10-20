@@ -10,7 +10,7 @@ using WorkoutManager.Repository;
 
 namespace WorkoutManager.App.Pages.Categories
 {
-    internal class CategoryPageViewModel : IViewModel
+    internal class CategoryPageViewModel : ViewModelBase
     {
         private readonly Repository<Category> _categoryRepository;
         private readonly DialogFactory<CategoryDialog, CategoryDialogViewModel> _categoryDialogFactory;

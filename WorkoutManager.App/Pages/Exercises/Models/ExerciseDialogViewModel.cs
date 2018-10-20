@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using WorkoutManager.App.Structures;
@@ -8,7 +7,7 @@ using WorkoutManager.Repository;
 
 namespace WorkoutManager.App.Pages.Exercises.Models
 {
-    internal class ExerciseDialogViewModel : ViewModelBase, INotifyPropertyChanged
+    internal class ExerciseDialogViewModel : ViewModelBase
     {
         private Exercise _exercise;
         public bool IsBodyweightExercise { get; set; }

@@ -13,7 +13,7 @@ using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.TrainingLog
 {
-    internal class TrainingLogPageViewModel
+    internal class TrainingLogPageViewModel : ViewModelBase
     {
         public BulkObservableCollection<TrainingSession> TrainingSessions { get; } =
             new BulkObservableCollection<TrainingSession>();

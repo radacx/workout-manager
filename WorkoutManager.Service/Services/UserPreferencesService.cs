@@ -1,4 +1,5 @@
 using System.Linq;
+using Force.DeepCloner;
 using WorkoutManager.Contract.Models.User;
 using WorkoutManager.Repository;
 
@@ -28,7 +29,7 @@ namespace WorkoutManager.Service.Services
             _userPreferencesRepository.Create(_userPreferences);
         }
 
-        public UserPreferences Load() => _userPreferences;
+        public UserPreferences Load() => _userPreferences.DeepClone();
 
         public void Update(UserPreferences userPreferences)
         {

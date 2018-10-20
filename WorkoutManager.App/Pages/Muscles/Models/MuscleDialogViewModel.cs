@@ -3,7 +3,7 @@ using WorkoutManager.Contract.Models.Exercises;
 
 namespace WorkoutManager.App.Pages.Muscles.Models
 {
-    internal class MuscleDialogViewModel : IViewModel
+    internal class MuscleDialogViewModel : ViewModelBase
     {
         public Muscle Muscle { get; set; }
         

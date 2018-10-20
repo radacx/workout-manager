@@ -10,7 +10,7 @@ using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.Exercises
 {
-    internal class ExercisesPageViewModel
+    internal class ExercisesPageViewModel : ViewModelBase
     {
         public BulkObservableCollection<Exercise> Exercises { get; } = new BulkObservableCollection<Exercise>();
         

@@ -6,7 +6,7 @@ using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.UserSettings
 {
-    internal class UserPreferencesPageViewModel
+    internal class UserPreferencesPageViewModel : ViewModelBase
     {
         public UserPreferences UserPreferences { get; set; }
 

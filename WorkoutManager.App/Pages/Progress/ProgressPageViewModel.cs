@@ -62,7 +62,7 @@ namespace WorkoutManager.App.Pages.Progress
         Year,
     }
     
-    internal class ProgressPageViewModel : ViewModelBase, INotifyPropertyChanged
+    internal class ProgressPageViewModel : ViewModelBase
     {
         private readonly Repository<Exercise> _exerciseRepository;
         private readonly Repository<TrainingSession> _trainingSessionRepository;

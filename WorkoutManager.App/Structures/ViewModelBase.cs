@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Unity.Interception.Utilities;
 using WorkoutManager.App.Annotations;
 
 namespace WorkoutManager.App.Structures
 {
-    internal abstract class ViewModelBase : IViewModel
+    internal abstract class ViewModelBase : IViewModel, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

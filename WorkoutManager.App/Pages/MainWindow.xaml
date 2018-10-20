@@ -19,7 +19,7 @@
             <TabItem Header="Exercises">
                 <exercises1:ExercisesPage DataContext="{Binding ExercisesPage}" />
             </TabItem>
-            <TabItem Header="Muscle groups">
+            <TabItem Header="Muscles">
                 <muscles:MusclesPage DataContext="{Binding MusclesPage}" />
             </TabItem>
             <TabItem Header="Training log">

@@ -8,7 +8,7 @@ using WorkoutManager.App.Structures;
 
 namespace WorkoutManager.App.Pages
 {
-    internal class MainWindowViewModel : IViewModel
+    internal class MainWindowViewModel : ViewModelBase
     {
         public ExercisesPageViewModel ExercisesPage { get; }
         

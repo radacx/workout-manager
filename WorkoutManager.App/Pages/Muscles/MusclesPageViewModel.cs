@@ -11,7 +11,7 @@ using WorkoutManager.Repository;
 
 namespace WorkoutManager.App.Pages.Muscles
 {
-    internal class MusclesPageViewModel
+    internal class MusclesPageViewModel : ViewModelBase
     {
         public BulkObservableCollection<Muscle> Muscles { get; } = new BulkObservableCollection<Muscle>();
 
