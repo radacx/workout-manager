@@ -1,6 +1,6 @@
-namespace WorkoutManager.Contract.Models.Progress
+namespace WorkoutManager.App.Pages.Progress.Structures
 {
-    public class ProgressResult
+    internal class ProgressResult
     {
         public string DateUnit { get; set; }
         

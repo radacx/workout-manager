@@ -1,79 +1,37 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WorkoutManager.App.Pages.Progress.Structures;
 using WorkoutManager.App.Structures;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.ExerciseSet;
-using WorkoutManager.Contract.Models.Progress;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
 using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.Progress
 {
-    internal delegate bool FilteringPredicate(SessionExercise sessionExercise);
-    
-    internal enum FilterBy
-    {
-        [Description("Primary muscle group")]
-        PrimaryMuscle,
-            
-        [Description("Secondary muscle group")]
-        SecondaryMuscle,
-        
-        [Description("Exercise")]
-        Exercise,
-        
-        [Description("Category")]
-        Category,
-    }
-
-    internal enum FilterMetric
-    {
-        Volume,
-        Sets,
-    }
-    
-    internal enum GroupBy
-    {
-        [Description("Day")]
-        Day,
-            
-        [Description("Week")]
-        Week,
-            
-        [Description("1 Month")]
-        Month1,
-            
-        [Description("3 Months")]
-        Month3,
-            
-        [Description("6 Months")]
-        Month6,
-            
-        [Description("Year")]
-        Year,
-    }
-    
     internal class ProgressPageViewModel : ViewModelBase
     {
         private readonly Repository<Exercise> _exerciseRepository;
         private readonly Repository<TrainingSession> _trainingSessionRepository;
         private readonly Repository<Muscle> _muscleRepository;
         private readonly Repository<Category> _categoryRepository;
+        
         private readonly UserPreferencesService _userPreferencesService;
         
-        private object _selectedFilteringValue;
+        private object _filteringValue;
+        
         private FilterBy _filterBy = FilterBy.Exercise;
-        private IEnumerable<ProgressResult> _results;
         private GroupBy _groupBy = GroupBy.Day ;
         private FilterMetric _metric = FilterMetric.Volume;
+
+        private IEnumerable<ProgressResult> _results;
 
         private static readonly IEnumerable<string> FilterProperties = new[]
             { nameof(SelectedFilteringValue), nameof(GroupBy), nameof(Metric), string.Empty };
@@ -82,6 +40,7 @@ namespace WorkoutManager.App.Pages.Progress
         private IEnumerable<Exercise> _exercises = new List<Exercise>();
         private IEnumerable<Muscle> _muscles = new List<Muscle>(); 
         private IEnumerable<Category> _categories = new List<Category>();
+        
         private IEnumerable<object> _filteringValueOptions;
 
         public IEnumerable<FilterBy> FilterByOptions { get; } = Enum.GetValues(typeof(FilterBy)).Cast<FilterBy>();
@@ -96,8 +55,8 @@ namespace WorkoutManager.App.Pages.Progress
 
         public object SelectedFilteringValue
         {
-            get => _selectedFilteringValue;
-            set => SetField(ref _selectedFilteringValue, value);
+            get => _filteringValue;
+            set => SetField(ref _filteringValue, value);
         }
 
         public DateTime? DateFrom { get; set; }
@@ -378,7 +337,7 @@ namespace WorkoutManager.App.Pages.Progress
                             LoadData();
                             
                             _filteringValueOptions = GetFilteringValueOptions();
-                            _selectedFilteringValue = _filteringValueOptions.FirstOrDefault();
+                            _filteringValue = _filteringValueOptions.FirstOrDefault();
                             
                             OnPropertyChanged(string.Empty);
                         }

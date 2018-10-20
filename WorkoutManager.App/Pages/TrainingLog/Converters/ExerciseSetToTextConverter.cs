@@ -5,7 +5,7 @@ using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.User;
 
-namespace WorkoutManager.App.Converters
+namespace WorkoutManager.App.Pages.TrainingLog.Converters
 {
     internal class ExerciseSetToTextConverter : IMultiValueConverter
     {

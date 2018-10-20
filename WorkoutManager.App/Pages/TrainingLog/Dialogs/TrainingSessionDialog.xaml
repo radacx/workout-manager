@@ -9,11 +9,12 @@
         xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
         xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
+        xmlns:converters1="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Converters"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=models:TrainingSessionDialogViewModel}"
         Height="450" Width="800">
 <Window.Resources>
-    <converters:GetSessionExerciseViewModelConverter x:Key="GetSessionExerciseViewModelConverter" />
+    <converters1:GetSessionExerciseViewModelConverter x:Key="GetSessionExerciseViewModelConverter" />
 </Window.Resources>
     
     <Grid Background="AliceBlue">

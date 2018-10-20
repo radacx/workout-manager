@@ -7,11 +7,12 @@
              xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
              xmlns:controls="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Controls"
              xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
+             xmlns:converters1="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Converters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=models:SessionExerciseViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
 <UserControl.Resources>  
-    <converters:ExerciseSetToTextConverter x:Key="ExerciseSetToTextConverter" />
+    <converters1:ExerciseSetToTextConverter x:Key="ExerciseSetToTextConverter" />
 </UserControl.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal">

@@ -134,6 +134,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config\Bootstrap.cs" />
+    <Compile Include="Controls\MultiSelect\ItemToMultiSelectItemConverter.cs" />
     <Compile Include="Controls\MultiSelect\MultiSelect.xaml.cs">
       <DependentUpon>MultiSelect.xaml</DependentUpon>
     </Compile>
@@ -143,11 +144,8 @@
       <DependentUpon>TimeSpanUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
-    <Compile Include="Converters\GetSessionExerciseViewModelConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\IsNumberZeroConverter.cs" />
-    <Compile Include="Converters\ItemToMultiSelectItemConverter.cs" />
-    <Compile Include="Converters\ExerciseSetToTextConverter.cs" />
     <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
     <Compile Include="Pages\Categories\CategoryPage.xaml.cs">
       <DependentUpon>CategoryPage.xaml</DependentUpon>
@@ -182,9 +180,16 @@
       <DependentUpon>ProgressPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Progress\ProgressPageViewModel.cs" />
+    <Compile Include="Pages\Progress\Structures\FilterBy.cs" />
+    <Compile Include="Pages\Progress\Structures\FilteringPredicate.cs" />
+    <Compile Include="Pages\Progress\Structures\FilterMetric.cs" />
+    <Compile Include="Pages\Progress\Structures\GroupBy.cs" />
+    <Compile Include="Pages\Progress\Structures\ProgressResult.cs" />
     <Compile Include="Pages\TrainingLog\Controls\SessionExercise.xaml.cs">
       <DependentUpon>SessionExercise.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TrainingLog\Converters\ExerciseSetToTextConverter.cs" />
+    <Compile Include="Pages\TrainingLog\Converters\GetSessionExerciseViewModelConverter.cs" />
     <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog.xaml.cs">
       <DependentUpon>ExerciseSetDialog.xaml</DependentUpon>
     </Compile>

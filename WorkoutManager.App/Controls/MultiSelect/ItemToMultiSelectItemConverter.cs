@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
-using WorkoutManager.App.Controls.MultiSelect;
 
-namespace WorkoutManager.App.Converters
+namespace WorkoutManager.App.Controls.MultiSelect
 {
     internal class ItemToMultiSelectItemConverter : IMultiValueConverter
     {

@@ -5,7 +5,7 @@ using WorkoutManager.App.Pages.TrainingLog.Models;
 using WorkoutManager.App.Utils;
 using WorkoutManager.Contract.Models.Sessions;
 
-namespace WorkoutManager.App.Converters
+namespace WorkoutManager.App.Pages.TrainingLog.Converters
 {
     internal class GetSessionExerciseViewModelConverter : IMultiValueConverter
     {
