@@ -143,7 +143,6 @@
     <Compile Include="Controls\TimeSpanUpDown\TimeSpanUpDown.xaml.cs">
       <DependentUpon>TimeSpanUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\IsNumberZeroConverter.cs" />
     <Compile Include="Converters\IsValueNullConverter.cs" />

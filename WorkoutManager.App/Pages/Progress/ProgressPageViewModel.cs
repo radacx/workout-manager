@@ -36,7 +36,7 @@ namespace WorkoutManager.App.Pages.Progress
         private static readonly IEnumerable<string> FilterProperties = new[]
         {
             nameof(SelectedFilteringValue), nameof(GroupBy), nameof(Metric), nameof(ShouldFilterFrom),
-            nameof(ShouldFilterTill), nameof(DateFrom), nameof(DateTo), string.Empty
+            nameof(ShouldFilterTill), nameof(DateFrom), nameof(DateTo), nameof(StartingDayOfWeek), string.Empty
         };
 
         private IEnumerable<TrainingSession> _trainingSessions = new List<TrainingSession>();
@@ -49,11 +49,19 @@ namespace WorkoutManager.App.Pages.Progress
         private bool _shouldFilterTill;
         private DateTime? _dateFrom;
         private DateTime? _dateTo;
+        private DayOfWeek _startingDayOfWeek = DayOfWeek.Monday;
 
         public IEnumerable<FilterBy> FilterByOptions { get; } = Enum.GetValues(typeof(FilterBy)).Cast<FilterBy>();
         public IEnumerable<GroupBy> GroupByOptions { get; } = Enum.GetValues(typeof(GroupBy)).Cast<GroupBy>();
         public IEnumerable<FilterMetric> MetricOptions { get; } = Enum.GetValues(typeof(FilterMetric)).Cast<FilterMetric>();
+        public IEnumerable<DayOfWeek> DayOfWeekOptions { get; } = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>();
         
+        public DayOfWeek StartingDayOfWeek
+        {
+            get => _startingDayOfWeek;
+            set => SetField(ref _startingDayOfWeek, value);
+        }
+
         public IEnumerable<ProgressResult> Results
         {
             get => _results;
@@ -206,7 +214,7 @@ namespace WorkoutManager.App.Pages.Progress
             int GetWeek() => CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
                 date,
                 CalendarWeekRule.FirstFourDayWeek,
-                DayOfWeek.Monday
+                _startingDayOfWeek
             );
             
             switch (GroupBy) {

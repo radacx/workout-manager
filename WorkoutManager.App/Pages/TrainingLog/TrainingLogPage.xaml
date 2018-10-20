@@ -22,7 +22,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Date, Converter={StaticResource DateTimeToDateConverter}}" />
+                            <TextBlock Text="{Binding DateString}" />
                             <Button
                                 Content="Modify"
                                 Command="{Binding DataContext.OpenEditSessionDialog, RelativeSource={RelativeSource FindAncestor,

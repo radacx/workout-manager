@@ -15,6 +15,8 @@ namespace WorkoutManager.Contract.Models.Sessions
         
         public DateTime Date { get; set; }
 
+        public string DateString => Date.ToString("ddd M/d/yy");
+        
         public SessionExercise[] Exercises
         {
             get => _exercises.ToArray();
