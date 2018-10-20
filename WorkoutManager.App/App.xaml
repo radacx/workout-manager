@@ -9,5 +9,6 @@
         <converters:DateTimeToDateConverter x:Key="DateTimeToDateConverter" />
         <converters:IsCollectionEmptyConverter x:Key="IsCollectionEmptyConverter" />
         <converters:IsNumberZeroConverter x:Key="IsNumberZeroConverter" />
+        <converters:IsValueNullConverter x:Key="IsValueNullConverter" />
     </Application.Resources>
 </Application>

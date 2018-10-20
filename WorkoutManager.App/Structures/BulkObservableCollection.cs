@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -29,6 +30,25 @@ namespace WorkoutManager.App.Structures
             foreach (var item in itemsList)
             {
                 Items.Add(item);
+            }
+            
+            OnPropertyChanged(new PropertyChangedEventArgs(CountString));
+            OnPropertyChanged(new PropertyChangedEventArgs(IndexerName));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        }
+
+        public void RemoveAll(Func<TItem, bool> predicate)
+        {
+            var itemsToRemove = Items.Where(predicate).ToArray();
+
+            if (!itemsToRemove.Any())
+            {
+                return;
+            }
+            
+            foreach (var item in itemsToRemove)
+            {
+                Items.Remove(item);
             }
             
             OnPropertyChanged(new PropertyChangedEventArgs(CountString));

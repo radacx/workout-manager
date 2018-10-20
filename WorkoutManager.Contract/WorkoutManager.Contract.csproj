@@ -45,6 +45,7 @@
     <Compile Include="Models\ExerciseSet\DynamicExerciseSet.cs" />
     <Compile Include="Models\ExerciseSet\IExerciseSet.cs" />
     <Compile Include="Models\ExerciseSet\IsometricExerciseSet.cs" />
+    <Compile Include="Models\Exercises\ExercisedMuscle.cs" />
     <Compile Include="Models\Exercises\Muscle.cs" />
     <Compile Include="Models\Exercises\ContractionType.cs" />
     <Compile Include="Models\Exercises\Exercise.cs" />

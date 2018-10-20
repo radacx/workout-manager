@@ -20,7 +20,9 @@ namespace WorkoutManager.Repository.Repositories
         public override IEnumerable<Exercise> GetAll() => Execute(
             collection => collection
                 .Include(x => x.PrimaryMuscles)
+                .Include(x => x.PrimaryMuscles[0].Muscle)
                 .Include(x => x.SecondaryMuscles)
+                .Include(x => x.SecondaryMuscles[0].Muscle)
                 .FindAll()
                 .ToList()
         );

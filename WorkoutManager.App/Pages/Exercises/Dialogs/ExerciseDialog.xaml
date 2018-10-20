@@ -5,100 +5,171 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:exercises="clr-namespace:WorkoutManager.Contract.Models.Exercises;assembly=WorkoutManager.Contract"
-        xmlns:multiSelect="clr-namespace:WorkoutManager.App.Controls.MultiSelect"
         xmlns:models1="clr-namespace:WorkoutManager.App.Pages.Exercises.Models"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance Type=models1:ExerciseDialogViewModel}"
         Height="550" Width="700">
-    <Grid Background="AliceBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0"
-               Target="{Binding ElementName=ExerciseName}" Content="_Name" />
-        <TextBox Grid.Row="0" Grid.Column="1"
-                 Name="ExerciseName" Text="{Binding Exercise.Name}" />
+    <StackPanel Background="AliceBlue">
+        <StackPanel Orientation="Horizontal">
+            <Label Target="{Binding ElementName=ExerciseName}" Content="_Name" />
+            
+            <TextBox Width="120" Name="ExerciseName" Text="{Binding Exercise.Name}" />
+        </StackPanel>  
         
-        <CheckBox
-            Grid.Row="1"
-            Grid.Column="0"
-            Name="IsBodyweightExercise"
-            IsChecked="{Binding IsBodyweightExercise}"
-            Content="Relative bodyweight"
-        />
-        <xctk:DoubleUpDown
-            Grid.Row="1"
-            Grid.Column="1"
-            Value="{Binding Exercise.RelativeBodyweight}"
-            Minimum="0"
-            Maximum="100"
-            ClipValueToMinMax="True"
-        >
-            <xctk:DoubleUpDown.Style>
-                <Style TargetType="xctk:DoubleUpDown">
-                    <Setter Property="Visibility" Value="Hidden" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsChecked, ElementName=IsBodyweightExercise}" Value="True">
-                            <Setter Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </xctk:DoubleUpDown.Style>
-        </xctk:DoubleUpDown>
+        <StackPanel Orientation="Horizontal">
+            <CheckBox
+                Name="IsBodyweightExercise"
+                IsChecked="{Binding IsBodyweightExercise}"
+                Content="Relative bodyweight"
+            />
+            
+            <xctk:DoubleUpDown
+                Value="{Binding Exercise.RelativeBodyweight}"
+                Minimum="0"
+                Maximum="100"
+                ClipValueToMinMax="True"
+            >
+                <xctk:DoubleUpDown.Style>
+                    <Style TargetType="xctk:DoubleUpDown">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecked, ElementName=IsBodyweightExercise}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </xctk:DoubleUpDown.Style>
+            </xctk:DoubleUpDown>
+        </StackPanel>
         
-        <Label Grid.Row="2" Grid.Column="0"
-               Content="Contraction type" />
-        <RadioButton Grid.Row="2" Grid.Column="1"
-                     GroupName="ContractionType" Content="Dynamic"
-                     IsChecked="{Binding Exercise.ContractionType, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static exercises:ContractionType.Dynamic}}" />
-        <RadioButton Grid.Row="2" Grid.Column="2"
-                     GroupName="ContractionType" Content="Isometric"
-                     IsChecked="{Binding Exercise.ContractionType, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static exercises:ContractionType.Isometric}}" />
+        <StackPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Center" Content="Contraction type" />
+            
+            <RadioButton VerticalAlignment="Center" Padding="0 0 10 0" GroupName="ContractionType" Content="Dynamic"
+                         IsChecked="{Binding Exercise.ContractionType,
+                     Converter={StaticResource DoesEnumMatchConverter},
+                        ConverterParameter={x:Static exercises:ContractionType.Dynamic}}" />
+            
+            <RadioButton VerticalAlignment="Center" GroupName="ContractionType" Content="Isometric"
+                         IsChecked="{Binding Exercise.ContractionType,
+                     Converter={StaticResource DoesEnumMatchConverter},
+                        ConverterParameter={x:Static exercises:ContractionType.Isometric}}" />
+        </StackPanel>
         
-        <Label Grid.Row="3" Grid.Column="0"
-               Content="Primary muscles"
-        />
-        <multiSelect:MultiSelect
-            Grid.Row="3"
-            Grid.Column="1"
-            ItemsSource="{Binding Muscles}"
-            SelectedItems="{Binding SelectedPrimaryMuscles}"
-        />
-        
-        <Label Grid.Row="4" Grid.Column="0"
-               Content="Secondary muscles"
-        />
-        <multiSelect:MultiSelect
-            Grid.Row="4"
-            Grid.Column="1"
-            ItemsSource="{Binding Muscles}"
-            SelectedItems="{Binding SelectedSecondaryMuscles}"
-        />
-        
-        <Button Grid.Row="5" Grid.Column="1" Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=ExerciseName, Converter={StaticResource IsTextEmptyConverter}, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                            <Setter Property="IsEnabled" Value="True" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-    </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Orientation="Horizontal"
+            >
+                <Label Content="Primary muscles" />
+                
+                <ComboBox
+                    Name="SelectedPrimaryMuscle"
+                    ItemsSource="{Binding AvailableMuscles}"
+                />
+                
+                <Button
+                    Content="Add"
+                    Command="{Binding AddPrimaryMuscle}"
+                    CommandParameter="{Binding SelectedItem, ElementName=SelectedPrimaryMuscle}"
+                >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItem, ElementName=SelectedPrimaryMuscle,
+                            Converter={StaticResource IsValueNullConverter}}" Value="False"
+                                >
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+            
+            <ItemsControl
+                Grid.Row="1"
+                Grid.Column="0"
+                ItemsSource="{Binding PrimaryExercisedMuscles}"
+            >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Muscle}" />
+                            <xctk:DoubleUpDown Value="{Binding RelativeEngagement}" Minimum="1" Maximum="100" />
+                            <Button Content="Remove" Command="{Binding DataContext.RemovePrimaryMuscle,
+                            RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
+                                    CommandParameter="{Binding}"
+                            />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                Orientation="Horizontal"
+            >
+                <Label Content="Secondary muscles" />
+                
+                <ComboBox
+                    Name="SelectedSecondaryMuscle"
+                    ItemsSource="{Binding AvailableMuscles}"
+                />
+                
+                <Button
+                    Content="Add"
+                    Command="{Binding AddSecondaryMuscle}"
+                    CommandParameter="{Binding SelectedItem, ElementName=SelectedSecondaryMuscle}"
+                >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItem, ElementName=SelectedSecondaryMuscle,
+                                    Converter={StaticResource IsValueNullConverter}}" Value="False"
+                                >
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+            
+            <ItemsControl
+                Grid.Row="1"
+                Grid.Column="1"
+                ItemsSource="{Binding SecondaryExercisedMuscles}"
+            >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Muscle}" />
+                            <xctk:DoubleUpDown Value="{Binding RelativeEngagement}" Minimum="1" Maximum="100" />
+                            <Button Content="Remove" Command="{Binding DataContext.RemoveSecondaryMuscle,
+                            RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
+                                    CommandParameter="{Binding}"
+                            />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </StackPanel>
 </Window>

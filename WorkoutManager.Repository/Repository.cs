@@ -50,6 +50,7 @@ namespace WorkoutManager.Repository
             var mapper = new CustomMapper();
             
             ExerciseRepository.Register(mapper);
+            ExercisedMuscleRepository.Register(mapper);
             SessionExerciseRepository.Register(mapper);
             TrainingSessionRepository.Register(mapper);
             CategoryRepository.Register(mapper);

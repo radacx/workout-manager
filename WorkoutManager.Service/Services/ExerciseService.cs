@@ -6,12 +6,12 @@ namespace WorkoutManager.Service.Services
 {
     public class ExerciseService : Service<Exercise>
     {
-        private readonly Repository<Muscle> _muscleRepository;
+        private readonly Repository<ExercisedMuscle> _exercisedMuscleRepository;
         
         public void Create(Exercise exercise)
         {
-            _muscleRepository.CreateRange(exercise.PrimaryMuscles);
-            _muscleRepository.CreateRange(exercise.SecondaryMuscles);
+            _exercisedMuscleRepository.CreateRange(exercise.PrimaryMuscles);
+            _exercisedMuscleRepository.CreateRange(exercise.SecondaryMuscles);
             
             Repository.Create(exercise);
         }
@@ -24,26 +24,26 @@ namespace WorkoutManager.Service.Services
             var oldSecondaryMuscles = exercise.SecondaryMuscles.Where(muscle => muscle.Id != 0);
             
             
-            _muscleRepository.CreateRange(newPrimaryMuscles);
-            _muscleRepository.CreateRange(newSecondaryMuscle);
+            _exercisedMuscleRepository.CreateRange(newPrimaryMuscles);
+            _exercisedMuscleRepository.CreateRange(newSecondaryMuscle);
             
-            _muscleRepository.UpdateRange(oldPrimaryMuscles);
-            _muscleRepository.UpdateRange(oldSecondaryMuscles);
+            _exercisedMuscleRepository.UpdateRange(oldPrimaryMuscles);
+            _exercisedMuscleRepository.UpdateRange(oldSecondaryMuscles);
             
             Repository.Update(exercise);
         }
         
         public void Delete(Exercise exercise)
         {
-            _muscleRepository.DeleteRange(exercise.PrimaryMuscles);
-            _muscleRepository.DeleteRange(exercise.SecondaryMuscles);
+            _exercisedMuscleRepository.DeleteRange(exercise.PrimaryMuscles);
+            _exercisedMuscleRepository.DeleteRange(exercise.SecondaryMuscles);
             
             Repository.Delete(exercise);    
         }
 
-        public ExerciseService(Repository<Exercise> repository, Repository<Muscle> muscleRepository) : base(repository)
+        public ExerciseService(Repository<Exercise> repository, Repository<ExercisedMuscle> exercisedMuscleRepository) : base(repository)
         {
-            _muscleRepository = muscleRepository;
+            _exercisedMuscleRepository = exercisedMuscleRepository;
         }
     }
 }

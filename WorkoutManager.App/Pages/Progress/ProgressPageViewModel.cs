@@ -134,12 +134,12 @@ namespace WorkoutManager.App.Pages.Progress
                 case FilterBy.PrimaryMuscle:
 
                     return exercise => exercise.Exercise.PrimaryMuscles.Any(
-                        muscle => muscle.Equals(SelectedFilteringValue)
+                        exercisedMuscle => exercisedMuscle.Muscle.Equals(SelectedFilteringValue)
                     );
                 case FilterBy.SecondaryMuscle:
 
                     return exercise => exercise.Exercise.SecondaryMuscles.Any(
-                        muscle => muscle.Equals(SelectedFilteringValue)
+                        exercisedMuscle => exercisedMuscle.Muscle.Equals(SelectedFilteringValue)
                     );
                 case FilterBy.Category:
 
