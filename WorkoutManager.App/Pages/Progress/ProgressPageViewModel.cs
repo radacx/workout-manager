@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -77,7 +76,7 @@ namespace WorkoutManager.App.Pages.Progress
         private FilterMetric _metric = FilterMetric.Volume;
 
         private static readonly IEnumerable<string> FilterProperties = new[]
-            { nameof(SelectedFilteringValue), nameof(GroupBy), nameof(Metric) };
+            { nameof(SelectedFilteringValue), nameof(GroupBy), nameof(Metric), string.Empty };
 
         private IEnumerable<TrainingSession> _trainingSessions = new List<TrainingSession>();
         private IEnumerable<Exercise> _exercises = new List<Exercise>();
@@ -162,7 +161,7 @@ namespace WorkoutManager.App.Pages.Progress
                     {
                         if (!(SelectedFilteringValue is Category category))
                         {
-                            throw new ArgumentException("Selected value is not a category");
+                            return false;
                         }
 
                         var typeName = category.ItemType.FullName;
@@ -376,38 +375,11 @@ namespace WorkoutManager.App.Pages.Progress
                     Task.Run(
                         () =>
                         {
-                            var previousSelection = SelectedFilteringValue;
                             LoadData();
-
-                            if (!_filteringValueOptions.Contains(previousSelection))
-                            {
-                                return;
-                            }
-
-                            IEnumerable options;
-
-                            switch (FilterBy)
-                            {
-                                case FilterBy.Exercise:
-                                    options = _exercises;
-
-                                    break;
-                                case FilterBy.PrimaryMuscle:
-                                    options = _muscles;
-
-                                    break;
-                                case FilterBy.SecondaryMuscle:
-                                    options = _muscles;
-
-                                    break;
-                                default:
-
-                                    throw new ArgumentException("Invalid filter by");
-                            }
-
-                            SelectedFilteringValue =
-                                options.Cast<object>().First(motion => motion.Equals(previousSelection));
-
+                            
+                            _filteringValueOptions = GetFilteringValueOptions();
+                            _selectedFilteringValue = _filteringValueOptions.FirstOrDefault();
+                            
                             OnPropertyChanged(string.Empty);
                         }
                     );
