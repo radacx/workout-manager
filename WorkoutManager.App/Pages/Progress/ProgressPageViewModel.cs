@@ -34,7 +34,10 @@ namespace WorkoutManager.App.Pages.Progress
         private IEnumerable<ProgressResult> _results;
 
         private static readonly IEnumerable<string> FilterProperties = new[]
-            { nameof(SelectedFilteringValue), nameof(GroupBy), nameof(Metric), string.Empty };
+        {
+            nameof(SelectedFilteringValue), nameof(GroupBy), nameof(Metric), nameof(ShouldFilterFrom),
+            nameof(ShouldFilterTill), nameof(DateFrom), nameof(DateTo), string.Empty
+        };
 
         private IEnumerable<TrainingSession> _trainingSessions = new List<TrainingSession>();
         private IEnumerable<Exercise> _exercises = new List<Exercise>();
@@ -42,6 +45,10 @@ namespace WorkoutManager.App.Pages.Progress
         private IEnumerable<Category> _categories = new List<Category>();
         
         private IEnumerable<object> _filteringValueOptions;
+        private bool _shouldFilterFrom;
+        private bool _shouldFilterTill;
+        private DateTime? _dateFrom;
+        private DateTime? _dateTo;
 
         public IEnumerable<FilterBy> FilterByOptions { get; } = Enum.GetValues(typeof(FilterBy)).Cast<FilterBy>();
         public IEnumerable<GroupBy> GroupByOptions { get; } = Enum.GetValues(typeof(GroupBy)).Cast<GroupBy>();
@@ -59,9 +66,29 @@ namespace WorkoutManager.App.Pages.Progress
             set => SetField(ref _filteringValue, value);
         }
 
-        public DateTime? DateFrom { get; set; }
-        
-        public DateTime? DateTo { get; set; }
+        public bool ShouldFilterFrom
+        {
+            get => _shouldFilterFrom;
+            set => SetField(ref _shouldFilterFrom, value);
+        }
+
+        public bool ShouldFilterTill
+        {
+            get => _shouldFilterTill;
+            set => SetField(ref _shouldFilterTill, value);
+        }
+
+        public DateTime? DateFrom
+        {
+            get => _dateFrom;
+            set => SetField(ref _dateFrom, value);
+        }
+
+        public DateTime? DateTo
+        {
+            get => _dateTo;
+            set => SetField(ref _dateTo, value);
+        }
 
         public FilterBy FilterBy
         {
@@ -269,12 +296,12 @@ namespace WorkoutManager.App.Pages.Progress
         {
             var filteredSessions = _trainingSessions.AsEnumerable();
             
-            if (DateFrom != null)
+            if (ShouldFilterFrom && DateFrom != null)
             {
                 filteredSessions = filteredSessions.Where(session => session.Date >= DateFrom);
             }
             
-            if (DateTo != null)
+            if (ShouldFilterTill && DateTo != null)
             {
                 filteredSessions = filteredSessions.Where(session => session.Date <= DateTo);
             }

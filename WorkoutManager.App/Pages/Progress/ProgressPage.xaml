@@ -14,53 +14,101 @@
             Command="{Binding Refresh}"
         />
         
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Filter by" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             
-            <ComboBox
-                ItemsSource="{Binding FilterByOptions}"
-                SelectedItem="{Binding FilterBy}"
-            >
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                <Label Content="Filter by" />
             
-            <ComboBox
-                ItemsSource="{Binding FilteringValueOptions}"
-                SelectedItem="{Binding SelectedFilteringValue}"
-            />
-        </StackPanel>
-        
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Group by"/> 
-            <ComboBox
-                ItemsSource="{Binding GroupByOptions}"
-                SelectedItem="{Binding GroupBy}"
-            >
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </StackPanel>
-        
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Metric" />
-            <ComboBox
-                ItemsSource="{Binding MetricOptions}"
-                SelectedItem="{Binding Metric}"
-            >
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </StackPanel>
+                <ComboBox
+                    ItemsSource="{Binding FilterByOptions}"
+                    SelectedItem="{Binding FilterBy}"
+                >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            
+                <ComboBox
+                    ItemsSource="{Binding FilteringValueOptions}"
+                    SelectedItem="{Binding SelectedFilteringValue}"
+                />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <CheckBox
+                    Content="From"
+                    IsChecked="{Binding ShouldFilterFrom}"
+                />
+                <DatePicker SelectedDate="{Binding DateFrom}">
+                    <DatePicker.Style>
+                        <Style TargetType="DatePicker">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShouldFilterFrom}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DatePicker.Style>
+                </DatePicker>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                <Label Content="Group by"/> 
+                <ComboBox
+                    ItemsSource="{Binding GroupByOptions}"
+                    SelectedItem="{Binding GroupBy}"
+                >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                <CheckBox
+                    Content="To"
+                    IsChecked="{Binding ShouldFilterTill}"
+                />
+                <DatePicker SelectedDate="{Binding DateTo}">
+                    <DatePicker.Style>
+                        <Style TargetType="DatePicker">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShouldFilterTill, Mode=TwoWay}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DatePicker.Style>
+                </DatePicker>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                <Label Content="Metric" />
+                <ComboBox
+                    ItemsSource="{Binding MetricOptions}"
+                    SelectedItem="{Binding Metric}"
+                >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
         
         <ItemsControl ItemsSource="{Binding Results}">
             <ItemsControl.ItemTemplate>
