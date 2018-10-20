@@ -181,8 +181,11 @@
       <DependentUpon>ProgressPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Progress\ProgressPageViewModel.cs" />
+    <Compile Include="Pages\Progress\Structures\Calculators\ExerciseMetricsCalculator.cs" />
+    <Compile Include="Pages\Progress\Structures\Calculators\IMetricsCalculator.cs" />
+    <Compile Include="Pages\Progress\Structures\Calculators\MetricsCalculator.cs" />
+    <Compile Include="Pages\Progress\Structures\Calculators\MuscleMetricCalculator.cs" />
     <Compile Include="Pages\Progress\Structures\FilterBy.cs" />
-    <Compile Include="Pages\Progress\Structures\FilteringPredicate.cs" />
     <Compile Include="Pages\Progress\Structures\FilterMetric.cs" />
     <Compile Include="Pages\Progress\Structures\GroupBy.cs" />
     <Compile Include="Pages\Progress\Structures\ProgressResult.cs" />

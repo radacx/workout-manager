@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WorkoutManager.App.Pages.Progress.Structures;
+using WorkoutManager.App.Pages.Progress.Structures.Calculators;
 using WorkoutManager.App.Structures;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
 using WorkoutManager.Service.Services;
@@ -123,97 +123,18 @@ namespace WorkoutManager.App.Pages.Progress
             _categories = _categoryRepository.GetAll();
             _trainingSessions = _trainingSessionRepository.GetAll().OrderByDescending(session => session.Date);
         }
-
-        private FilteringPredicate GetFilteringPredicate()
-        {
-            switch (FilterBy)
-            {
-                case FilterBy.Exercise:
-
-                    return exercise => exercise.Exercise.Equals(SelectedFilteringValue);
-                case FilterBy.Muscle:
-
-                    return exercise => exercise.Exercise.Muscles.Any(
-                        exercisedMuscle => exercisedMuscle.Muscle.Equals(SelectedFilteringValue)
-                    );
-                case FilterBy.Category:
-
-                    return exercise =>
-                    {
-                        if (!(SelectedFilteringValue is Category category))
-                        {
-                            return false;
-                        }
-
-                        var typeName = category.ItemType.FullName;
-
-                        if (typeName == typeof(Exercise).FullName)
-                        {
-                            return category.Items.Contains(exercise.Exercise);
-                        }
-
-                        if (typeName == typeof(Muscle).FullName)
-                        {
-                            return exercise.Exercise.Muscles.Any(category.Items.Contains);
-                        }
-
-                        throw new ArgumentException("Invalid category type");
-                    };
-                default:
-
-                    throw new ArgumentException("Invalid filter by");
-            }
-        }
         
-        private int GetSetCount(TrainingSession session, FilteringPredicate predicate)
+        private string CalculateProgressValue(IEnumerable<TrainingSession> sessions)
         {
-            return session.Exercises.Aggregate(
-                0,
-                (totalSets, exercise) =>
-                    !predicate(exercise)
-                        ? totalSets
-                        : totalSets + exercise.Sets.Length
-            );
-        }
+            var metricsCalculator = GetMetricsCalculator();
 
-        private double GetVolume(TrainingSession session, FilteringPredicate predicate)
-        {
-            double GetExerciseVolume(SessionExercise exercise, double bodyweightVolume) => exercise.Sets
-                .OfType<DynamicExerciseSet>()
-                .Aggregate(
-                    0d,
-                    (exerciseVolume, set) => exerciseVolume + set.Reps * (set.Weight + bodyweightVolume)
-                );
-            
-            var bodyweight = session.Bodyweight;
-
-            return session.Exercises.Aggregate(
-                0d,
-                (sessionVolume, exercise) =>
-                {
-                    if (!predicate(exercise))
-                    {
-                        return sessionVolume;
-                    }
-                    
-                    var bodyweightVolume = exercise.Exercise.RelativeBodyweight / 100 * bodyweight;
-                    var exerciseVolume = GetExerciseVolume(exercise, bodyweightVolume);
-
-                    return sessionVolume + exerciseVolume;
-                }
-            );
-        }
-
-        private string CalculateProgressValue(IEnumerable<TrainingSession> sessions, FilteringPredicate predicate)
-        {       
-            
             switch (Metric)
             {
                 case FilterMetric.Sets:
 
                     var sets = sessions.Aggregate(
-                        0,
-                        (totalSets, session) => totalSets + GetSetCount(session, predicate)
+                        0d,
+                        (totalSets, session) => totalSets + metricsCalculator.GetSetCount(session)
                     );
 
                     return $"{sets}";
@@ -222,7 +143,7 @@ namespace WorkoutManager.App.Pages.Progress
 
                     var volume = sessions.Aggregate(
                         0d,
-                        (totalVolume, session) => totalVolume + GetVolume(session, predicate)
+                        (totalVolume, session) => totalVolume + metricsCalculator.GetLoadVolume(session)
                     );
 
                     return $"{volume} {weightUnits}";
@@ -232,6 +153,36 @@ namespace WorkoutManager.App.Pages.Progress
             }
         }
 
+        private IMetricsCalculator GetMetricsCalculator()
+        {
+            switch (SelectedFilteringValue)
+            {
+                case Exercise exercise:
+
+                    return new ExerciseMetricsCalculator(new [] { exercise });
+                case Muscle muscle:
+
+                    return new MuscleMetricCalculator(new [] { muscle });
+                case Category category:
+
+                    if (category.ItemType == typeof(Exercise))
+                    {
+                        return new ExerciseMetricsCalculator(category.Items.Cast<Exercise>());
+                    }
+                    else if (category.ItemType == typeof(Muscle))
+                    {
+                        return new MuscleMetricCalculator(category.Items.Cast<Muscle>());
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Invalid category item type");
+                    }
+                default:
+
+                    throw new ArgumentException("Invalid filtering value type");
+            }
+        }
+        
         private IEnumerable<object> GetFilteringValueOptions()
         {
             switch (FilterBy)
@@ -250,21 +201,21 @@ namespace WorkoutManager.App.Pages.Progress
             }
         }
 
-        private static int GetWeek(DateTime date) => CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
-            date,
-            CalendarWeekRule.FirstFourDayWeek,
-            DayOfWeek.Monday
-        );
-
         private string GetDateUnitFromDate(DateTime date)
         {
+            int GetWeek() => CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
+                date,
+                CalendarWeekRule.FirstFourDayWeek,
+                DayOfWeek.Monday
+            );
+            
             switch (GroupBy) {
                 case GroupBy.Day:
 
                     return date.ToShortDateString();
                 case GroupBy.Week:
 
-                    return $"{GetWeek(date)}/{date.Year}";
+                    return $"{GetWeek()}/{date.Year}";
                 case GroupBy.Month1:
 
                     return $"{date.Month}/{date.Year}";
@@ -331,15 +282,13 @@ namespace WorkoutManager.App.Pages.Progress
                     return;
                 }
 
-                var filteringPredicate = GetFilteringPredicate();
-
                 var results = GetFilteredSessions()
                     .GroupBy(session => GetDateUnitFromDate(session.Date))
                     .Select(
                         sessions => new ProgressResult
                         {
                             DateUnit = sessions.Key,
-                            Value = CalculateProgressValue(sessions, filteringPredicate)
+                            Value = CalculateProgressValue(sessions)
                         }
                     );
                 
