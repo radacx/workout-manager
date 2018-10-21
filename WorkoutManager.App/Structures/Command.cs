@@ -18,6 +18,8 @@ namespace WorkoutManager.App.Structures
 
         public void Execute(object parameter) => _action.Invoke();
 
+        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        
         public event EventHandler CanExecuteChanged;
     }
     
@@ -63,6 +65,8 @@ namespace WorkoutManager.App.Structures
             _action.Invoke(typedParameter);
         }
 
+        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        
         public event EventHandler CanExecuteChanged;
     }
 }

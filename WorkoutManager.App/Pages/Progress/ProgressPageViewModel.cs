@@ -12,6 +12,7 @@ using WorkoutManager.App.Pages.Progress.Structures;
 using WorkoutManager.App.Pages.Progress.Structures.Calculators;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
+using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
@@ -25,15 +26,14 @@ namespace WorkoutManager.App.Pages.Progress
 {
     internal class ProgressPageViewModel : ViewModelBase
     {
+        public string ProgressPageDialogsIdentifier => "ProgressPageDialogs";
+        
         private readonly Repository<Exercise> _exerciseRepository;
         private readonly Repository<TrainingSession> _trainingSessionRepository;
         private readonly Repository<Muscle> _muscleRepository;
         private readonly Repository<Category> _categoryRepository;
         
         private readonly UserPreferencesService _userPreferencesService;
-
-        private readonly DialogFactory<ProgressFilterDialog, ProgressFilterDialogViewModel> _progressFilterDialogFactory;
-        private readonly DialogFactory<SelectFilterDialog, SelectFilterDialogViewModel> _selectFilterDialogFactory;
         
         private IEntity _filteringValue;
         
@@ -273,12 +273,10 @@ namespace WorkoutManager.App.Pages.Progress
             return filteredSessions;
         }
         
-        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<Muscle> muscleRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository, DialogFactory<ProgressFilterDialog, ProgressFilterDialogViewModel> progressFilterDialogFactory, Repository<ProgressFilter> progressFilterRepository, DialogFactory<SelectFilterDialog, SelectFilterDialogViewModel> selectFilterDialogFactory, Hub eventAggregator)
+        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<Muscle> muscleRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository, DialogViewer dialogViewer, Repository<ProgressFilter> progressFilterRepository, Hub eventAggregator)
         {
             _userPreferencesService = userPreferencesService;
             _categoryRepository = categoryRepository;
-            _progressFilterDialogFactory = progressFilterDialogFactory;
-            _selectFilterDialogFactory = selectFilterDialogFactory;
             _exerciseRepository = exerciseRepository;
             _trainingSessionRepository = trainingSessionRepository;
             _muscleRepository = muscleRepository;
@@ -342,14 +340,16 @@ namespace WorkoutManager.App.Pages.Progress
             };
             
             OpenAddFilterDialog = new Command(
-                () =>
+                async () =>
                 {
                     var progressFilterForDialog = new ProgressFilterForDialog();
 
-                    var dialog = _progressFilterDialogFactory.Get();
+                    var dialog = dialogViewer.For<ProgressFilterDialogViewModel>();
                     dialog.Data.ProgressFilter = progressFilterForDialog;
-                        
-                    var dialogResult = dialog.Show();
+                    dialog.Data.SubmitButtonTitle = "Create";
+                    dialog.Data.DialogTitle = "Create new filter";
+                    
+                    var dialogResult = await dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -377,13 +377,14 @@ namespace WorkoutManager.App.Pages.Progress
                         progressFilter.Metric = _metric;
                     }
 
-                    Task.Run(() => progressFilterRepository.Create(progressFilter));
+                    progressFilterRepository.Create(progressFilter);
                 });
             
             OpenSelectFilterDialog = new Command(
                 () =>
                 {
-                    var dialog = _selectFilterDialogFactory.Get();
+                    var dialog = dialogViewer.For<SelectFilterDialogViewModel>();
+                    dialog.Data.SubmitButtonTitle = "Select";
                     
                     dialog.Show();
                 });

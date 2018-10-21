@@ -3,9 +3,9 @@ using System.Windows.Input;
 using Force.DeepCloner;
 using PubSub.Core;
 using WorkoutManager.App.Events;
-using WorkoutManager.App.Pages.TrainingLog.Dialogs;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
+using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract.Models.ExerciseSet;
 using WorkoutManager.Contract.Models.Sessions;
 
@@ -14,6 +14,9 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
     internal class SessionExerciseViewModel : ViewModelBase
     {
         private SessionExercise _exercise;
+
+        public string ExerciseSetDialogIdentifier => "ExerciseSetDialog";
+        
         public SessionExercise Exercise
         {
             get => _exercise;
@@ -28,7 +31,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
         
         public ICommand DeleteSet { get; }
         
-        public SessionExerciseViewModel(DialogFactory<ExerciseSetDialog, ExerciseSetDialogViewModel> exerciseSetDialogFactory, Hub eventAggregator)
+        public SessionExerciseViewModel(DialogViewer dialogViewer, Hub eventAggregator)
         {
             PropertyChanged += (sender, args) =>
             {
@@ -42,16 +45,17 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                 }
             };
 
-            void OpenAddExerciseSet(SessionExercise sessionExercise)
+            async void OpenAddExerciseSet(SessionExercise sessionExercise)
             {
                 var set = sessionExercise.Sets.LastOrDefault()?.DeepClone()
                     ?? SetCreator.Create(sessionExercise.Exercise.ContractionType);
 
-                var dialog = exerciseSetDialogFactory.Get();
+                var dialog = dialogViewer.For<ExerciseSetDialogViewModel>(ExerciseSetDialogIdentifier);
                 dialog.Data.ExerciseSet = set;
-                dialog.Data.SaveButtonTitle = "Create";
-
-                var dialogResult = dialog.Show();
+                dialog.Data.SubmitButtonTitle = "Create";
+                dialog.Data.DialogTitle = "Add set";
+                    
+                var dialogResult = await dialog.Show();
 
                 if (dialogResult != DialogResult.Ok)
                 {
@@ -74,15 +78,16 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             OpenAddExerciseSetDialog = new Command<SessionExercise>(OpenAddExerciseSet);
             
             OpenEditExerciseSetDialog = new Command<IExerciseSet>(
-                set =>
+                async set =>
                 {
                     var setClone = set.DeepClone();
 
-                    var dialog = exerciseSetDialogFactory.Get();
+                    var dialog = dialogViewer.For<ExerciseSetDialogViewModel>(ExerciseSetDialogIdentifier);
                     dialog.Data.ExerciseSet = setClone;
-                    dialog.Data.SaveButtonTitle = "Save";
-
-                    var dialogResult = dialog.Show();
+                    dialog.Data.SubmitButtonTitle = "Save";
+                    dialog.Data.DialogTitle = "Modify set";
+                    
+                    var dialogResult = await dialog.Show();
                     
                     if (dialogResult != DialogResult.Ok)
                     {

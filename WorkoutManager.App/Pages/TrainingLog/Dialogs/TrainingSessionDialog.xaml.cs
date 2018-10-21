@@ -1,17 +1,12 @@
-using System.Windows;
+using System.Windows.Controls;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Dialogs
 {
-    internal partial class TrainingSessionDialog : Window
+    internal partial class TrainingSessionDialog : UserControl
     {
         public TrainingSessionDialog()
         {
             InitializeComponent();
-        }
-
-        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
         }
     }
 }

@@ -1,57 +1,116 @@
-<Window x:Class="WorkoutManager.App.Pages.Categories.Dialogs.CategoryDialog"
+<UserControl x:Class="WorkoutManager.App.Pages.Categories.Dialogs.CategoryDialog"
         x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:models="clr-namespace:WorkoutManager.App.Pages.Categories.Models"
-        xmlns:multiSelect="clr-namespace:WorkoutManager.App.Controls.MultiSelect"
+        xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
+        xmlns:structures="clr-namespace:WorkoutManager.App.Structures"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+        xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Categories.Dialogs"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=models:CategoryDialogViewModel}"
-        Title="CategoryDialog" Height="450" Width="800">
-    <StackPanel Background="AliceBlue">
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Name" />
-            <TextBox
-                Name="CategoryName"
-                Width="120"
-                Text="{Binding Category.Name}"
-            />
-        </StackPanel>
-        
-        <ComboBox
-            ItemsSource="{Binding AllowedCategoryTypes}"
-            SelectedItem="{Binding SelectedType}"
-        />
-        
-        <multiSelect:MultiSelect
-            ItemsSource="{Binding Options}"
-            SelectedItems="{Binding CategoryLinkedItems}"
-        />
-        
-        <Button
-            Content="{Binding SubmitButtonTitle}"
-            IsDefault="True"
-            Click="Submit_OnClick"
+        d:DataContext="{d:DesignInstance Type=models:CategoryDialogViewModel}">
+    <materialDesign:DialogHost CloseOnClickAway="True" Identifier="{Binding AddOptionsDialogIdentifier}">
+        <dialog:Dialog
+            SubmitButtonTitle="{Binding SubmitButtonTitle}"
+            DialogTitle="{Binding DialogTitle}"
         >
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Style.Triggers>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Text, ElementName=CategoryName, UpdateSourceTrigger=PropertyChanged,
-                                    Converter={StaticResource IsTextEmptyConverter}}" Value="False"
-                                />
-                                <Condition Binding="{Binding CategoryLinkedItems.Count,
-                                    Converter={StaticResource IsNumberZeroConverter}}" Value="False"
-                                />
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="IsEnabled" Value="True" />
-                        </MultiDataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-    </StackPanel>
-</Window>
+            <dialog:Dialog.CanSubmit>
+                <MultiBinding Converter="{StaticResource MultiBoolConverter}">
+                    <Binding
+                        Path="Text"
+                        ElementName="CategoryName"
+                        UpdateSourceTrigger="PropertyChanged"
+                        Converter="{StaticResource IsTextNotEmptyConverter}"
+                    />
+                    <Binding
+                        Path="CategoryLinkedItems.Count"
+                        Converter="{StaticResource IsNumberZeroConverter}"
+                        ConverterParameter="{x:Static structures:ConverterParam.Negation}"
+                    />
+                </MultiBinding>
+            </dialog:Dialog.CanSubmit>
+            
+            <StackPanel>
+                <TextBox
+                    materialDesign:HintAssist.Hint="Name"
+                    Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                    Name="CategoryName"
+                    Width="120"
+                    Text="{Binding Category.Name}"   
+                />
+            
+                <materialDesign:ColorZone Mode="PrimaryMid" Margin="0 15 0 0">
+                    <TextBlock
+                        Text="Type"
+                        Margin="8"
+                    />
+                </materialDesign:ColorZone>
+                    
+                <ComboBox
+                    materialDesign:HintAssist.Hint="Select a type"
+                    Style="{DynamicResource MaterialDesignComboBox}"
+                    ItemsSource="{Binding AllowedCategoryTypes}"
+                    SelectedItem="{Binding SelectedType}"
+                >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                
+                <materialDesign:ColorZone Mode="PrimaryMid" Margin="0 15 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="{Binding Path=SelectedType.Name}"
+                            Margin="8"
+                        />
+                    
+                        <Button
+                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                            Command="{Binding OpenAddOptionsCommand}"
+                        >
+                            <materialDesign:PackIcon Kind="Plus" />
+                        </Button>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+                
+                <controls:DataGrid
+                    ItemsSource="{Binding CategoryLinkedItems}"
+                    Style="{DynamicResource MaterialDesignDataGrid}"
+                >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="Name"
+                            Binding="{Binding}"
+                            SortDirection="Ascending"
+                        />
+                    
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button
+                                        Command="{Binding DataContext.RemoveOptionCommand,
+                                            RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:CategoryDialog}}"
+                                        CommandParameter="{Binding}"
+                                    >
+                                        <materialDesign:PackIcon Kind="Delete" />
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </controls:DataGrid>
+            </StackPanel>
+        </dialog:Dialog>
+        
+        <materialDesign:DialogHost.DialogContentTemplate>
+            <DataTemplate DataType="models:AddCategoryOptionsDialogViewModel">
+                <dialogs:AddCategoryOptionsDialog DataContext="{Binding}" />
+            </DataTemplate>
+        </materialDesign:DialogHost.DialogContentTemplate> 
+    </materialDesign:DialogHost>
+</UserControl>

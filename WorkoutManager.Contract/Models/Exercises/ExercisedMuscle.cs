@@ -9,11 +9,11 @@ namespace WorkoutManager.Contract.Models.Exercises
 
         public Muscle Muscle { get; set; }
         
-        public double RelativeEngagement { get; set; }
+        public int RelativeEngagement { get; set; }
 
         public ExercisedMuscle() {}
         
-        public ExercisedMuscle(Muscle muscle, double relativeEngagement)
+        public ExercisedMuscle(Muscle muscle, int relativeEngagement)
         {
             Muscle = muscle;
             RelativeEngagement = relativeEngagement;

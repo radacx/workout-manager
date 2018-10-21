@@ -1,13 +1,115 @@
 ﻿<Application x:Class="WorkoutManager.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="clr-namespace:WorkoutManager.App.Converters">
-    <Application.Resources>
-        <converters:EnumConverter x:Key="EnumConverter" />
-        <converters:DoesEnumMatchConverter x:Key="DoesEnumMatchConverter" />
-        <converters:IsTextEmptyConverter x:Key="IsTextEmptyConverter" />
-        <converters:IsCollectionEmptyConverter x:Key="IsCollectionEmptyConverter" />
-        <converters:IsNumberZeroConverter x:Key="IsNumberZeroConverter" />
-        <converters:IsValueNullConverter x:Key="IsValueNullConverter" />
+             xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
+             xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:models1="clr-namespace:WorkoutManager.App.Pages.Exercises.Models"
+             xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs"
+             xmlns:utils1="clr-namespace:WorkoutManager.App.Utils.Dialogs"
+             xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
+             xmlns:dialogs1="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:exerciseSet="clr-namespace:WorkoutManager.Contract.Models.ExerciseSet;assembly=WorkoutManager.Contract"
+             xmlns:sets="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.Sets">
+    <Application.Resources>  
+        <ResourceDictionary>
+            <converters:EnumConverter x:Key="EnumConverter" />
+            <converters:DoesEnumMatchConverter x:Key="DoesEnumMatchConverter" />
+            <converters:IsTextNotEmptyConverter x:Key="IsTextNotEmptyConverter" />
+            <converters:IsCollectionEmptyConverter x:Key="IsCollectionEmptyConverter" />
+            <converters:IsNumberZeroConverter x:Key="IsNumberZeroConverter" />
+            <converters:TextToVisibilityConverter x:Key="TextToVisibilityConverter" /> 
+            <converters:IsValueNotNullConverter x:Key="IsValueNotNullConverter" />
+            <converters:MultiBoolConverter x:Key="MultiBoolConverter" />
+            
+            <DataTemplate x:Key="{x:Static models1:ExercisedMuscleDialogSelector.AddExercisedMuscleDataTemplateIdentifier}" x:Shared="False">
+                <dialogs:AddExercisedMuscleDialog />
+            </DataTemplate>
+            <DataTemplate x:Key="{x:Static models1:ExercisedMuscleDialogSelector.EditExercisedMuscleDataTemplateIdentifier}" x:Shared="False">
+                <dialogs:EditExercisedMuscleDialog />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="{x:Static models:TrainingSessionDialogSelector.AddTrainingSessionExerciseDialogDataTemplateIdentifier}" x:Shared="False">
+                <dialogs1:AddTrainingSessionExerciseDialog />
+            </DataTemplate>
+            <DataTemplate x:Key="{x:Static models:TrainingSessionDialogSelector.AddExerciseSetToNewTrainingSessionDialogDataTemplateIdentifier}" x:Shared="False">
+                <dialogs1:ExerciseSetDialog />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="{x:Static models:ExerciseSetDialogSelector.DynamicSetDialogDataTemplateIdentifier}" x:Shared="False">
+                <sets:DynamicSetDialog />
+            </DataTemplate>
+        
+            <DataTemplate x:Key="{x:Static models:ExerciseSetDialogSelector.IsometricSetDialogDataTemplateIdentifier}" x:Shared="False">
+                <sets:IsometricSetDialog />
+            </DataTemplate>
+            
+            <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignAlternateTabablzControlStyle}" />
+            
+            <Style TargetType="dialog:Dialog" x:Shared="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="dialog:Dialog">
+                            <StackPanel>
+                                <TextBlock
+                                    Name="DialogTitle"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignTitleTextBlock}"
+                                    Text="{TemplateBinding DialogTitle}"
+                                    Visibility="{Binding Text,
+                                        Converter={StaticResource TextToVisibilityConverter}, ElementName=DialogTitle}"
+                                    Margin="10"
+                                />
+                                
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <ContentControl
+                                        Grid.Row="0"
+                                        Content="{TemplateBinding Content}"
+                                    />
+            
+                                    <Grid Grid.Row="1" Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Button
+                                            Grid.Column="0"
+                                            Content="{TemplateBinding SubmitButtonTitle}"
+                                            Command="materialDesign:DialogHost.CloseDialogCommand"
+                                            CommandParameter="{x:Static utils1:DialogResult.Ok}"
+                                            IsEnabled="{TemplateBinding CanSubmit}"
+                                        />
+            
+                                        <Button
+                                            Grid.Column="1"
+                                            Content="Cancel"
+                                            Command="materialDesign:DialogHost.CloseDialogCommand"
+                                            CommandParameter="{x:Static utils1:DialogResult.Cancel}"
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>      
+            </Style>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

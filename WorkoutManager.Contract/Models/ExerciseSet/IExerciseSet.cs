@@ -2,6 +2,6 @@
 {
     public interface IExerciseSet
     {
-        double Weight { get; set; }
+        int Weight { get; set; }
     }
 }

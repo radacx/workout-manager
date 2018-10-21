@@ -1,17 +1,12 @@
-using System.Windows;
+using System.Windows.Controls;
 
 namespace WorkoutManager.App.Pages.Muscles.Dialogs
 {
-    internal partial class MuscleDialog : Window
+    internal partial class MuscleDialog : UserControl
     {
         public MuscleDialog()
         {
             InitializeComponent();
-        }
-
-        private void Save_OnClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
         }
     }
 }

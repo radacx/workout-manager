@@ -4,59 +4,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
              xmlns:controls="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Controls"
              xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
              xmlns:converters1="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Converters"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=models:SessionExerciseViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
 <UserControl.Resources>  
     <converters1:ExerciseSetToTextConverter x:Key="ExerciseSetToTextConverter" />
 </UserControl.Resources>
-    <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Exercise.Exercise.Name}" />
-            <Button
-                Content="Add set"
-                Command="{Binding OpenAddExerciseSetDialog}"
-                CommandParameter="{Binding Exercise}"
-            />
-            <Button
-                Content="Delete exercise"
-                Command="{Binding OnDeleteExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
-                CommandParameter="{Binding Exercise}"
-            />
+    
+    <materialDesign:DialogHost
+        CloseOnClickAway="True"
+        Identifier="{Binding ExerciseSetDialogIdentifier}"
+    >
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Exercise.Exercise.Name}" />
+                <Button
+                    Content="Add set"
+                    Command="{Binding OpenAddExerciseSetDialog}"
+                    CommandParameter="{Binding Exercise}"
+                />
+                
+                <Button
+                    Content="Delete exercise"
+                    Command="{Binding OnDeleteExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
+                    CommandParameter="{Binding Exercise}"
+                />
+            </StackPanel>
+            
+            <ItemsControl ItemsSource="{Binding Sets}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource ExerciseSetToTextConverter}">
+                                        <Binding Path="" />
+                                        <Binding Path="UserPreferences" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:SessionExercise}" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            
+                            <Button
+                                Content="Edit"
+                                Command="{Binding DataContext.OpenEditExerciseSetDialog,
+                                    RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
+                                CommandParameter="{Binding}"
+                            />
+                            
+                            <Button
+                                Content="Remove"
+                                Command="{Binding DataContext.DeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
+                                CommandParameter="{Binding}"  
+                            />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
         
-        <ItemsControl ItemsSource="{Binding Sets}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding Converter="{StaticResource ExerciseSetToTextConverter}">
-                                    <Binding Path="" />
-                                    <Binding Path="UserPreferences" RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:SessionExercise}" />
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                        
-                        <Button
-                            Content="Edit"
-                            Command="{Binding DataContext.OpenEditExerciseSetDialog,
-                                RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
-                            CommandParameter="{Binding}"
-                        />
-                        
-                        <Button
-                            Content="Remove"
-                            Command="{Binding DataContext.DeleteSet, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SessionExercise}}"
-                            CommandParameter="{Binding}"  
-                        />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+        <materialDesign:DialogHost.DialogContentTemplate>
+            <DataTemplate DataType="{x:Type models:ExerciseSetDialogViewModel}">
+                <dialogs:ExerciseSetDialog DataContext="{Binding}" />
+            </DataTemplate>
+        </materialDesign:DialogHost.DialogContentTemplate>
+    </materialDesign:DialogHost>
 </UserControl>

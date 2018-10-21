@@ -1,0 +1,29 @@
+<UserControl x:Class="WorkoutManager.App.Controls.ValueSlider"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <TextBox
+            Text="{Binding Value, ElementName=Slider, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+            DockPanel.Dock="Right"
+            TextAlignment="Right"
+            Width="25"
+            IsReadOnly="True"
+        />
+            
+        <Slider
+            Style="{StaticResource MaterialDesignDiscreteSlider}"
+            Value="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ValueSlider}}"
+            Minimum="{Binding Minimum, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ValueSlider}}"
+            Maximum="{Binding Maximum, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ValueSlider}}"
+            TickFrequency="{Binding TickFrequency, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:ValueSlider}}"
+            IsSnapToTickEnabled="True"
+            Name="Slider"
+        />
+    </DockPanel>         
+</UserControl>

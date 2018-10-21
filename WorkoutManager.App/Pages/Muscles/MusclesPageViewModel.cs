@@ -1,11 +1,9 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Force.DeepCloner;
-using PubSub.Core;
-using WorkoutManager.App.Pages.Muscles.Dialogs;
 using WorkoutManager.App.Pages.Muscles.Models;
 using WorkoutManager.App.Structures;
-using WorkoutManager.App.Utils;
+using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Repository;
 
@@ -13,7 +11,9 @@ namespace WorkoutManager.App.Pages.Muscles
 {
     internal class MusclesPageViewModel : ViewModelBase
     {
-        public BulkObservableCollection<Muscle> Muscles { get; } = new BulkObservableCollection<Muscle>();
+        public string MuscleDialogIdentifier => "MuscleDialog";
+        
+        public ObservableRangeCollection<Muscle> Muscles { get; } = new WpfObservableRangeCollection<Muscle>();
 
         public ICommand OpenCreateMuscleDialog { get; }
         
@@ -25,22 +25,23 @@ namespace WorkoutManager.App.Pages.Muscles
 
         private readonly Repository<Muscle> _muscleRepository;
         
-        public MusclesPageViewModel(Repository<Muscle> muscleRepository, DialogFactory<MuscleDialog, MuscleDialogViewModel> muscleDialogFactory, Hub eventAggregator)
+        public MusclesPageViewModel(Repository<Muscle> muscleRepository, DialogViewer dialogViewer)
         {
             _muscleRepository = muscleRepository;
             
             Muscles.ShapeView().OrderBy(muscle => muscle.Name).Apply();
             
             OpenCreateMuscleDialog = new Command(
-                () =>
+               async () =>
                 {
                     var muscle = new Muscle();
 
-                    var dialog = muscleDialogFactory.Get();
+                    var dialog = dialogViewer.For<MuscleDialogViewModel>(MuscleDialogIdentifier);
                     dialog.Data.Muscle = muscle;
-                    dialog.Data.SaveButtonTitle = "Create";
+                    dialog.Data.DialogTitle = "New muscle";
+                    dialog.Data.SubmitButtonTitle = "Submit";
 
-                    var dialogResult = dialog.Show();
+                    var dialogResult = await dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -49,19 +50,20 @@ namespace WorkoutManager.App.Pages.Muscles
 
                     Muscles.Add(muscle);
 
-                    Task.Run(() => _muscleRepository.Create(muscle));
+                    _muscleRepository.Create(muscle);
                 });
             
             OpenEditMuscleDialog = new Command<Muscle>(
-                muscle =>
+                async muscle =>
                 {
                     var muscleClone = muscle.DeepClone();
 
-                    var dialog = muscleDialogFactory.Get();
+                    var dialog = dialogViewer.For<MuscleDialogViewModel>(MuscleDialogIdentifier);
                     dialog.Data.Muscle = muscleClone;
-                    dialog.Data.SaveButtonTitle = "Save";
+                    dialog.Data.SubmitButtonTitle = "Save";
+                    dialog.Data.DialogTitle = "Modified muscle";
 
-                    var dialogResult = dialog.Show();
+                    var dialogResult = await dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -70,7 +72,7 @@ namespace WorkoutManager.App.Pages.Muscles
 
                     Muscles.Replace(muscle, muscleClone);
 
-                    Task.Run(() => _muscleRepository.Update(muscleClone));
+                    _muscleRepository.Update(muscleClone);
                 });
             
             Delete = new Command<Muscle>(
@@ -81,7 +83,7 @@ namespace WorkoutManager.App.Pages.Muscles
                     Task.Run(() => _muscleRepository.Delete(muscle));
                 });
             
-            Task.Run(() => LoadMuscles());
+            Task.Run(LoadMuscles);
         }
     }
 }

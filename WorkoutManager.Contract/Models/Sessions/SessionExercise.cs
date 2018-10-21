@@ -30,8 +30,13 @@ namespace WorkoutManager.Contract.Models.Sessions
 
         public void AddSet(IExerciseSet set) => _sets.Add(set);
 
-        public void RemoveSet(IExerciseSet set) => _sets.Remove(set);
-        
+        public void RemoveSet(IExerciseSet set)
+        {
+            var index = _sets.FindIndex(originalSet => ReferenceEquals(originalSet, set));
+            
+            _sets.RemoveAt(index);
+        }
+
         public bool Equals(SessionExercise other)
         {
             if (ReferenceEquals(null, other))

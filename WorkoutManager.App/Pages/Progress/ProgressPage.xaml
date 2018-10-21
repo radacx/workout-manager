@@ -6,144 +6,151 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:WorkoutManager.App.Pages.Progress"
              xmlns:progress="clr-namespace:WorkoutManager.Contract.Models.Progress;assembly=WorkoutManager.Contract"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DataContext="{d:DesignInstance Type=local:ProgressPageViewModel}"
              mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Background="AliceBlue">
-        <Button
-            Content="Refresh"
-            Command="{Binding Refresh}"
-        />
-        
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+    <materialDesign:DialogHost
+        CloseOnClickAway="True"
+        Identifier="{Binding ProgressPageDialogsIdentifier}"
+    >
+        <StackPanel>
+            <Button
+                Content="Refresh"
+                Command="{Binding Refresh}"
+            />
             
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                <Label Content="Filter by" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                    <Label Content="Filter by" />
+                
+                    <ComboBox
+                        ItemsSource="{Binding FilterByOptions}"
+                        SelectedItem="{Binding FilterBy}"
+                    >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                
+                    <ComboBox
+                        ItemsSource="{Binding FilteringValueOptions}"
+                        SelectedItem="{Binding SelectedFilteringValue}"
+                    />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                    <CheckBox
+                        Content="From"
+                        IsChecked="{Binding ShouldFilterFrom}"
+                    />
+                    <DatePicker SelectedDate="{Binding DateFrom}">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShouldFilterFrom}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <Label Content="Group by"/> 
+                    <ComboBox
+                        ItemsSource="{Binding GroupByOptions}"
+                        SelectedItem="{Binding GroupBy}"
+                    >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox
+                        ItemsSource="{Binding DayOfWeekOptions}"
+                        SelectedItem="{Binding StartingDayOfWeek}"
+                    >
+                        <ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding GroupBy}" Value="{x:Static progress:GroupBy.Week}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <CheckBox
+                        Content="To"
+                        IsChecked="{Binding ShouldFilterTill}"
+                    />
+                    <DatePicker SelectedDate="{Binding DateTo}">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShouldFilterTill, Mode=TwoWay}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                    <Label Content="Metric" />
+                    <ComboBox
+                        ItemsSource="{Binding MetricOptions}"
+                        SelectedItem="{Binding Metric}"
+                    >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Button
+                        Content="Save filter"
+                        Command="{Binding OpenAddFilterDialog}"
+                    />
+                    <Button
+                        Content="Select filter"
+                        Command="{Binding OpenSelectFilterDialog}"
+                    />
+                </StackPanel>
+            </Grid>
             
-                <ComboBox
-                    ItemsSource="{Binding FilterByOptions}"
-                    SelectedItem="{Binding FilterBy}"
-                >
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            
-                <ComboBox
-                    ItemsSource="{Binding FilteringValueOptions}"
-                    SelectedItem="{Binding SelectedFilteringValue}"
-                />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-                <CheckBox
-                    Content="From"
-                    IsChecked="{Binding ShouldFilterFrom}"
-                />
-                <DatePicker SelectedDate="{Binding DateFrom}">
-                    <DatePicker.Style>
-                        <Style TargetType="DatePicker">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ShouldFilterFrom}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DatePicker.Style>
-                </DatePicker>
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                <Label Content="Group by"/> 
-                <ComboBox
-                    ItemsSource="{Binding GroupByOptions}"
-                    SelectedItem="{Binding GroupBy}"
-                >
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <ComboBox
-                    ItemsSource="{Binding DayOfWeekOptions}"
-                    SelectedItem="{Binding StartingDayOfWeek}"
-                >
-                    <ComboBox.Style>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding GroupBy}" Value="{x:Static progress:GroupBy.Week}">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ComboBox.Style>
-                </ComboBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                <CheckBox
-                    Content="To"
-                    IsChecked="{Binding ShouldFilterTill}"
-                />
-                <DatePicker SelectedDate="{Binding DateTo}">
-                    <DatePicker.Style>
-                        <Style TargetType="DatePicker">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ShouldFilterTill, Mode=TwoWay}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DatePicker.Style>
-                </DatePicker>
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
-                <Label Content="Metric" />
-                <ComboBox
-                    ItemsSource="{Binding MetricOptions}"
-                    SelectedItem="{Binding Metric}"
-                >
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-                <Button
-                    Content="Save filter"
-                    Command="{Binding OpenAddFilterDialog}"
-                />
-                <Button
-                    Content="Select filter"
-                    Command="{Binding OpenSelectFilterDialog}"
-                />
-            </StackPanel>
-        </Grid>
-        
-        <ItemsControl ItemsSource="{Binding Results}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBox Text="{Binding Mode=OneWay}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+            <ItemsControl ItemsSource="{Binding Results}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding Mode=OneWay}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </materialDesign:DialogHost> 
 </UserControl>

@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using WorkoutManager.App.Structures;
 
 namespace WorkoutManager.App.Converters
 {
@@ -12,7 +13,9 @@ namespace WorkoutManager.App.Converters
             {
                 case int number:
 
-                    return number == 0;
+                    var param = ConverterUtils.GetConverterParam(parameter);
+
+                    return param == ConverterParam.Negation ? number != 0 : number == 0;
                 default:
 
                     return null;

@@ -11,6 +11,7 @@ using WorkoutManager.App.Pages.Progress.Models;
 using WorkoutManager.App.Pages.TrainingLog;
 using WorkoutManager.App.Pages.UserSettings;
 using WorkoutManager.App.Utils;
+using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract;
 using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
@@ -57,9 +58,9 @@ namespace WorkoutManager.App.Config
             container.RegisterType<CategoryPageViewModel>(new SingletonLifetimeManager());
             container.RegisterType<SelectFilterDialogViewModel>(new SingletonLifetimeManager());
             
-            container.RegisterType(typeof(ViewModelFactory<>), new SingletonLifetimeManager());
+            container.RegisterType<ViewModelFactory>(new SingletonLifetimeManager());
             container.RegisterType<WindowFactory>(new SingletonLifetimeManager());
-            container.RegisterType(typeof(DialogFactory<,>), new SingletonLifetimeManager());
+            container.RegisterType<DialogViewer>(new SingletonLifetimeManager());
             
             container.RegisterType<MainWindow>(new SingletonLifetimeManager());
         }

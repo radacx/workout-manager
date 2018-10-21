@@ -23,7 +23,7 @@ namespace WorkoutManager.App.Pages.Progress.Structures.Calculators
 
             var multiplier = exercisedMuscles.Aggregate(
                 0d,
-                (totalMultiplier, exercisedMuscle) => totalMultiplier + exercisedMuscle.RelativeEngagement / 100
+                (totalMultiplier, exercisedMuscle) => totalMultiplier + exercisedMuscle.RelativeEngagement / 100.0
             );
 
             return multiplier;

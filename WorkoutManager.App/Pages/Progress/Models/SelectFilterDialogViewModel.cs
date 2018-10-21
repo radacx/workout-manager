@@ -8,7 +8,7 @@ using WorkoutManager.Repository;
 
 namespace WorkoutManager.App.Pages.Progress.Models
 {
-    internal class SelectFilterDialogViewModel : ViewModelBase
+    internal class SelectFilterDialogViewModel : DialogModelBase
     {
         private readonly Repository<ProgressFilter> _progressFilterRepository;
         
@@ -16,7 +16,7 @@ namespace WorkoutManager.App.Pages.Progress.Models
         
         public ICommand SelectFilter { get; }
         
-        public BulkObservableCollection<ProgressFilter> Filters { get; } = new BulkObservableCollection<ProgressFilter>();
+        public ObservableRangeCollection<ProgressFilter> Filters { get; } = new WpfObservableRangeCollection<ProgressFilter>();
 
         private void LoadData()
         {

@@ -1,43 +1,25 @@
-<Window x:Class="WorkoutManager.App.Pages.Muscles.Dialogs.MuscleDialog"
+<UserControl x:Class="WorkoutManager.App.Pages.Muscles.Dialogs.MuscleDialog"
         x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:models="clr-namespace:WorkoutManager.App.Pages.Muscles.Models"
+        xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         d:DataContext="{d:DesignInstance Type=models:MuscleDialogViewModel}"
-        mc:Ignorable="d"
-        Height="450" Width="500">
-    <StackPanel Background="AliceBlue">           
-        <Button
-            IsDefault="True"
-            Content="{Binding SaveButtonTitle}"
-            Click="Save_OnClick"
-            Width="90"
-            HorizontalAlignment="Center"
-        >
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=MuscleName, Converter={StaticResource IsTextEmptyConverter}, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                            <Setter Property="IsEnabled" Value="True" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        
-        <StackPanel Orientation="Horizontal">
-            <Label
-                Content="_Name"
-                Target="{Binding ElementName=MuscleName}"
-            />
-            <TextBox
-                Name="MuscleName"
-                Text="{Binding Muscle.Name}"
-                Width="120"
-            />
-        </StackPanel>
-    </StackPanel>
-</Window>
+        mc:Ignorable="d">
+    <dialog:Dialog
+        SubmitButtonTitle="{Binding SubmitButtonTitle}"
+        DialogTitle="{Binding DialogTitle}"
+        CanSubmit="{Binding Text, ElementName=MuscleName, Converter={StaticResource IsTextNotEmptyConverter}, UpdateSourceTrigger=PropertyChanged}"
+    >
+        <TextBox
+            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+            Name="MuscleName"
+            Text="{Binding Muscle.Name}"
+            Width="120"
+            materialDesign:HintAssist.Hint="Name"
+        />
+    </dialog:Dialog> 
+</UserControl>

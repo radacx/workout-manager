@@ -11,11 +11,11 @@ namespace WorkoutManager.Contract.Models.Sessions
         
         public int Id { get; set; }
         
-        public double Bodyweight { get; set; }
+        public int Bodyweight { get; set; }
         
         public DateTime Date { get; set; }
 
-        public string DateString => Date.ToString("ddd M/d/yy");
+        public string DateString => Date.ToString("dd.MM.yy ddd");
         
         public SessionExercise[] Exercises
         {

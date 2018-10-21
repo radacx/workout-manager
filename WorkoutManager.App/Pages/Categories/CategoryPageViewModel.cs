@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Force.DeepCloner;
-using WorkoutManager.App.Pages.Categories.Dialogs;
 using WorkoutManager.App.Pages.Categories.Models;
 using WorkoutManager.App.Structures;
-using WorkoutManager.App.Utils;
+using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Repository;
 
@@ -13,9 +12,10 @@ namespace WorkoutManager.App.Pages.Categories
     internal class CategoryPageViewModel : ViewModelBase
     {
         private readonly Repository<Category> _categoryRepository;
-        private readonly DialogFactory<CategoryDialog, CategoryDialogViewModel> _categoryDialogFactory;
+
+        public string CategoryDialogIdentifier => "CategoryDialog";
         
-        public BulkObservableCollection<Category> Categories { get; } = new BulkObservableCollection<Category>();
+        public ObservableRangeCollection<Category> Categories { get; } = new WpfObservableRangeCollection<Category>();
 
         public ICommand Delete { get; }
         
@@ -31,20 +31,21 @@ namespace WorkoutManager.App.Pages.Categories
         
         private void DeleteCategory(Category category) => _categoryRepository.Delete(category);
         
-        public CategoryPageViewModel(Repository<Category> categoryRepository, DialogFactory<CategoryDialog, CategoryDialogViewModel> categoryDialogFactory)
+        public CategoryPageViewModel(Repository<Category> categoryRepository, DialogViewer dialogViewer)
         {
             _categoryRepository = categoryRepository;
-            _categoryDialogFactory = categoryDialogFactory;
 
             OpenAddCategoryDialog = new Command(
-                () =>
+                async () =>
                 {
                     var category = new Category();
-                    var dialog = _categoryDialogFactory.Get();
+                    
+                    var dialog = dialogViewer.For<CategoryDialogViewModel>(CategoryDialogIdentifier);
                     dialog.Data.Category = category;
                     dialog.Data.SubmitButtonTitle = "Create";
+                    dialog.Data.DialogTitle = "New category";
                     
-                    var dialogResult = dialog.Show();
+                    var dialogResult = await dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -52,18 +53,20 @@ namespace WorkoutManager.App.Pages.Categories
                     }
 
                     Categories.Add(category);
-                    Task.Run(() => CreateCategory(category));
+                    CreateCategory(category);
                 });
             
             OpenEditCategoryDialog = new Command<Category>(
-                category =>
+                async category =>
                 {
                     var categoryClone = category.DeepClone();
-                    var dialog = _categoryDialogFactory.Get();
+                    
+                    var dialog = dialogViewer.For<CategoryDialogViewModel>(CategoryDialogIdentifier);
                     dialog.Data.Category = categoryClone;
                     dialog.Data.SubmitButtonTitle = "Save";
+                    dialog.Data.DialogTitle = "Modified category";
                     
-                    var dialogResult = dialog.Show();
+                    var dialogResult = await dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -71,7 +74,7 @@ namespace WorkoutManager.App.Pages.Categories
                     }
 
                     Categories.Replace(category, categoryClone);
-                    Task.Run(() => UpdateCategory(categoryClone));
+                    UpdateCategory(categoryClone);
                 });
             
             Delete = new Command<Category>(
@@ -81,7 +84,7 @@ namespace WorkoutManager.App.Pages.Categories
                     Task.Run(() => DeleteCategory(category));
                 });
             
-            Task.Run(() => LoadCategories());
+            Task.Run(LoadCategories);
         }
     }
 }

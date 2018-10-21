@@ -30,7 +30,7 @@ namespace WorkoutManager.Contract.Models.Exercises
 
         public void AddMuscle(ExercisedMuscle muscle) => _muscles.Add(muscle);
 
-        public void RemoveMuscle(ExercisedMuscle muscle) => _muscles.Remove(muscle);
+        public void RemoveMuscle(ExercisedMuscle muscle) => _muscles.RemoveAll(x => ReferenceEquals(x, muscle));
 
         public bool Equals(Exercise other)
         {

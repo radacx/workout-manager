@@ -6,50 +6,63 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:user="clr-namespace:WorkoutManager.Contract.Models.User;assembly=WorkoutManager.Contract"
              xmlns:userSettings="clr-namespace:WorkoutManager.App.Pages.UserSettings"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=userSettings:UserPreferencesPageViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="AliceBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        
-        <Label
-            Grid.Row="0"
-            Grid.Column="0"
-            Content="Weight units"
-        /> 
-        <RadioButton
-            Grid.Row="0"
-            Grid.Column="1"
-            GroupName="WeightUnits"
-            Content="{x:Static user:WeightUnits.Kilograms}"
-            IsChecked="{Binding UserPreferences.WeightUnits, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static user:WeightUnits.Kilograms}}" />
-        <RadioButton
-            Grid.Row="0"
-            Grid.Column="2"
-            GroupName="ContractionType"
-            Content="{x:Static user:WeightUnits.Pounds}"
-            IsChecked="{Binding UserPreferences.WeightUnits, Converter={StaticResource DoesEnumMatchConverter}, ConverterParameter={x:Static user:WeightUnits.Pounds}}" />
+             Background="{DynamicResource MaterialDesignPaper}"
+             d:DataContext="{d:DesignInstance Type=userSettings:UserPreferencesPageViewModel}">
+    <StackPanel>
+        <materialDesign:ColorZone
+            Mode="PrimaryMid"
+            Effect="{DynamicResource MaterialDesignShadowDepth5}"
+        >
+            <TextBlock
+                Text="Weight units"
+                Margin="8"
+            />
+        </materialDesign:ColorZone>
+            
+        <StackPanel Orientation="Horizontal" Margin="8 15 8 0">
+            <RadioButton
+                Style="{DynamicResource MaterialDesignLightRadioButton}"
+                GroupName="WeightUnits"
+                Margin="0 0 10 0"
+                IsChecked="{Binding UserPreferences.WeightUnits,
+                        Converter={StaticResource DoesEnumMatchConverter},
+                        ConverterParameter={x:Static user:WeightUnits.Kilograms}}"
+            >
+                <RadioButton.Content>
+                    <TextBlock
+                        Foreground="{StaticResource SecondaryAccentBrush}"
+                        Text="{Binding Source={x:Static user:WeightUnits.Kilograms}}"
+                    />
+                </RadioButton.Content>
+            </RadioButton>
+                
+            <RadioButton
+                GroupName="WeightUnits"
+                IsChecked="{Binding UserPreferences.WeightUnits,
+                        Converter={StaticResource DoesEnumMatchConverter},
+                        ConverterParameter={x:Static user:WeightUnits.Pounds}}"
+            >
+                <RadioButton.Content>
+                    <TextBlock
+                        Foreground="{StaticResource SecondaryAccentBrush}"
+                        Text="{Binding Source={x:Static user:WeightUnits.Pounds}}"
+                    />
+                </RadioButton.Content>
+            </RadioButton>
+        </StackPanel>
 
-        <Button
-            Grid.Row="1"
-            Grid.Column="0"
-            Content="Save preferences"
-            Command="{Binding SavePreferences}"
-        />
+        <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
+            <Button
+                Content="Save preferences"
+                Command="{Binding SavePreferences}"
+            />
         
-        <Button
-            Grid.Row="1"
-            Grid.Column="1"
-            Content="Clear database"
-            Command="{Binding ClearDatabase}"
-        />
-    </Grid>
+            <Button
+                Content="Clear database"
+                Command="{Binding ClearDatabase}"
+            />
+        </StackPanel>  
+    </StackPanel>
 </UserControl>

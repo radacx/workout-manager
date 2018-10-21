@@ -1,131 +1,124 @@
-<Window x:Class="WorkoutManager.App.Pages.TrainingLog.Dialogs.TrainingSessionDialog"
+<UserControl x:Class="WorkoutManager.App.Pages.TrainingLog.Dialogs.TrainingSessionDialog"
         x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:controls="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Controls"
         xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
-        xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
         xmlns:converters1="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Converters"
+        xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:utils="clr-namespace:WorkoutManager.App.Utils"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=models:TrainingSessionDialogViewModel}"
-        Height="450" Width="800">
-<Window.Resources>
-    <converters1:GetSessionExerciseViewModelConverter x:Key="GetSessionExerciseViewModelConverter" />
-</Window.Resources>
+        d:DataContext="{d:DesignInstance Type=models:TrainingSessionDialogViewModel}">
+    <UserControl.Resources>
+        <converters1:GetSessionExerciseViewModelConverter x:Key="GetSessionExerciseViewModelConverter" />
+        <models:TrainingSessionDialogSelector x:Key="TrainingSessionDialogSelector" x:Shared="False" />
+    </UserControl.Resources>
     
-    <Grid Background="AliceBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />    
-            <ColumnDefinition Width="Auto" />    
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <Button
-            Grid.Row="0"
-            Grid.Column="0"
-            Content="{Binding SaveButtonTitle}"
-            IsDefault="True"
-            Click="SaveButton_OnClick"
-        />
-        
-        <Label
-            Grid.Row="1"
-            Grid.Column="0"
-            Content="Date"
-        />
-        <xctk:DateTimePicker
-            Grid.Row="1"
-            Grid.Column="1"
-            Format="ShortDate"
-            Value="{Binding TrainingSession.Date}"
-        />
-        
-        <Label
-            Grid.Row="2"
-            Grid.Column="0"
-            Content="Bodyweight"
-        />
-        <xctk:DoubleUpDown
-            Grid.Row="2"
-            Grid.Column="1"
-            Value="{Binding TrainingSession.Bodyweight}"
-            Minimum="0"
-            ClipValueToMinMax="True"
-        />
-        
-        <ComboBox
-            Grid.Row="3"
-            Grid.Column="0"
-            Name="Exercises"
-            ItemsSource="{Binding Exercises}"
-            SelectedIndex="0"
-        />
-        <Button
-            Grid.Row="3"
-            Grid.Column="1"
-            Content="Add exercise set"
-            Command="{Binding AddExerciseSet}"
-            CommandParameter="{Binding SelectedItem, ElementName=Exercises}"
+    <materialDesign:DialogHost
+        CloseOnClickAway="True"
+        Identifier="{Binding TrainingSessionDialogsIdentifier}"
+        DialogContentTemplateSelector="{StaticResource TrainingSessionDialogSelector}"
+    >
+        <dialog:Dialog
+            SubmitButtonTitle="{Binding SubmitButtonTitle}"
+            DialogTitle="{Binding DialogTitle}"
         >
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Exercises, Converter={StaticResource IsCollectionEmptyConverter}}" Value="False">
-                            <Setter Property="IsEnabled" Value="True" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        
-        <Label
-            Grid.Row="4"
-            Grid.Column="0"
-            Content="Exercises"
-        />
-        <ScrollViewer
-            Grid.Row="5"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            VerticalScrollBarVisibility="Auto"
-        >
-            <ItemsControl
-                ItemsSource="{Binding SessionExercises}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            BorderThickness="2"
-                            CornerRadius="1"
-                            BorderBrush="Navy"
-                            Margin="5 10 0 0"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <DatePicker
+                    Grid.Row="0"
+                    Width="100"
+                    materialDesign:HintAssist.Hint="Date"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                    SelectedDate="{Binding TrainingSession.Date}"
+                />
+                
+                <StackPanel Grid.Row="1">
+                    <materialDesign:ColorZone
+                        Mode="PrimaryMid"
+                        Margin="0 0 0 15"
+                    >
+                        <TextBlock
+                            Text="Bodyweight"
+                            Margin="8"
+                        />
+                    </materialDesign:ColorZone>
+                    
+                    <ComboBox
+                        ItemsSource="{Binding Source={x:Static utils:Constants.WeightValues}}"
+                        SelectedItem="{Binding TrainingSession.Bodyweight, Mode=TwoWay}"
+                        Margin="8 0 8 15"
+                    >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>    
+                    </ComboBox>
+                </StackPanel>       
+                
+                <materialDesign:ColorZone
+                    Grid.Row="2"
+                    Margin="0 15 0 0"
+                    Mode="PrimaryMid"
+                    Effect="{DynamicResource MaterialDesignShadowDepth5}"
+                >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="Exercises"
+                            Margin="16"
+                        />
+                
+                        <Button
+                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                            Command="{Binding AddSessionExercise}"
                         >
-                            <controls:SessionExercise
-                                OnDeleteExercise="{Binding DataContext.RemoveExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
-                                UserPreferences="{Binding DataContext.UserPreferences, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
-                            >
-                                <controls:SessionExercise.DataContext>
-                                    <MultiBinding Converter="{StaticResource GetSessionExerciseViewModelConverter}">
-                                        <Binding Path="" />
-                                        <Binding Path="DataContext.ViewModelFactory" RelativeSource="{RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}" />
-                                    </MultiBinding>
-                                </controls:SessionExercise.DataContext>
-                            </controls:SessionExercise>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
-</Window>
+                            <materialDesign:PackIcon Kind="Plus" />
+                        </Button>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+     
+                <ScrollViewer
+                    Grid.Row="3"
+                    VerticalScrollBarVisibility="Auto"
+                >
+                    <ItemsControl
+                        ItemsSource="{Binding SessionExercises}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    BorderThickness="2"
+                                    CornerRadius="1"
+                                    BorderBrush="Navy"
+                                    Margin="5 10 0 0"
+                                >
+                                    <controls:SessionExercise
+                                        OnDeleteExercise="{Binding DataContext.RemoveExercise, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                                        UserPreferences="{Binding DataContext.UserPreferences, RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}}"
+                                    >
+                                        <controls:SessionExercise.DataContext>
+                                            <MultiBinding Converter="{StaticResource GetSessionExerciseViewModelConverter}">
+                                                <Binding Path="" />
+                                                <Binding Path="DataContext.ViewModelFactory" RelativeSource="{RelativeSource FindAncestor, AncestorType=dialogs:TrainingSessionDialog}" />
+                                            </MultiBinding>
+                                        </controls:SessionExercise.DataContext>
+                                    </controls:SessionExercise>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </dialog:Dialog>
+    </materialDesign:DialogHost>
+</UserControl>

@@ -1,18 +1,45 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Force.DeepCloner;
 using WorkoutManager.App.Structures;
+using WorkoutManager.App.Utils;
+using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Repository;
 
 namespace WorkoutManager.App.Pages.Exercises.Models
 {
-    internal class ExerciseDialogViewModel : ViewModelBase
+    internal class ExercisedMuscleDialogSelector : DataTemplateSelector
     {
-        private Exercise _exercise;
-        public bool IsBodyweightExercise { get; set; }
+        public const string AddExercisedMuscleDataTemplateIdentifier = "AddExercisedMuscleDataTemplateIdentifier";
+        public const string EditExercisedMuscleDataTemplateIdentifier = "EditExercisedMuscleDataTemplateIdentifier";
         
-        public string SaveButtonTitle { get; set; }
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            switch (item) {
+                case AddExercisedMuscleDialogViewModel _:
+
+                    return Application.Current.MainWindow?.FindResource(AddExercisedMuscleDataTemplateIdentifier) as DataTemplate;
+                case EditExercisedMuscleDialogViewModel _:
+
+                    return Application.Current.MainWindow?.FindResource(EditExercisedMuscleDataTemplateIdentifier) as DataTemplate;
+            }
+
+            return base.SelectTemplate(item, container);
+        }
+    } 
+    
+    internal class ExerciseDialogModelViewModel : DialogModelBase
+    {
+        private readonly DialogViewer _dialogViewer;
+        
+        private Exercise _exercise;
+
+        public string ExercisedMuscleDialogIdentifier => "ExercisedMuscleDialog";
 
         public Exercise Exercise
         {
@@ -20,20 +47,47 @@ namespace WorkoutManager.App.Pages.Exercises.Models
             set => SetField(ref _exercise, value);
         }
 
-        public BulkObservableCollection<Muscle> AvailableMuscles { get; } = new BulkObservableCollection<Muscle>();
-
-        public ICommand AddMuscle { get; }
+        public ObservableRangeCollection<Muscle> Muscles { get; } = new WpfObservableRangeCollection<Muscle>();
         
         public ICommand RemoveMuscle { get; }
+        
+        public Command OpenAddMuscleDialogCommand { get; }
+
+        public ICommand OpenEditMuscleDialog { get; }
         
         public ObservedCollection<ExercisedMuscle> ExercisedMuscles { get; set; }
 
         private bool IsMuscleAvailable(Muscle muscle)
             => !ExercisedMuscles.Any(exercisedMuscle => exercisedMuscle.Muscle.Equals(muscle));
-        
-        public ExerciseDialogViewModel(Repository<Muscle> muscleRepository)
+
+        private async void OpenAddMuscleDialog()
         {
-            var availableMusclesShape = AvailableMuscles.ShapeView()
+            var dialog = _dialogViewer.For<AddExercisedMuscleDialogViewModel>(ExercisedMuscleDialogIdentifier);
+            dialog.Data.Muscles = Muscles;
+            dialog.Data.SubmitButtonTitle = "Select";
+            dialog.Data.DialogTitle = "Add a muscle";
+            dialog.Data.RelativeEngagement = 100;
+
+            var dialogResult = await dialog.Show();
+
+            if (dialogResult != DialogResult.Ok)
+            {
+                return;
+            }
+
+            var muscle = dialog.Data.SelectedMuscle;
+            var relativeEngagement = dialog.Data.RelativeEngagement;
+            var exercisedMuscle = new ExercisedMuscle(muscle, relativeEngagement);
+
+            ExercisedMuscles.Add(exercisedMuscle);
+            OpenAddMuscleDialogCommand.RaiseCanExecuteChanged();
+        }
+        
+        public ExerciseDialogModelViewModel(Repository<Muscle> muscleRepository, DialogViewer dialogViewer)
+        {
+            _dialogViewer = dialogViewer;
+
+            var availableMusclesShape = Muscles.ShapeView()
                 .Where(IsMuscleAvailable)
                 .OrderBy(muscle => muscle.Name);
             
@@ -43,8 +97,8 @@ namespace WorkoutManager.App.Pages.Exercises.Models
             {
                 if (args.PropertyName == nameof(Exercise))
                 {
-                    ExercisedMuscles = new ObservedCollection<ExercisedMuscle>(
-                        Exercise.Muscles,
+                    var exercisedMuscles = new ObservedCollection<ExercisedMuscle>(
+                        new List<ExercisedMuscle>(), 
                         muscle =>
                         {
                             Exercise.AddMuscle(muscle);
@@ -56,20 +110,49 @@ namespace WorkoutManager.App.Pages.Exercises.Models
                             availableMusclesShape.Apply();
                         }
                     );
+                    
+                    exercisedMuscles.AddRange(Exercise.Muscles);       
+                    exercisedMuscles.ShapeView().OrderBy(muscle => muscle.Muscle.Name).Apply();
+
+                    ExercisedMuscles = exercisedMuscles;
                 }
             };
-            
-            AddMuscle = new Command<Muscle>(muscle => ExercisedMuscles.Add(new ExercisedMuscle(muscle, 100d)));
 
-            RemoveMuscle = new Command<ExercisedMuscle>(muscle => ExercisedMuscles.Remove(muscle));
+            OpenAddMuscleDialogCommand = new Command(
+                OpenAddMuscleDialog,
+                () => Muscles.Where(IsMuscleAvailable).Any()
+            );
             
-            Task.Run(
-                () =>
+            OpenEditMuscleDialog = new Command<ExercisedMuscle>(
+                async exercisedMuscle =>
                 {
-                    AvailableMuscles.AddRange(muscleRepository.GetAll());
+                    var exercisedMuscleClone = exercisedMuscle.DeepClone();
+                    var dialog = dialogViewer.For<EditExercisedMuscleDialogViewModel>(ExercisedMuscleDialogIdentifier);
+  
+                    dialog.Data.SubmitButtonTitle = "Save";
+                    dialog.Data.DialogTitle = "Edit exercised muscle";
+                    dialog.Data.ExercisedMuscle = exercisedMuscleClone;
                     
-                    OnPropertyChanged(string.Empty);
+                    var dialogResult = await dialog.Show();
+
+                    if (dialogResult != DialogResult.Ok)
+                    {
+                        return;
+                    }
+
+                    ExercisedMuscles.Replace(exercisedMuscle, exercisedMuscleClone);
                 });
+            
+            RemoveMuscle = new Command<ExercisedMuscle>(muscle =>
+                {
+                    ExercisedMuscles.Remove(muscle);
+                    OpenAddMuscleDialogCommand.RaiseCanExecuteChanged();
+                }
+            );
+
+            Task.Run(
+                () => { Muscles.AddRange(muscleRepository.GetAll()); }
+            );
         }
     }
 }

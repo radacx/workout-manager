@@ -4,19 +4,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Force.DeepCloner;
 using Microsoft.Win32;
-using WorkoutManager.App.Pages.TrainingLog.Dialogs;
 using WorkoutManager.App.Pages.TrainingLog.Models;
 using WorkoutManager.App.Structures;
-using WorkoutManager.App.Utils;
+using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.TrainingLog
 {
-    internal class TrainingLogPageViewModel : ViewModelBase
+    internal class TrainingLogPageViewModel : DialogModelBase
     {
-        public BulkObservableCollection<TrainingSession> TrainingSessions { get; } =
-            new BulkObservableCollection<TrainingSession>();
+        public string SessionDialogIdentifier => "SessionDialog";
+        
+        public ObservableRangeCollection<TrainingSession> TrainingSessions { get; } = new WpfObservableRangeCollection<TrainingSession>();
 
         public ICommand OpenAddSessionDialog { get; }
         
@@ -31,7 +31,7 @@ namespace WorkoutManager.App.Pages.TrainingLog
         private void LoadTrainingSessionsAsync()
             => Task.Run(() => TrainingSessions.AddRange(_trainingSessionService.GetAll()));
         
-        public TrainingLogPageViewModel(TrainingSessionService trainingSessionService, DialogFactory<TrainingSessionDialog, TrainingSessionDialogViewModel> trainingSessionDialogFactory)
+        public TrainingLogPageViewModel(TrainingSessionService trainingSessionService, DialogViewer dialogViewer)
         {
             _trainingSessionService = trainingSessionService;
 
@@ -61,28 +61,28 @@ namespace WorkoutManager.App.Pages.TrainingLog
             );
                 
             OpenEditSessionDialog = new Command<TrainingSession>(
-                trainingSession =>
+                async trainingSession =>
                 {
                     var trainingSessionClone = trainingSession.DeepClone();
 
-                    var dialog = trainingSessionDialogFactory.Get();
+                    var dialog = dialogViewer.For<TrainingSessionDialogViewModel>(SessionDialogIdentifier);
                     dialog.Data.TrainingSession = trainingSessionClone;
-                    dialog.Data.SaveButtonTitle = "Save";
+                    dialog.Data.SubmitButtonTitle = "Save";
+                    dialog.Data.DialogTitle = "Modified session";
                     
-                    var dialogResult = dialog.Show();
+                    var dialogResult = await dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
                         return;
                     }
 
-                    TrainingSessions.Replace(trainingSession, trainingSessionClone);
-                    
-                    Task.Run(() => _trainingSessionService.Update(trainingSessionClone));
+                    TrainingSessions.Replace(trainingSession, trainingSessionClone); 
+                    _trainingSessionService.Update(trainingSessionClone);
                 });
 
             OpenAddSessionDialog = new Command(
-                () =>
+                async () =>
                 {
                     var bodyweight = _trainingSessionService.GetAll()
                             .OrderByDescending(session => session.Date)
@@ -96,11 +96,12 @@ namespace WorkoutManager.App.Pages.TrainingLog
                         Bodyweight = bodyweight
                     };
 
-                    var dialog = trainingSessionDialogFactory.Get();
+                    var dialog = dialogViewer.For<TrainingSessionDialogViewModel>(SessionDialogIdentifier);
                     dialog.Data.TrainingSession = trainingSession;
-                    dialog.Data.SaveButtonTitle = "Create";
-
-                    var dialogResult = dialog.Show();
+                    dialog.Data.SubmitButtonTitle = "Create";
+                    dialog.Data.DialogTitle = "New session";
+                    
+                    var dialogResult = await dialog.Show();
 
                     if (dialogResult != DialogResult.Ok)
                     {
@@ -108,8 +109,7 @@ namespace WorkoutManager.App.Pages.TrainingLog
                     }
 
                     TrainingSessions.Add(trainingSession);
-                    
-                    Task.Run(() => _trainingSessionService.Create(trainingSession));
+                    _trainingSessionService.Create(trainingSession);
                 });
 
             LoadTrainingSessionsAsync();

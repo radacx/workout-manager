@@ -7,7 +7,7 @@ namespace WorkoutManager.Contract.Models.ExerciseSet
     {
         public int Id { get; set; }
         
-        public double Weight { get; set; }
+        public int Weight { get; set; }
         
         public int Reps { get; set; }
 

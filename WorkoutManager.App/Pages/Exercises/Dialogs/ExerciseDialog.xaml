@@ -1,4 +1,4 @@
-﻿<Window x:Class="WorkoutManager.App.Pages.Exercises.Dialogs.ExerciseDialog"
+﻿<UserControl x:Class="WorkoutManager.App.Pages.Exercises.Dialogs.ExerciseDialog"
         x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,132 +6,145 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:exercises="clr-namespace:WorkoutManager.Contract.Models.Exercises;assembly=WorkoutManager.Contract"
         xmlns:models1="clr-namespace:WorkoutManager.App.Pages.Exercises.Models"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs"
-        mc:Ignorable="d"
-        ResizeMode="NoResize"
-        d:DataContext="{d:DesignInstance Type=models1:ExerciseDialogViewModel}"
-        Height="550" Width="700">
-    <StackPanel Background="AliceBlue">
-        <Button Content="{Binding SaveButtonTitle}" IsDefault="True" Click="Submit_OnClick">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=ExerciseName, Converter={StaticResource IsTextEmptyConverter}, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                            <Setter Property="IsEnabled" Value="True" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        
-        <StackPanel Orientation="Horizontal">
-            <Label Target="{Binding ElementName=ExerciseName}" Content="_Name" />
-            
-            <TextBox Width="120" Name="ExerciseName" Text="{Binding Exercise.Name}" />
-        </StackPanel>  
-        
-        <StackPanel Orientation="Horizontal">
-            <CheckBox
-                Name="IsBodyweightExercise"
-                IsChecked="{Binding IsBodyweightExercise}"
-                Content="Relative bodyweight"
-            />
-            
-            <xctk:DoubleUpDown
-                Value="{Binding Exercise.RelativeBodyweight}"
-                Minimum="0"
-                Maximum="100"
-                ClipValueToMinMax="True"
-            >
-                <xctk:DoubleUpDown.Style>
-                    <Style TargetType="xctk:DoubleUpDown">
-                        <Setter Property="Visibility" Value="Hidden" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsChecked, ElementName=IsBodyweightExercise}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </xctk:DoubleUpDown.Style>
-            </xctk:DoubleUpDown>
-        </StackPanel>
-        
-        <StackPanel Orientation="Horizontal">
-            <Label VerticalAlignment="Center" Content="Contraction type" />
-            
-            <RadioButton VerticalAlignment="Center" Padding="0 0 10 0" GroupName="ContractionType" Content="Dynamic"
-                         IsChecked="{Binding Exercise.ContractionType,
-                     Converter={StaticResource DoesEnumMatchConverter},
-                        ConverterParameter={x:Static exercises:ContractionType.Dynamic}}" />
-            
-            <RadioButton VerticalAlignment="Center" GroupName="ContractionType" Content="Isometric"
-                         IsChecked="{Binding Exercise.ContractionType,
-                     Converter={StaticResource DoesEnumMatchConverter},
-                        ConverterParameter={x:Static exercises:ContractionType.Isometric}}" />
-        </StackPanel>
-        
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            
-            <StackPanel
-                Grid.Row="0"
-                Grid.Column="0"
-                Orientation="Horizontal"
-            >
-                <Label Content="Muscles" />
+        xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
+        xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+        xmlns:validators="clr-namespace:WorkoutManager.App.Validators"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"        
+        d:DataContext="{d:DesignInstance Type=models1:ExerciseDialogModelViewModel}"
+>
+    <UserControl.Resources>
+        <models1:ExercisedMuscleDialogSelector x:Key="ExercisedMuscleDialogSelector" />
+    </UserControl.Resources>
+    
+    <materialDesign:DialogHost
+        CloseOnClickAway="True"
+        Identifier="{Binding ExercisedMuscleDialogIdentifier}"
+        DialogContentTemplateSelector="{StaticResource ExercisedMuscleDialogSelector}"
+    >
+        <dialog:Dialog
+            SubmitButtonTitle="{Binding SubmitButtonTitle}"
+            DialogTitle="{Binding DialogTitle}"
+            CanSubmit="{Binding Text, Converter={StaticResource IsTextNotEmptyConverter},
+                ElementName=ExerciseName, UpdateSourceTrigger=PropertyChanged}"
+        >
+            <StackPanel>
+                <TextBox
+                    Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                    materialDesign:HintAssist.Hint="Name"
+                    materialDesign:ValidationAssist.Suppress="True"
+                    Name="ExerciseName"
+                    Margin="8"
+                >
+                    <TextBox.Text>
+                        <Binding
+                            Path="Exercise.Name"
+                            UpdateSourceTrigger="PropertyChanged"
+                        >
+                            <Binding.ValidationRules>
+                                <validators:RequiredTextValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 
-                <ComboBox
-                    Name="SelectedMuscle"
-                    ItemsSource="{Binding AvailableMuscles}"
+                <materialDesign:ColorZone Mode="PrimaryMid">
+                    <TextBlock
+                        Text="Relative bodyweight"
+                        Margin="8"
+                    />
+                </materialDesign:ColorZone>
+            
+                <controls:ValueSlider
+                    Value="{Binding Exercise.RelativeBodyweight, Mode=TwoWay}"
+                    Minimum="0"
+                    Maximum="100"
+                    TickFrequency="0.5"
+                    Margin="8 0 8 15"
                 />
                 
-                <Button
-                    Content="Add"
-                    Command="{Binding AddMuscle}"
-                    CommandParameter="{Binding SelectedItem, ElementName=SelectedMuscle}"
+                <materialDesign:ColorZone Mode="PrimaryMid">
+                    <TextBlock
+                        Text="Contraction type"
+                        Margin="8"
+                    />
+                </materialDesign:ColorZone>
+                
+                <StackPanel Orientation="Horizontal" Margin="8 15 8 0">
+                    <RadioButton VerticalAlignment="Center" Margin="0 0 10 0" GroupName="ContractionType" Content="Dynamic"
+                                 IsChecked="{Binding Exercise.ContractionType,
+                             Converter={StaticResource DoesEnumMatchConverter},
+                                ConverterParameter={x:Static exercises:ContractionType.Dynamic}}" />
+                    
+                    <RadioButton VerticalAlignment="Center" GroupName="ContractionType" Content="Isometric"
+                                 IsChecked="{Binding Exercise.ContractionType,
+                             Converter={StaticResource DoesEnumMatchConverter},
+                                ConverterParameter={x:Static exercises:ContractionType.Isometric}}" />
+                </StackPanel>
+                
+                <materialDesign:ColorZone
+                    Margin="0 15 0 0"
+                    Mode="PrimaryMid"
+                    Effect="{DynamicResource MaterialDesignShadowDepth5}"
                 >
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="IsEnabled" Value="False" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItem, ElementName=SelectedMuscle,
-                            Converter={StaticResource IsValueNullConverter}}" Value="False"
-                                >
-                                    <Setter Property="IsEnabled" Value="True" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="Muscles"
+                            Margin="16"
+                        />
+                
+                        <Button
+                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                            Command="{Binding OpenAddMuscleDialogCommand}"
+                        >
+                            <materialDesign:PackIcon Kind="Plus" />
+                        </Button>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+                
+                <controls:DataGrid
+                    ItemsSource="{Binding ExercisedMuscles}"
+                    Style="{DynamicResource MaterialDesignDataGrid}"
+                >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="Name"
+                            Binding="{Binding Muscle.Name}"
+                            SortDirection="Ascending"
+                        />
+                    
+                        <DataGridTextColumn
+                            Header="Relative engagement"
+                            Binding="{Binding RelativeEngagement}"
+                        />
+                        
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                            Command="{Binding DataContext.OpenEditMuscleDialog,
+                                                RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
+                                            CommandParameter="{Binding}"
+                                        >
+                                            <materialDesign:PackIcon Kind="Edit" />
+                                        </Button>
+                                    
+                                        <Button
+                                            Command="{Binding DataContext.RemoveMuscle,
+                                                RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
+                                            CommandParameter="{Binding}"
+                                        >
+                                            <materialDesign:PackIcon Kind="Delete" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </controls:DataGrid>
             </StackPanel>
-            
-            <ItemsControl
-                Grid.Row="1"
-                Grid.Column="0"
-                ItemsSource="{Binding ExercisedMuscles}"
-            >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Muscle}" />
-                            <xctk:DoubleUpDown Value="{Binding RelativeEngagement}" Minimum="1" Maximum="100" />
-                            <Button Content="Remove" Command="{Binding DataContext.RemoveMuscle,
-                            RelativeSource={RelativeSource FindAncestor, AncestorType=dialogs:ExerciseDialog}}"
-                                    CommandParameter="{Binding}"
-                            />
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
-    </StackPanel>
-</Window>
+        </dialog:Dialog>
+    </materialDesign:DialogHost>
+</UserControl>

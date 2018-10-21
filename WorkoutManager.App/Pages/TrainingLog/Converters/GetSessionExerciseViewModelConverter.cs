@@ -16,12 +16,12 @@ namespace WorkoutManager.App.Pages.TrainingLog.Converters
                 return null;
             }
 
-            if (!(values[0] is SessionExercise exercise) || !(values[1] is ViewModelFactory<SessionExerciseViewModel> exerciseViewModelFactory))
+            if (!(values[0] is SessionExercise exercise) || !(values[1] is ViewModelFactory modelFactory))
             {
                 return null;
             }
 
-            var viewModel = exerciseViewModelFactory.Get();
+            var viewModel = modelFactory.Create<SessionExerciseViewModel>();
             viewModel.Exercise = exercise;
 
             return viewModel;

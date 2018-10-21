@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace WorkoutManager.App.Structures
 {
-    internal sealed class ObservedCollection<T>  : BulkObservableCollection<T>
+    internal sealed class ObservedCollection<T>  : WpfObservableRangeCollection<T>
     {   
-        public ObservedCollection(IEnumerable<T> values, Action<T> onAdd, Action<T> onRemove) : base(values)
+        public ObservedCollection(IEnumerable<T> values, Action<T> onAdd, Action<T> onRemove, Action onChange = null) : base(values)
         {
             CollectionChanged += (sender, args) =>
             {
@@ -24,6 +24,8 @@ namespace WorkoutManager.App.Structures
                         onRemove(value);
                     }
                 }
+
+                onChange?.Invoke();
             };
         }
     }

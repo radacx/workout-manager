@@ -5,35 +5,83 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:muscles="clr-namespace:WorkoutManager.App.Pages.Muscles"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+             xmlns:models="clr-namespace:WorkoutManager.App.Pages.Muscles.Models"
+             xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Muscles.Dialogs"
              d:DataContext="{d:DesignInstance Type=muscles:MusclesPageViewModel}"
              mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="AliceBlue">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-            
-        <Button Grid.Row="0" Command="{Binding OpenCreateMuscleDialog}" Content="Create new" />
-            
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Muscles}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" />
-                        <Button
-                            Content="Edit"
-                            Command="{Binding DataContext.OpenEditMuscleDialog, RelativeSource={RelativeSource FindAncestor, AncestorType=muscles:MusclesPage}}"
-                            CommandParameter="{Binding}"
-                        />
-                        <Button
-                            Content="Delete"
-                            Command="{Binding DataContext.Delete, RelativeSource={RelativeSource FindAncestor, AncestorType=muscles:MusclesPage}}"
-                            CommandParameter="{Binding}"
-                        />
-                    </StackPanel>      
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
+    <materialDesign:DialogHost CloseOnClickAway="True" Identifier="{Binding MuscleDialogIdentifier}">
+        <Grid Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+                
+            <materialDesign:ColorZone
+                Grid.Row="0"
+                Mode="PrimaryMid"
+                Effect="{DynamicResource MaterialDesignShadowDepth5}"
+            >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Text="Muscles"
+                        Margin="16"
+                    />
+                    
+                    <Button
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Command="{Binding OpenCreateMuscleDialog}"
+                    >
+                        <materialDesign:PackIcon Kind="Plus" />
+                    </Button>
+                </StackPanel>
+            </materialDesign:ColorZone>
+                
+            <controls:DataGrid
+                Grid.Row="1"
+                ItemsSource="{Binding Muscles}"
+                Style="{DynamicResource MaterialDesignDataGrid}"
+            >
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Name"
+                        Binding="{Binding Name}"
+                        SortDirection="Ascending"
+                    />
+                         
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                        Command="{Binding DataContext.OpenEditMuscleDialog,
+                                            RelativeSource={RelativeSource FindAncestor, AncestorType=muscles:MusclesPage}}"
+                                        CommandParameter="{Binding}"
+                                    >
+                                        <materialDesign:PackIcon Kind="Edit" />
+                                    </Button>
+                                    <Button
+                                        Command="{Binding DataContext.Delete,
+                                            RelativeSource={RelativeSource FindAncestor, AncestorType=muscles:MusclesPage}}"
+                                        CommandParameter="{Binding}"
+                                    >
+                                        <materialDesign:PackIcon Kind="Delete" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </controls:DataGrid>
+        </Grid>
+        
+        <materialDesign:DialogHost.DialogContentTemplate>
+            <DataTemplate DataType="models:MuscleDialogViewModel">
+                <dialogs:MuscleDialog DataContext="{Binding}" />
+            </DataTemplate>
+        </materialDesign:DialogHost.DialogContentTemplate> 
+    </materialDesign:DialogHost> 
 </UserControl>

@@ -1,17 +1,12 @@
-using System.Windows;
+using System.Windows.Controls;
 
 namespace WorkoutManager.App.Pages.Progress.Dialogs
 {
-    internal partial class SelectFilterDialog : Window
+    internal partial class SelectFilterDialog : UserControl
     {
         public SelectFilterDialog()
         {
             InitializeComponent();
-        }
-
-        private void Submit_OnClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
         }
     }
 }

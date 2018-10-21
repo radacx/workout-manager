@@ -1,0 +1,52 @@
+<UserControl x:Class="WorkoutManager.App.Pages.TrainingLog.Dialogs.Sets.DynamicSetDialog"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:exerciseSet="clr-namespace:WorkoutManager.Contract.Models.ExerciseSet;assembly=WorkoutManager.Contract"
+             xmlns:utils="clr-namespace:WorkoutManager.App.Utils"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=exerciseSet:DynamicExerciseSet}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <materialDesign:ColorZone Mode="PrimaryMid" Margin="0 0 0 15">
+            <TextBlock
+                Text="Weight"
+                Margin="8"
+            />
+        </materialDesign:ColorZone>
+                    
+        <ComboBox
+            ItemsSource="{Binding Source={x:Static utils:Constants.WeightValues}, Mode=OneTime}"
+            SelectedItem="{Binding Weight, Mode=TwoWay}"
+            Margin="8 0 8 15"
+        >
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>    
+        </ComboBox>
+                    
+        <materialDesign:ColorZone Mode="PrimaryMid" Margin="0 0 0 15">
+            <TextBlock
+                Text="Reps"
+                Margin="8"
+            />
+        </materialDesign:ColorZone>
+                    
+        <ComboBox
+            ItemsSource="{Binding Source={x:Static utils:Constants.RepsValues}, Mode=OneTime}"
+            SelectedItem="{Binding Reps, Mode=TwoWay}"
+            Margin="8 0 8 15"
+        >
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>    
+        </ComboBox>
+    </StackPanel>
+</UserControl>

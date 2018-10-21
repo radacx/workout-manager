@@ -1,58 +1,50 @@
-<Window x:Class="WorkoutManager.App.Pages.Progress.Dialogs.ProgressFilterDialog"
+<UserControl x:Class="WorkoutManager.App.Pages.Progress.Dialogs.ProgressFilterDialog"
         x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:models="clr-namespace:WorkoutManager.App.Pages.Progress.Models"
+        xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=models:ProgressFilterDialogViewModel}"
-        Title="ProgressFilterDialog" Height="450" Width="800">
-    <StackPanel Background="AliceBlue">
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Name" />
-            
+        d:DataContext="{d:DesignInstance Type=models:ProgressFilterDialogViewModel}">
+    <dialog:Dialog
+        SubmitButtonTitle="{Binding SubmitButtonTitle}"
+        DialogTitle="{Binding DialogTitle}"
+        CanSubmit="{Binding Text,
+            Converter={StaticResource IsTextNotEmptyConverter},
+            ElementName=FilterName,
+            UpdateSourceTrigger=PropertyChanged}"
+    >
+        <StackPanel>
             <TextBox
+                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                materialDesign:HintAssist.Hint="Name"
                 Name="FilterName"
                 Width="120"
                 Text="{Binding ProgressFilter.Name}"
             />
+        
+            <GroupBox
+                Header="Remember details"
+                FontSize="15"
+            >
+                <StackPanel>
+                    <CheckBox
+                        Content="Filter by"
+                        IsChecked="{Binding ProgressFilter.RememberFilterBy}"
+                    />
+                    <CheckBox
+                        Content="Group by"
+                        IsChecked="{Binding ProgressFilter.RememberGroupBy}"
+                    />
+                    <CheckBox
+                        Content="Metric"
+                        IsChecked="{Binding ProgressFilter.RememberMetric}"
+                    />
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
-        
-        <Label Content="Remember details" FontSize="15" />
-        
-        <CheckBox
-            Content="Filter by"
-            IsChecked="{Binding ProgressFilter.RememberFilterBy}"
-        />
-        <CheckBox
-            Content="Group by"
-            IsChecked="{Binding ProgressFilter.RememberGroupBy}"
-        />
-        <CheckBox
-            Content="Metric"
-            IsChecked="{Binding ProgressFilter.RememberMetric}"
-        />
-        
-        <Button
-            Content="Create"
-            IsDefault="True"
-            Click="Submit_OnClick"
-        >
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Style.Triggers>
-                        <DataTrigger
-                            Binding="{Binding Text, ElementName=FilterName, UpdateSourceTrigger=PropertyChanged,
-                                Converter={StaticResource IsTextEmptyConverter}}"
-                            Value="False"
-                         >
-                            <Setter Property="IsEnabled" Value="True" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-    </StackPanel>
-</Window>
+    </dialog:Dialog>
+</UserControl>

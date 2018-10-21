@@ -1,17 +1,12 @@
-﻿using System.Windows;
+﻿using System.Windows.Controls;
 
 namespace WorkoutManager.App.Pages.Exercises.Dialogs
 {
-    internal partial class ExerciseDialog : Window
+    internal partial class ExerciseDialog : UserControl
     {
         public ExerciseDialog()
         {
             InitializeComponent();
-        }
-
-        private void Submit_OnClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
         }
     }
 }

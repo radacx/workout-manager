@@ -5,35 +5,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:pages="clr-namespace:WorkoutManager.App.Pages"
-        xmlns:exercises1="clr-namespace:WorkoutManager.App.Pages.Exercises"
+        xmlns:exercises="clr-namespace:WorkoutManager.App.Pages.Exercises"
         xmlns:trainingLog="clr-namespace:WorkoutManager.App.Pages.TrainingLog"
         xmlns:userSettings="clr-namespace:WorkoutManager.App.Pages.UserSettings"
         xmlns:progress="clr-namespace:WorkoutManager.App.Pages.Progress"
         xmlns:categories="clr-namespace:WorkoutManager.App.Pages.Categories"
         xmlns:muscles="clr-namespace:WorkoutManager.App.Pages.Muscles"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontSize="15"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         d:DataContext="{d:DesignInstance Type=pages:MainWindowViewModel}"
-        Title="Workout manager" Height="450" Width="800">
-    <Grid Background="AliceBlue">
-        <TabControl>
-            <TabItem Header="Exercises">
-                <exercises1:ExercisesPage DataContext="{Binding ExercisesPage}" />
-            </TabItem>
-            <TabItem Header="Muscles">
-                <muscles:MusclesPage DataContext="{Binding MusclesPage}" />
-            </TabItem>
-            <TabItem Header="Training log">
-                <trainingLog:TrainingLogPage DataContext="{Binding TrainingLogPage}" />
-            </TabItem>
-            <TabItem Header="Categories">
-                <categories:CategoryPage DataContext="{Binding CategoryPage}" />
-            </TabItem>
-            <TabItem Header="Progress">
-                <progress:ProgressPage DataContext="{Binding ProgressPage}" />
-            </TabItem>
-            <TabItem Header="Settings">
-                <userSettings:UserPreferencesPage DataContext="{Binding UserPreferencesPage}" />
-            </TabItem>
-        </TabControl>
-    </Grid>
+        Title="Workout manager"
+        WindowState="Maximized"
+>
+    <dragablz:TabablzControl FixedHeaderCount="6">
+        <TabItem Header="Exercises">
+            <exercises:ExercisesPage DataContext="{Binding ExercisesPage}" />
+        </TabItem>
+        <TabItem Header="Muscles">
+            <muscles:MusclesPage DataContext="{Binding MusclesPage}" />
+        </TabItem>
+        <TabItem Header="Training log">
+            <trainingLog:TrainingLogPage DataContext="{Binding TrainingLogPage}" />
+        </TabItem>
+        <TabItem Header="Categories">
+            <categories:CategoryPage DataContext="{Binding CategoryPage}" />
+        </TabItem>
+        <TabItem Header="Progress">
+            <progress:ProgressPage DataContext="{Binding ProgressPage}" />
+        </TabItem>
+        <TabItem Header="Settings">
+            <userSettings:UserPreferencesPage DataContext="{Binding UserPreferencesPage}" />
+        </TabItem>                     
+    </dragablz:TabablzControl>
 </Window>

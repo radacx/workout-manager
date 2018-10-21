@@ -40,8 +40,24 @@
       <HintPath>..\packages\Unity.5.8.11\lib\net47\CommonServiceLocator.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e">
+      <HintPath>..\packages\ControlzEx.4.0.0-alpha0189\lib\net462\ControlzEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99">
       <HintPath>..\packages\DeepCloner.0.10.2\lib\net40\DeepCloner.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.0.0.14576, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MaterialDesignColors.1.1.1\lib\net45\MaterialDesignColors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -64,6 +80,10 @@
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\ControlzEx.4.0.0-alpha0189\lib\net462\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -104,30 +124,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -135,36 +131,50 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config\Bootstrap.cs" />
-    <Compile Include="Controls\MultiSelect\ItemToMultiSelectItemConverter.cs" />
-    <Compile Include="Controls\MultiSelect\MultiSelect.xaml.cs">
-      <DependentUpon>MultiSelect.xaml</DependentUpon>
+    <Compile Include="Controls\DataGrid.cs" />
+    <Compile Include="Controls\Dialog\Dialog.cs" />
+    <Compile Include="Controls\ValueSlider.xaml.cs">
+      <DependentUpon>ValueSlider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MultiSelect\MultiSelectItem.cs" />
     <Compile Include="Controls\TimeSpanUpDown\TimeFormat.cs" />
     <Compile Include="Controls\TimeSpanUpDown\TimeSpanUpDown.xaml.cs">
       <DependentUpon>TimeSpanUpDown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\IsValueNotNullConverter.cs" />
+    <Compile Include="Converters\MultiBoolConverter.cs" />
+    <Compile Include="Converters\TextToVisibilityConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\IsNumberZeroConverter.cs" />
-    <Compile Include="Converters\IsValueNullConverter.cs" />
     <Compile Include="Events\ProgressFilterSelectedEvent.cs" />
     <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
     <Compile Include="Pages\Categories\CategoryPage.xaml.cs">
       <DependentUpon>CategoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Categories\CategoryPageViewModel.cs" />
+    <Compile Include="Pages\Categories\Dialogs\AddCategoryOptionsDialog.xaml.cs">
+      <DependentUpon>AddCategoryOptionsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Categories\Dialogs\CategoryDialog.xaml.cs">
       <DependentUpon>CategoryDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Categories\Models\AddCategoryOptionsDialogViewModel.cs" />
     <Compile Include="Pages\Categories\Models\CategoryDialogViewModel.cs" />
+    <Compile Include="Pages\Exercises\Dialogs\EditExercisedMuscleDialog.xaml.cs">
+      <DependentUpon>EditExercisedMuscleDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml.cs">
       <DependentUpon>ExerciseDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Exercises\Dialogs\MusclesDialog.xaml.cs">
+      <DependentUpon>AddExercisedMuscleDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Exercises\ExercisesPage.xaml.cs">
       <DependentUpon>ExercisesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Exercises\ExercisesPageViewModel.cs" />
+    <Compile Include="Pages\Exercises\Models\EditExercisedMuscleDialogViewModel.cs" />
     <Compile Include="Pages\Exercises\Models\ExerciseDialogViewModel.cs" />
+    <Compile Include="Pages\Exercises\Models\AddExercisedMuscleDialogViewModel.cs" />
     <Compile Include="Pages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -201,12 +211,22 @@
     </Compile>
     <Compile Include="Pages\TrainingLog\Converters\ExerciseSetToTextConverter.cs" />
     <Compile Include="Pages\TrainingLog\Converters\GetSessionExerciseViewModelConverter.cs" />
-    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog.xaml.cs">
+    <Compile Include="Pages\TrainingLog\Dialogs\AddTrainingSessionExerciseDialog.xaml.cs">
+      <DependentUpon>AddTrainingSessionExerciseDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TrainingLog\Dialogs\Sets\DynamicSetDialog.xaml.cs">
+      <DependentUpon>DynamicSetDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TrainingLog\Dialogs\Sets\ExerciseSetDialog.xaml.cs">
       <DependentUpon>ExerciseSetDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TrainingLog\Dialogs\Sets\IsometricSetDialog.xaml.cs">
+      <DependentUpon>IsometricSetDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog.xaml.cs">
       <DependentUpon>TrainingSessionDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TrainingLog\Models\AddTrainingSessionExerciseDialogViewModel.cs" />
     <Compile Include="Pages\TrainingLog\Models\ExerciseSetDialogViewModel.cs" />
     <Compile Include="Pages\TrainingLog\Models\SessionExerciseViewModel.cs" />
     <Compile Include="Pages\TrainingLog\Models\TrainingSessionDialogViewModel.cs" />
@@ -219,32 +239,40 @@
     </Compile>
     <Compile Include="Converters\DoesEnumMatchConverter.cs" />
     <Compile Include="Converters\EnumConverter.cs" />
-    <Compile Include="Converters\IsTextEmptyConverter.cs" />
+    <Compile Include="Converters\IsTextNotEmptyConverter.cs" />
     <Compile Include="Pages\TrainingLog\TrainingLogPageViewModel.cs" />
     <Compile Include="Pages\UserSettings\UserPreferencesPage.xaml.cs">
       <DependentUpon>UserPreferencesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UserSettings\UserPreferencesPageViewModel.cs" />
     <Compile Include="Structures\CollectionViewShaper.cs" />
+    <Compile Include="Structures\ConverterParam.cs" />
+    <Compile Include="Structures\DialogModelBase.cs" />
     <Compile Include="Structures\IViewModel.cs" />
+    <Compile Include="Structures\ObservableRangeCollection.cs" />
     <Compile Include="Structures\ObservedCollection.cs" />
     <Compile Include="Structures\ViewModelBase.cs" />
-    <Compile Include="Utils\DialogFactory.cs" />
-    <Compile Include="Utils\DialogResult.cs" />
+    <Compile Include="Structures\WpfObservableRangeCollection.cs" />
+    <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Utils\Dialogs\DialogResult.cs" />
+    <Compile Include="Utils\Dialogs\DialogViewer.cs" />
     <Compile Include="Utils\SetCreator.cs" />
     <Compile Include="Utils\ViewModelFactory.cs" />
     <Compile Include="Utils\WindowFactory.cs" />
-    <Page Include="Controls\MultiSelect\MultiSelect.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Validators\DoubleValidationRule.cs" />
+    <Compile Include="Validators\IntegerValidationRule.cs" />
+    <Compile Include="Validators\RequiredTextValidationRule.cs" />
+    <Page Include="Controls\ValueSlider.xaml" />
     <Page Include="Controls\TimeSpanUpDown\TimeSpanUpDown.xaml" />
     <Page Include="Pages\Categories\CategoryPage.xaml" />
+    <Page Include="Pages\Categories\Dialogs\AddCategoryOptionsDialog.xaml" />
     <Page Include="Pages\Categories\Dialogs\CategoryDialog.xaml" />
+    <Page Include="Pages\Exercises\Dialogs\EditExercisedMuscleDialog.xaml" />
     <Page Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Exercises\Dialogs\AddExercisedMuscleDialog.xaml" />
     <Page Include="Pages\Exercises\ExercisesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,14 +286,15 @@
     <Page Include="Pages\Progress\Dialogs\SelectFilterDialog.xaml" />
     <Page Include="Pages\Progress\ProgressPage.xaml" />
     <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />
-    <Page Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\AddTrainingSessionExerciseDialog.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\Sets\DynamicSetDialog.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\Sets\ExerciseSetDialog.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\Sets\IsometricSetDialog.xaml" />
     <Page Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog.xaml" />
     <Page Include="Pages\TrainingLog\TrainingLogPage.xaml" />
     <Page Include="Pages\UserSettings\UserPreferencesPage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Structures\AsyncObservableCollection.cs" />
-    <Compile Include="Structures\BulkObservableCollection.cs" />
     <Compile Include="Structures\Command.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

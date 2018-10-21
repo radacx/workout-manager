@@ -3,8 +3,7 @@ using WorkoutManager.App.Structures;
 
 namespace WorkoutManager.App.Utils
 {
-    internal class ViewModelFactory<TViewModel>
-        where TViewModel : IViewModel
+    internal class ViewModelFactory  
     {
         private readonly IUnityContainer _container;
 
@@ -13,7 +12,8 @@ namespace WorkoutManager.App.Utils
             _container = container;
         }
 
-        public TViewModel Get()       
+        public TViewModel Create<TViewModel>()
+            where TViewModel : IViewModel
         {
             return _container.Resolve<TViewModel>();
         }

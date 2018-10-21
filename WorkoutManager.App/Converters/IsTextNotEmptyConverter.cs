@@ -4,13 +4,13 @@ using System.Windows.Data;
 
 namespace WorkoutManager.App.Converters
 {
-    internal class IsTextEmptyConverter : IValueConverter
+    internal class IsTextNotEmptyConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is string text)
             {
-                return string.IsNullOrEmpty(text);
+                return !string.IsNullOrWhiteSpace(text);
             }
 
             return null;

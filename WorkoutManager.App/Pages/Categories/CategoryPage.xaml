@@ -5,37 +5,88 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:categories="clr-namespace:WorkoutManager.App.Pages.Categories"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:models="clr-namespace:WorkoutManager.App.Pages.Categories.Models"
+             xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Categories.Dialogs"
+             xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=categories:CategoryPageViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Background="AliceBlue">
-        <Button
-            Content="Add category"
-            Command="{Binding OpenAddCategoryDialog}"
-        />
+             Background="{DynamicResource MaterialDesignPaper}"
+             d:DataContext="{d:DesignInstance Type=categories:CategoryPageViewModel}">
+    <materialDesign:DialogHost CloseOnClickAway="True" Identifier="{Binding CategoryDialogIdentifier}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <materialDesign:ColorZone
+                Grid.Row="0"
+                Mode="PrimaryMid"
+                Effect="{DynamicResource MaterialDesignShadowDepth5}"
+            >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Text="Categories"
+                        Margin="16"
+                    />
+                
+                    <Button
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Command="{Binding OpenAddCategoryDialog}"
+                    >
+                        <materialDesign:PackIcon Kind="Plus" />
+                    </Button>
+                </StackPanel>
+            </materialDesign:ColorZone>
+            
+            <controls:DataGrid
+                Grid.Row="1"
+                ItemsSource="{Binding Categories}"
+                Style="{DynamicResource MaterialDesignDataGrid}"
+            >
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Name"
+                        Binding="{Binding Name}"
+                        SortDirection="Ascending"
+                    />
+                    
+                    <DataGridTextColumn
+                        Header="Type"
+                        Binding="{Binding ItemType.Name}"
+                    />
+                    
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                        Command="{Binding DataContext.OpenEditCategoryDialog,
+                                            RelativeSource={RelativeSource FindAncestor, AncestorType=categories:CategoryPage}}"
+                                        CommandParameter="{Binding}"
+                                    >
+                                        <materialDesign:PackIcon Kind="Edit" />
+                                    </Button>
+                                    
+                                    <Button
+                                        Command="{Binding DataContext.Delete,
+                                            RelativeSource={RelativeSource FindAncestor, AncestorType=categories:CategoryPage}}"
+                                        CommandParameter="{Binding}"
+                                    >
+                                        <materialDesign:PackIcon Kind="Delete" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </controls:DataGrid>
+        </Grid>
         
-        <ItemsControl ItemsSource="{Binding Categories}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Name}" />
-                        
-                        <Button
-                            Content="Modify"
-                            Command="{Binding DataContext.OpenEditCategoryDialog, RelativeSource={RelativeSource FindAncestor,
-                                AncestorType=categories:CategoryPage}}"
-                            CommandParameter="{Binding}"
-                        />
-                        
-                        <Button
-                            Content="Delete"
-                            Command="{Binding DataContext.Delete, RelativeSource={RelativeSource FindAncestor,
-                                AncestorType=categories:CategoryPage}}"
-                            CommandParameter="{Binding}"
-                        />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+        <materialDesign:DialogHost.DialogContentTemplate>
+            <DataTemplate DataType="models:CategoryDialogViewModel">
+                <dialogs:CategoryDialog DataContext="{Binding}" />
+            </DataTemplate>
+        </materialDesign:DialogHost.DialogContentTemplate> 
+    </materialDesign:DialogHost>
 </UserControl>
