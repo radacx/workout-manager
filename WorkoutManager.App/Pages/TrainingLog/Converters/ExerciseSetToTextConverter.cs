@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using WorkoutManager.Contract.Extensions;
-using WorkoutManager.Contract.Models.ExerciseSet;
+using WorkoutManager.Contract.Models.Exercises.Sets;
 using WorkoutManager.Contract.Models.User;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Converters
@@ -16,7 +16,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Converters
                 return null;
             }
             
-            if (!(values[0] is IExerciseSet exerciseSet) || !(values[1] is UserPreferences userPreferences))
+            if (!(values[0] is ExerciseSet exerciseSet) || !(values[1] is UserPreferences userPreferences))
             {
                 return null;
             }

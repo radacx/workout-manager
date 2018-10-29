@@ -10,7 +10,6 @@
              xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
              xmlns:dialogs1="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-             xmlns:exerciseSet="clr-namespace:WorkoutManager.Contract.Models.ExerciseSet;assembly=WorkoutManager.Contract"
              xmlns:sets="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.Sets">
     <Application.Resources>  
         <ResourceDictionary>

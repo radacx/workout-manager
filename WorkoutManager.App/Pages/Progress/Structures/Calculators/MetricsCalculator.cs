@@ -1,5 +1,5 @@
 using System.Linq;
-using WorkoutManager.Contract.Models.ExerciseSet;
+using WorkoutManager.Contract.Models.Exercises.Sets;
 using WorkoutManager.Contract.Models.Sessions;
 
 namespace WorkoutManager.App.Pages.Progress.Structures.Calculators

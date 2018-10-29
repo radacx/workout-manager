@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Contract.Models.ExerciseSet;
+using WorkoutManager.Contract.Models.Exercises.Sets;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Sessions
@@ -11,9 +11,9 @@ namespace WorkoutManager.Contract.Models.Sessions
     {
         public int Id { get; set; }
         
-        private List<IExerciseSet> _sets = new List<IExerciseSet>();
+        private List<ExerciseSet> _sets = new List<ExerciseSet>();
         
-        public IExerciseSet[] Sets
+        public ExerciseSet[] Sets
         {
             get => _sets.ToArray();
             set => _sets = value.ToList();
@@ -28,9 +28,9 @@ namespace WorkoutManager.Contract.Models.Sessions
 
         public Exercise Exercise { get; set; }
 
-        public void AddSet(IExerciseSet set) => _sets.Add(set);
+        public void AddSet(ExerciseSet set) => _sets.Add(set);
 
-        public void RemoveSet(IExerciseSet set)
+        public void RemoveSet(ExerciseSet set)
         {
             var index = _sets.FindIndex(originalSet => ReferenceEquals(originalSet, set));
             

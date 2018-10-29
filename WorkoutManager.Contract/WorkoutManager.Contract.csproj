@@ -42,13 +42,13 @@
     <Compile Include="DatabaseConfiguration.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Models\Categories\Category.cs" />
-    <Compile Include="Models\ExerciseSet\DynamicExerciseSet.cs" />
-    <Compile Include="Models\ExerciseSet\IExerciseSet.cs" />
-    <Compile Include="Models\ExerciseSet\IsometricExerciseSet.cs" />
     <Compile Include="Models\Exercises\ExercisedMuscle.cs" />
     <Compile Include="Models\Exercises\Muscle.cs" />
     <Compile Include="Models\Exercises\ContractionType.cs" />
     <Compile Include="Models\Exercises\Exercise.cs" />
+    <Compile Include="Models\Exercises\Sets\DynamicExerciseSet.cs" />
+    <Compile Include="Models\Exercises\Sets\ExerciseSet.cs" />
+    <Compile Include="Models\Exercises\Sets\IsometricExerciseSet.cs" />
     <Compile Include="Models\Misc\IEntity.cs" />
     <Compile Include="Models\Progress\FilterBy.cs" />
     <Compile Include="Models\Progress\FilterMetric.cs" />

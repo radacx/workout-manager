@@ -1,12 +1,12 @@
 using System;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Contract.Models.ExerciseSet;
+using WorkoutManager.Contract.Models.Exercises.Sets;
 
 namespace WorkoutManager.App.Utils
 {
     internal static class SetCreator
     {
-        public static IExerciseSet Create(ContractionType type)
+        public static ExerciseSet Create(ContractionType type)
         {
             switch (type)
             {

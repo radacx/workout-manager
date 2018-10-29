@@ -11,7 +11,7 @@ using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
 using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Contract.Models.ExerciseSet;
+using WorkoutManager.Contract.Models.Exercises.Sets;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Contract.Models.User;
 using WorkoutManager.Repository;
@@ -72,7 +72,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
         
         public TrainingSessionDialogViewModel(Repository<Exercise> exerciseRepository, UserPreferencesService userPreferencesService, ViewModelFactory viewModelFactory, DialogViewer dialogViewer, Hub eventAggregator)
         {
-            async Task<IExerciseSet> OpenAddExerciseSet(SessionExercise sessionExercise)
+            async Task<ExerciseSet> OpenAddExerciseSet(SessionExercise sessionExercise)
             {
                 var set = SetCreator.Create(sessionExercise.Exercise.ContractionType);
 

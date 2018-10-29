@@ -6,7 +6,7 @@ using WorkoutManager.App.Events;
 using WorkoutManager.App.Structures;
 using WorkoutManager.App.Utils;
 using WorkoutManager.App.Utils.Dialogs;
-using WorkoutManager.Contract.Models.ExerciseSet;
+using WorkoutManager.Contract.Models.Exercises.Sets;
 using WorkoutManager.Contract.Models.Sessions;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Models
@@ -23,7 +23,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             set => SetField(ref _exercise, value);
         }
 
-        public ObservedCollection<IExerciseSet> Sets { get; set; }
+        public ObservedCollection<ExerciseSet> Sets { get; set; }
 
         public ICommand OpenAddExerciseSetDialog { get; }
         
@@ -37,7 +37,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             {
                 if (args.PropertyName == nameof(Exercise))
                 {
-                    Sets = new ObservedCollection<IExerciseSet>(
+                    Sets = new ObservedCollection<ExerciseSet>(
                         Exercise.Sets,
                         Exercise.AddSet,
                         Exercise.RemoveSet
@@ -77,7 +77,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
             
             OpenAddExerciseSetDialog = new Command<SessionExercise>(OpenAddExerciseSet);
             
-            OpenEditExerciseSetDialog = new Command<IExerciseSet>(
+            OpenEditExerciseSetDialog = new Command<ExerciseSet>(
                 async set =>
                 {
                     var setClone = set.DeepClone();
@@ -97,7 +97,7 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
                     Sets.Replace(set, setClone);
                 });
             
-            DeleteSet = new Command<IExerciseSet>(set => Sets.Remove(set));
+            DeleteSet = new Command<ExerciseSet>(set => Sets.Remove(set));
         }
     }
 }

@@ -6,10 +6,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:timeSpanUpDown="clr-namespace:WorkoutManager.App.Controls.TimeSpanUpDown"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:exerciseSet="clr-namespace:WorkoutManager.Contract.Models.ExerciseSet;assembly=WorkoutManager.Contract"
              xmlns:utils="clr-namespace:WorkoutManager.App.Utils"
+             xmlns:sets="clr-namespace:WorkoutManager.Contract.Models.Exercises.Sets;assembly=WorkoutManager.Contract"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=exerciseSet:IsometricExerciseSet}"
+             d:DataContext="{d:DesignInstance Type=sets:IsometricExerciseSet}"
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
         <timeSpanUpDown:TimeSpanUpDown

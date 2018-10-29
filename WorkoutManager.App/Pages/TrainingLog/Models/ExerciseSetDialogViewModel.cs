@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using WorkoutManager.App.Structures;
-using WorkoutManager.Contract.Models.ExerciseSet;
+using WorkoutManager.Contract.Models.Exercises.Sets;
 
 namespace WorkoutManager.App.Pages.TrainingLog.Models
 {
@@ -27,6 +27,6 @@ namespace WorkoutManager.App.Pages.TrainingLog.Models
     
     internal class ExerciseSetDialogViewModel : DialogModelBase
     {
-        public IExerciseSet ExerciseSet { get; set; }
+        public ExerciseSet ExerciseSet { get; set; }
     }
 }
