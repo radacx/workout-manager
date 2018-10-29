@@ -22,16 +22,21 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
-            <GroupBox
-                Grid.Row="0"
-                Header="Muscles"
-            >
+            <StackPanel Grid.Row="0">
+                <materialDesign:ColorZone Mode="PrimaryMid" Margin="0 0 0 15">
+                    <TextBlock
+                        Text="Muscles"
+                        Margin="8"
+                    />
+                </materialDesign:ColorZone>
+                
                 <ListBox
                     ItemsSource="{Binding Muscles}"
                     SelectedItem="{Binding SelectedMuscle}"
                     SelectionMode="Single"
+                    Margin="0 0 0 15"
                 />   
-            </GroupBox> 
+            </StackPanel>
             
             <StackPanel Grid.Row="1">
                 <materialDesign:ColorZone Mode="PrimaryMid">

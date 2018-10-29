@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using PubSub.Core;
 using WorkoutManager.App.Events;
-using WorkoutManager.App.Pages.Progress.Dialogs;
 using WorkoutManager.App.Pages.Progress.Models;
 using WorkoutManager.App.Pages.Progress.Structures;
 using WorkoutManager.App.Pages.Progress.Structures.Calculators;
 using WorkoutManager.App.Structures;
-using WorkoutManager.App.Utils;
 using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Categories;
@@ -24,9 +24,29 @@ using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Pages.Progress
 {
+    internal class ProgressPageDialogsSelector : DataTemplateSelector
+    {
+        public const string ProgressFilterDialog = "ProgressFilterDialog";
+        public const string SelectFilterDialog = "SelectFilterDialog";
+        
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            switch (item) {
+                case ProgressFilterDialogViewModel _:
+
+                    return Application.Current.MainWindow?.FindResource(ProgressFilterDialog) as DataTemplate;
+                case SelectFilterDialogViewModel _:
+
+                    return Application.Current.MainWindow?.FindResource(SelectFilterDialog) as DataTemplate;
+            }
+
+            return base.SelectTemplate(item, container);
+        }    
+    }
+    
     internal class ProgressPageViewModel : ViewModelBase
     {
-        public string ProgressPageDialogsIdentifier => "ProgressPageDialogs";
+        public static string ProgressPageDialogsIdentifier => "ProgressPageDialogsIdentifier";
         
         private readonly Repository<Exercise> _exerciseRepository;
         private readonly Repository<TrainingSession> _trainingSessionRepository;
@@ -344,7 +364,7 @@ namespace WorkoutManager.App.Pages.Progress
                 {
                     var progressFilterForDialog = new ProgressFilterForDialog();
 
-                    var dialog = dialogViewer.For<ProgressFilterDialogViewModel>();
+                    var dialog = dialogViewer.For<ProgressFilterDialogViewModel>(ProgressPageDialogsIdentifier);
                     dialog.Data.ProgressFilter = progressFilterForDialog;
                     dialog.Data.SubmitButtonTitle = "Create";
                     dialog.Data.DialogTitle = "Create new filter";
@@ -383,7 +403,7 @@ namespace WorkoutManager.App.Pages.Progress
             OpenSelectFilterDialog = new Command(
                 () =>
                 {
-                    var dialog = dialogViewer.For<SelectFilterDialogViewModel>();
+                    var dialog = dialogViewer.For<SelectFilterDialogViewModel>(ProgressPageDialogsIdentifier);
                     dialog.Data.SubmitButtonTitle = "Select";
                     
                     dialog.Show();

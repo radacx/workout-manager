@@ -7,6 +7,7 @@
         xmlns:models="clr-namespace:WorkoutManager.App.Pages.Muscles.Models"
         xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:validators="clr-namespace:WorkoutManager.App.Validators"
         d:DataContext="{d:DesignInstance Type=models:MuscleDialogViewModel}"
         mc:Ignorable="d">
     <dialog:Dialog
@@ -17,9 +18,20 @@
         <TextBox
             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
             Name="MuscleName"
-            Text="{Binding Muscle.Name}"
             Width="120"
             materialDesign:HintAssist.Hint="Name"
-        />
+            materialDesign:ValidationAssist.Suppress="True"
+        >
+            <TextBox.Text>
+                <Binding
+                    Path="Muscle.Name"
+                    UpdateSourceTrigger="PropertyChanged"
+                >
+                    <Binding.ValidationRules>
+                        <validators:RequiredTextValidationRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
     </dialog:Dialog> 
 </UserControl>

@@ -10,7 +10,9 @@
              xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
              xmlns:dialogs1="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-             xmlns:sets="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.Sets">
+             xmlns:sets="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.Sets"
+             xmlns:progress="clr-namespace:WorkoutManager.App.Pages.Progress"
+             xmlns:dialogs2="clr-namespace:WorkoutManager.App.Pages.Progress.Dialogs">
     <Application.Resources>  
         <ResourceDictionary>
             <converters:EnumConverter x:Key="EnumConverter" />
@@ -42,6 +44,14 @@
         
             <DataTemplate x:Key="{x:Static models:ExerciseSetDialogSelector.IsometricSetDialogDataTemplateIdentifier}" x:Shared="False">
                 <sets:IsometricSetDialog />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="{x:Static progress:ProgressPageDialogsSelector.ProgressFilterDialog}" x:Shared="False">
+                <dialogs2:ProgressFilterDialog />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="{x:Static progress:ProgressPageDialogsSelector.SelectFilterDialog}" x:Shared="False">
+                <dialogs2:SelectFilterDialog />
             </DataTemplate>
             
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignAlternateTabablzControlStyle}" />

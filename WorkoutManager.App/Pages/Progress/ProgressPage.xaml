@@ -11,9 +11,14 @@
              mc:Ignorable="d"
              Background="{DynamicResource MaterialDesignPaper}"
              d:DesignHeight="300" d:DesignWidth="300">
+<UserControl.Resources>
+    <local:ProgressPageDialogsSelector x:Key="ProgressPageDialogsSelector" />
+</UserControl.Resources>
+    
     <materialDesign:DialogHost
         CloseOnClickAway="True"
         Identifier="{Binding ProgressPageDialogsIdentifier}"
+        DialogContentTemplateSelector="{StaticResource ProgressPageDialogsSelector}"
     >
         <StackPanel>
             <Button
