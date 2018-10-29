@@ -1,8 +1,6 @@
-﻿using WorkoutManager.Contract.Models.Misc;
-
-namespace WorkoutManager.Contract.Models.ExerciseSet
+﻿namespace WorkoutManager.Contract.Models.ExerciseSet
 {
-    public interface IExerciseSet : IEntity
+    public interface IExerciseSet
     {
         double Weight { get; set; }
     }

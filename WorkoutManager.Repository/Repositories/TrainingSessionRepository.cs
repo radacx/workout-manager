@@ -18,11 +18,10 @@ namespace WorkoutManager.Repository.Repositories
         public override IEnumerable<TrainingSession> GetAll() => Execute(
             collection => collection
                 .Include(x => x.Exercises)
-                .Include(x => x.Exercises[0].Sets)
                 .Include(x => x.Exercises[0].Exercise)
                 .Include(x => x.Exercises[0].Exercise.Muscles)
                 .FindAll()
-                .ToList()
+                .ToArray()
         );
     }
 }

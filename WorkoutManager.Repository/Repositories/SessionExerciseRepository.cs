@@ -12,10 +12,10 @@ namespace WorkoutManager.Repository.Repositories
 
         public static void Register(BsonMapper mapper)
         {
-            mapper.Entity<SessionExercise>().DbRef(x => x.Sets).DbRef(x => x.Exercise);
+            mapper.Entity<SessionExercise>().DbRef(x => x.Exercise);
         }
 
         public override IEnumerable<SessionExercise> GetAll()
-            => Execute(collection => collection.Include(x => x.Sets).Include(x => x.Exercise).FindAll().ToList());
+            => Execute(collection => collection.Include(x => x.Exercise).FindAll().ToArray());
     }
 }

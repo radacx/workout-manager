@@ -63,6 +63,6 @@ namespace WorkoutManager.Repository.Repositories
         }
 
         public override IEnumerable<Category> GetAll()
-            => Execute(collection => collection.Include(x => x.Items).FindAll().ToList());
+            => Execute(collection => collection.Include(x => x.Items).FindAll().ToArray());
     }
 }

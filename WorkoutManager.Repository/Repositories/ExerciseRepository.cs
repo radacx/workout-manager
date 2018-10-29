@@ -20,7 +20,7 @@ namespace WorkoutManager.Repository.Repositories
                 .Include(x => x.Muscles)
                 .Include(x => x.Muscles[0].Muscle)
                 .FindAll()
-                .ToList()
+                .ToArray()
         );
     }
 }

@@ -111,7 +111,7 @@ namespace WorkoutManager.Repository.Repositories
         }
 
         public override IEnumerable<ProgressFilter> GetAll() => Execute(
-            collection => collection.Include(x => x.FilteringValue).FindAll().ToList()
+            collection => collection.Include(x => x.FilteringValue).FindAll().ToArray()
         );
     }
 }

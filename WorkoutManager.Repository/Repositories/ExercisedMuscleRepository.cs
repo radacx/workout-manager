@@ -16,6 +16,6 @@ namespace WorkoutManager.Repository.Repositories
         }
 
         public override IEnumerable<ExercisedMuscle> GetAll()
-            => Execute(collection => collection.Include(x => x.Muscle).FindAll().ToList());
+            => Execute(collection => collection.Include(x => x.Muscle).FindAll().ToArray());
     }
 }
