@@ -7,8 +7,10 @@
              xmlns:local="clr-namespace:WorkoutManager.App.Pages.Progress"
              xmlns:progress="clr-namespace:WorkoutManager.Contract.Models.Progress;assembly=WorkoutManager.Contract"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
              d:DataContext="{d:DesignInstance Type=local:ProgressPageViewModel}"
              mc:Ignorable="d"
+             Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
              Background="{DynamicResource MaterialDesignPaper}"
              d:DesignHeight="300" d:DesignWidth="300">
 <UserControl.Resources>
@@ -20,25 +22,21 @@
         Identifier="{Binding ProgressPageDialogsIdentifier}"
         DialogContentTemplateSelector="{StaticResource ProgressPageDialogsSelector}"
     >
-        <StackPanel>
-            <Button
-                Content="Refresh"
-                Command="{Binding Refresh}"
-            />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+            >
+                <StackPanel Orientation="Horizontal">
                     <Label Content="Filter by" />
                 
                     <ComboBox
@@ -57,26 +55,8 @@
                         SelectedItem="{Binding SelectedFilteringValue}"
                     />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-                    <CheckBox
-                        Content="From"
-                        IsChecked="{Binding ShouldFilterFrom}"
-                    />
-                    <DatePicker SelectedDate="{Binding DateFrom}">
-                        <DatePicker.Style>
-                            <Style TargetType="DatePicker">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ShouldFilterFrom}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DatePicker.Style>
-                    </DatePicker>
-                </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
                     <Label Content="Group by"/> 
                     <ComboBox
                         ItemsSource="{Binding GroupByOptions}"
@@ -93,7 +73,7 @@
                         SelectedItem="{Binding StartingDayOfWeek}"
                     >
                         <ComboBox.Style>
-                            <Style TargetType="ComboBox">
+                            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding GroupBy}" Value="{x:Static progress:GroupBy.Week}">
@@ -104,26 +84,8 @@
                         </ComboBox.Style>
                     </ComboBox>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                    <CheckBox
-                        Content="To"
-                        IsChecked="{Binding ShouldFilterTill}"
-                    />
-                    <DatePicker SelectedDate="{Binding DateTo}">
-                        <DatePicker.Style>
-                            <Style TargetType="DatePicker">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ShouldFilterTill, Mode=TwoWay}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DatePicker.Style>
-                    </DatePicker>
-                </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
                     <Label Content="Metric" />
                     <ComboBox
                         ItemsSource="{Binding MetricOptions}"
@@ -137,25 +99,138 @@
                     </ComboBox>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Button
-                        Content="Save filter"
-                        Command="{Binding OpenAddFilterDialog}"
-                    />
-                    <Button
-                        Content="Select filter"
-                        Command="{Binding OpenSelectFilterDialog}"
-                    />
-                </StackPanel>
+                <GroupBox Header="Date constraints">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox
+                                Content="From"
+                                IsChecked="{Binding ShouldFilterFrom}"
+                            />
+                            <DatePicker SelectedDate="{Binding DateFrom}">
+                                <DatePicker.Style>
+                                    <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShouldFilterFrom}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DatePicker.Style>
+                            </DatePicker>
+                        </StackPanel>
+                
+                
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox
+                                Content="To"
+                                IsChecked="{Binding ShouldFilterTill}"
+                            />
+                            <DatePicker SelectedDate="{Binding DateTo}">
+                                <DatePicker.Style>
+                                    <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShouldFilterTill, Mode=TwoWay}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DatePicker.Style>
+                            </DatePicker>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+ 
+            </StackPanel>
+            
+            <Grid
+                Grid.Row="0"
+                Grid.Column="1"
+            >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <materialDesign:ColorZone
+                    Grid.Row="0"
+                    Mode="PrimaryMid"
+                    Effect="{DynamicResource MaterialDesignShadowDepth5}"
+                >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Text="Filters"
+                            Margin="16"
+                        />
+                    
+                        <Button
+                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                            Command="{Binding OpenAddFilterDialog}"
+                        >
+                            <materialDesign:PackIcon Kind="Plus" />
+                        </Button>
+                    </StackPanel>
+                </materialDesign:ColorZone>
+                
+                <controls:DataGrid
+                    Grid.Row="1"
+                    ItemsSource="{Binding Filters}"
+                    Style="{DynamicResource MaterialDesignDataGrid}"
+                >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="Name"
+                            Binding="{Binding Name}"
+                            SortDirection="Ascending"
+                        />
+                         
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                            Command="{Binding DataContext.SelectFilterCommand,
+                                            RelativeSource={RelativeSource FindAncestor, AncestorType=local:ProgressPage}}"
+                                            CommandParameter="{Binding}"
+                                        >
+                                            <materialDesign:PackIcon Kind="Select" />
+                                        </Button>
+                                        <Button
+                                            Command="{Binding DataContext.RemoveFilterCommand,
+                                            RelativeSource={RelativeSource FindAncestor, AncestorType=local:ProgressPage}}"
+                                            CommandParameter="{Binding}"
+                                        >
+                                            <materialDesign:PackIcon Kind="Delete" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </controls:DataGrid>
             </Grid>
             
-            <ItemsControl ItemsSource="{Binding Results}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBox Text="{Binding Mode=OneWay}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+            >
+                <Button
+                    Content="Refresh"
+                    Command="{Binding Refresh}"
+                />
+                <ItemsControl
+               
+                    ItemsSource="{Binding Results}"
+                >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Mode=OneTime}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
     </materialDesign:DialogHost> 
 </UserControl>

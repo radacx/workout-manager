@@ -145,7 +145,6 @@
     <Compile Include="Converters\TextToVisibilityConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\IsNumberZeroConverter.cs" />
-    <Compile Include="Events\ProgressFilterSelectedEvent.cs" />
     <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
     <Compile Include="Pages\Categories\CategoryPage.xaml.cs">
       <DependentUpon>CategoryPage.xaml</DependentUpon>
@@ -191,11 +190,7 @@
     <Compile Include="Pages\Progress\Dialogs\ProgressFilterDialog.xaml.cs">
       <DependentUpon>ProgressFilterDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Progress\Dialogs\SelectFilterDialog.xaml.cs">
-      <DependentUpon>SelectFilterDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Progress\Models\ProgressFilterDialogViewModel.cs" />
-    <Compile Include="Pages\Progress\Models\SelectFilterDialogViewModel.cs" />
     <Compile Include="Pages\Progress\ProgressPage.xaml.cs">
       <DependentUpon>ProgressPage.xaml</DependentUpon>
     </Compile>
@@ -283,7 +278,6 @@
     <Page Include="Pages\Muscles\Dialogs\MuscleDialog.xaml" />
     <Page Include="Pages\Muscles\MusclesPage.xaml" />
     <Page Include="Pages\Progress\Dialogs\ProgressFilterDialog.xaml" />
-    <Page Include="Pages\Progress\Dialogs\SelectFilterDialog.xaml" />
     <Page Include="Pages\Progress\ProgressPage.xaml" />
     <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />
     <Page Include="Pages\TrainingLog\Dialogs\AddTrainingSessionExerciseDialog.xaml" />

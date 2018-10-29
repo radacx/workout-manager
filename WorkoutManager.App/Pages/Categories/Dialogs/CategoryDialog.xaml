@@ -11,7 +11,7 @@
         xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
         xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Categories.Dialogs"
         xmlns:validators="clr-namespace:WorkoutManager.App.Validators"
-        mc:Ignorable="d"
+             mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=models:CategoryDialogViewModel}">
     <materialDesign:DialogHost CloseOnClickAway="True" Identifier="{Binding AddOptionsDialogIdentifier}">
         <dialog:Dialog
@@ -19,7 +19,9 @@
             DialogTitle="{Binding DialogTitle}"
         >
             <dialog:Dialog.CanSubmit>
-                <MultiBinding Converter="{StaticResource MultiBoolConverter}">
+                <MultiBinding
+                    Converter="{StaticResource MultiBoolConverter}"
+                >
                     <Binding
                         Path="Text"
                         ElementName="CategoryName"

@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using PubSub.Core;
-using WorkoutManager.App.Events;
 using WorkoutManager.App.Pages.Progress.Models;
 using WorkoutManager.App.Pages.Progress.Structures;
 using WorkoutManager.App.Pages.Progress.Structures.Calculators;
@@ -27,7 +25,6 @@ namespace WorkoutManager.App.Pages.Progress
     internal class ProgressPageDialogsSelector : DataTemplateSelector
     {
         public const string ProgressFilterDialog = "ProgressFilterDialog";
-        public const string SelectFilterDialog = "SelectFilterDialog";
         
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -35,9 +32,6 @@ namespace WorkoutManager.App.Pages.Progress
                 case ProgressFilterDialogViewModel _:
 
                     return Application.Current.MainWindow?.FindResource(ProgressFilterDialog) as DataTemplate;
-                case SelectFilterDialogViewModel _:
-
-                    return Application.Current.MainWindow?.FindResource(SelectFilterDialog) as DataTemplate;
             }
 
             return base.SelectTemplate(item, container);
@@ -52,6 +46,7 @@ namespace WorkoutManager.App.Pages.Progress
         private readonly Repository<TrainingSession> _trainingSessionRepository;
         private readonly Repository<Muscle> _muscleRepository;
         private readonly Repository<Category> _categoryRepository;
+        private readonly Repository<ProgressFilter> _progressFilterRepository;
         
         private readonly UserPreferencesService _userPreferencesService;
         
@@ -88,7 +83,13 @@ namespace WorkoutManager.App.Pages.Progress
         
         public ICommand OpenAddFilterDialog { get; }
         
-        public ICommand OpenSelectFilterDialog { get; }
+        public ICommand Refresh { get; }
+        
+        public ICommand RemoveFilterCommand { get; }
+        
+        public ICommand SelectFilterCommand { get; }
+        
+        public ObservableRangeCollection<ProgressFilter> Filters { get; } = new WpfObservableRangeCollection<ProgressFilter>();
         
         public DayOfWeek StartingDayOfWeek
         {
@@ -155,8 +156,6 @@ namespace WorkoutManager.App.Pages.Progress
             get => _filteringValueOptions;
             set => SetField(ref _filteringValueOptions, value);
         }
-
-        public ICommand Refresh { get; }
 
         private void LoadData()
         {
@@ -293,19 +292,27 @@ namespace WorkoutManager.App.Pages.Progress
             return filteredSessions;
         }
         
-        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<Muscle> muscleRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository, DialogViewer dialogViewer, Repository<ProgressFilter> progressFilterRepository, Hub eventAggregator)
+        public ProgressPageViewModel(Repository<Exercise> exerciseRepository, Repository<TrainingSession> trainingSessionRepository, Repository<Muscle> muscleRepository, UserPreferencesService userPreferencesService, Repository<Category> categoryRepository, DialogViewer dialogViewer, Repository<ProgressFilter> progressFilterRepository)
         {
             _userPreferencesService = userPreferencesService;
             _categoryRepository = categoryRepository;
+            _progressFilterRepository = progressFilterRepository;
             _exerciseRepository = exerciseRepository;
             _trainingSessionRepository = trainingSessionRepository;
             _muscleRepository = muscleRepository;
 
-            eventAggregator.Subscribe<ProgressFilterSelectedEvent>(
-                filterEvent =>
+            Filters.ShapeView().OrderBy(filter => filter.Name);
+            
+            RemoveFilterCommand = new Command<ProgressFilter>(
+                filter =>
                 {
-                    var filter = filterEvent.Filter;
-
+                    Filters.Remove(filter);
+                    Task.Run(() => _progressFilterRepository.Delete(filter));
+                });
+            
+            SelectFilterCommand = new Command<ProgressFilter>(
+                filter =>
+                {
                     if (filter.Metric.HasValue)
                     {
                         Metric = filter.Metric.Value;
@@ -321,11 +328,13 @@ namespace WorkoutManager.App.Pages.Progress
                         FilterBy = filter.FilterBy.Value;
                         SelectedFilteringValue = filter.FilteringValue;
                     }
-                });
+                }
+            );
             
             Task.Run(() =>
                 {
                     LoadData();
+                    Filters.AddRange(_progressFilterRepository.GetAll());
                     OnPropertyChanged(nameof(FilterBy));
                 }
             );
@@ -398,15 +407,8 @@ namespace WorkoutManager.App.Pages.Progress
                     }
 
                     progressFilterRepository.Create(progressFilter);
-                });
-            
-            OpenSelectFilterDialog = new Command(
-                () =>
-                {
-                    var dialog = dialogViewer.For<SelectFilterDialogViewModel>(ProgressPageDialogsIdentifier);
-                    dialog.Data.SubmitButtonTitle = "Select";
                     
-                    dialog.Show();
+                    Filters.Add(progressFilter);
                 });
             
             Refresh = new Command(

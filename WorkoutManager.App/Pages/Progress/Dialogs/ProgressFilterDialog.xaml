@@ -7,44 +7,68 @@
         xmlns:models="clr-namespace:WorkoutManager.App.Pages.Progress.Models"
         xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:validators="clr-namespace:WorkoutManager.App.Validators"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=models:ProgressFilterDialogViewModel}">
     <dialog:Dialog
         SubmitButtonTitle="{Binding SubmitButtonTitle}"
         DialogTitle="{Binding DialogTitle}"
-        CanSubmit="{Binding Text,
-            Converter={StaticResource IsTextNotEmptyConverter},
-            ElementName=FilterName,
-            UpdateSourceTrigger=PropertyChanged}"
     >
+        <dialog:Dialog.CanSubmit>
+            <MultiBinding Converter="{StaticResource MultiBoolConverter}">
+                <Binding
+                    Path="Text"
+                    Converter="{StaticResource IsTextNotEmptyConverter}"
+                    ElementName="FilterName"
+                    UpdateSourceTrigger="PropertyChanged"
+                />
+                
+                <Binding Path="ProgressFilter.IsValid" />
+            </MultiBinding>
+        </dialog:Dialog.CanSubmit>
+        
         <StackPanel>
             <TextBox
                 Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                 materialDesign:HintAssist.Hint="Name"
+                materialDesign:ValidationAssist.Suppress="True"
                 Name="FilterName"
                 Width="120"
-                Text="{Binding ProgressFilter.Name}"
-            />
-        
-            <GroupBox
-                Header="Remember details"
-                FontSize="15"
+                Margin="0 0 0 15"
             >
-                <StackPanel>
-                    <CheckBox
-                        Content="Filter by"
-                        IsChecked="{Binding ProgressFilter.RememberFilterBy}"
-                    />
-                    <CheckBox
-                        Content="Group by"
-                        IsChecked="{Binding ProgressFilter.RememberGroupBy}"
-                    />
-                    <CheckBox
-                        Content="Metric"
-                        IsChecked="{Binding ProgressFilter.RememberMetric}"
-                    />
-                </StackPanel>
-            </GroupBox>
+                <TextBox.Text>
+                    <Binding
+                        Path="ProgressFilter.Name"
+                        UpdateSourceTrigger="PropertyChanged"
+                    >
+                        <Binding.ValidationRules>
+                            <validators:RequiredTextValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        
+            <materialDesign:ColorZone Mode="PrimaryMid">
+                <TextBlock
+                    Text="Remembered details"
+                    Margin="8"
+                />
+            </materialDesign:ColorZone>
+            
+            <StackPanel Margin="8 15 8 0">
+                <CheckBox
+                    Content="Filter by"
+                    IsChecked="{Binding ProgressFilter.RememberFilterBy}"
+                />
+                <CheckBox
+                    Content="Group by"
+                    IsChecked="{Binding ProgressFilter.RememberGroupBy}"
+                />
+                <CheckBox
+                    Content="Metric"
+                    IsChecked="{Binding ProgressFilter.RememberMetric}"
+                />
+            </StackPanel>
         </StackPanel>
     </dialog:Dialog>
 </UserControl>

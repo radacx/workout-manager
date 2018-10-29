@@ -50,10 +50,6 @@
                 <dialogs2:ProgressFilterDialog />
             </DataTemplate>
             
-            <DataTemplate x:Key="{x:Static progress:ProgressPageDialogsSelector.SelectFilterDialog}" x:Shared="False">
-                <dialogs2:SelectFilterDialog />
-            </DataTemplate>
-            
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignAlternateTabablzControlStyle}" />
             
             <Style TargetType="dialog:Dialog" x:Shared="False">
