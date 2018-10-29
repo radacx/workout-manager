@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Categories
@@ -22,7 +23,7 @@ namespace WorkoutManager.Contract.Models.Categories
 
         public void AddItem(IEntity item) => _items.Add(item);
 
-        public void RemoveItem(IEntity item) => _items.Remove(item);
+        public void RemoveItem(IEntity item) => _items.RemoveByReference(item);
 
         public void ClearItems() => _items.Clear();
         

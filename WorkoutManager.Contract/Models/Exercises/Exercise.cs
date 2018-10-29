@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Exercises
@@ -30,7 +31,7 @@ namespace WorkoutManager.Contract.Models.Exercises
 
         public void AddMuscle(ExercisedMuscle muscle) => _muscles.Add(muscle);
 
-        public void RemoveMuscle(ExercisedMuscle muscle) => _muscles.RemoveAll(x => ReferenceEquals(x, muscle));
+        public void RemoveMuscle(ExercisedMuscle muscle) => _muscles.RemoveByReference(muscle);
 
         public bool Equals(Exercise other)
         {

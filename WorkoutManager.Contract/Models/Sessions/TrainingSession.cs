@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Misc;
 
 namespace WorkoutManager.Contract.Models.Sessions
@@ -25,7 +26,7 @@ namespace WorkoutManager.Contract.Models.Sessions
 
         public void AddExercise(SessionExercise exercise) => _exercises.Add(exercise);
         
-        public void RemoveExercise(SessionExercise exercise) => _exercises.Remove(exercise);
+        public void RemoveExercise(SessionExercise exercise) => _exercises.RemoveByReference(exercise);
         
         public bool Equals(TrainingSession other)
         {

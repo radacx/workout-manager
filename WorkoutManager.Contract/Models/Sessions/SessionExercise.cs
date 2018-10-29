@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.Exercises.Sets;
 using WorkoutManager.Contract.Models.Misc;
@@ -30,12 +31,7 @@ namespace WorkoutManager.Contract.Models.Sessions
 
         public void AddSet(ExerciseSet set) => _sets.Add(set);
 
-        public void RemoveSet(ExerciseSet set)
-        {
-            var index = _sets.FindIndex(originalSet => ReferenceEquals(originalSet, set));
-            
-            _sets.RemoveAt(index);
-        }
+        public void RemoveSet(ExerciseSet set) => _sets.RemoveByReference(set);
 
         public bool Equals(SessionExercise other)
         {
