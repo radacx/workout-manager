@@ -1,6 +1,6 @@
 using System;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Contract.Models.Exercises.Sets;
+using WorkoutManager.Contract.Models.Sessions.Sets;
 
 namespace WorkoutManager.App.Utils
 {

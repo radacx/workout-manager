@@ -1,0 +1,41 @@
+<UserControl x:Class="WorkoutManager.App.Pages.TrainingLog.Dialogs.ExerciseSetDialog.Dynamic.DynamicExerciseSet"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:utils="clr-namespace:WorkoutManager.App.Utils"
+             xmlns:local="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.ExerciseSetDialog.Dynamic"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=local:DynamicExerciseSetViewModel}"
+>
+    <StackPanel>
+        <TextBox
+            TabIndex="0"
+            materialDesign:HintAssist.Hint="Weight"
+            materialDesign:ValidationAssist.Suppress="True"
+            Text="{Binding Weight, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+        />
+                    
+        <materialDesign:ColorZone Mode="PrimaryMid" Margin="0 0 0 15">
+            <TextBlock
+                Text="Reps"
+                Margin="8"
+            />
+        </materialDesign:ColorZone>
+                    
+        <ComboBox
+            TabIndex="1"
+            ItemsSource="{Binding Source={x:Static utils:Constants.RepsValues}, Mode=OneTime}"
+            SelectedItem="{Binding Reps, Mode=TwoWay}"
+            Margin="8 0 8 15"
+        >
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>    
+        </ComboBox>
+    </StackPanel>
+</UserControl>

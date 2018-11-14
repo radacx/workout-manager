@@ -1,0 +1,26 @@
+<UserControl x:Class="WorkoutManager.App.Pages.TrainingLog.Dialogs.ExerciseSetDialog.ExerciseSetDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.ExerciseSetDialog"
+             xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=local:ExerciseSetDialogViewModel}"
+>
+    <UserControl.Resources>
+        <local:ExerciseSetDialogTemplateSelector x:Key="TemplateSelector" />
+    </UserControl.Resources>
+    
+    <controls:Dialog
+        DialogTitle="{Binding DialogTitle}"
+        SubmitButtonTitle="{Binding SubmitButtonTitle}"
+        CanSubmit="{Binding ExerciseSet.HasErrors, Converter={StaticResource BoolNegationConverter}}"
+    >
+        <ContentControl
+            Width="120"
+            Content="{Binding ExerciseSet}"
+            ContentTemplateSelector="{StaticResource TemplateSelector}"
+        />
+    </controls:Dialog>
+</UserControl>

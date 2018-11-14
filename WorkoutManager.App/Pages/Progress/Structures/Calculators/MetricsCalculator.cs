@@ -1,6 +1,6 @@
 using System.Linq;
-using WorkoutManager.Contract.Models.Exercises.Sets;
 using WorkoutManager.Contract.Models.Sessions;
+using WorkoutManager.Contract.Models.Sessions.Sets;
 
 namespace WorkoutManager.App.Pages.Progress.Structures.Calculators
 {

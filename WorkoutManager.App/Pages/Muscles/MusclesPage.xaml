@@ -4,17 +4,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:muscles="clr-namespace:WorkoutManager.App.Pages.Muscles"
+             xmlns:local="clr-namespace:WorkoutManager.App.Pages.Muscles"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
-             xmlns:models="clr-namespace:WorkoutManager.App.Pages.Muscles.Models"
-             xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Muscles.Dialogs"
-             d:DataContext="{d:DesignInstance Type=muscles:MusclesPageViewModel}"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             d:DataContext="{d:DesignInstance Type=local:MusclesPageViewModel}"
              mc:Ignorable="d"
              Background="{DynamicResource MaterialDesignPaper}"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <materialDesign:DialogHost CloseOnClickAway="True" Identifier="{Binding MuscleDialogIdentifier}">
-        <Grid Background="AliceBlue">
+>
+    <UserControl.Resources>
+        <local:MusclesPageDialogsSelector x:Key="DialogsSelector" />
+        
+        <CollectionViewSource Source="{Binding Muscles}" x:Key="Muscles">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Name" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>    
+    </UserControl.Resources>
+    
+    <materialDesign:DialogHost
+        Identifier="{Binding DialogsIdentifier}"
+        DialogContentTemplateSelector="{StaticResource DialogsSelector}"
+    >
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -32,8 +44,9 @@
                     />
                     
                     <Button
+                        TabIndex="0"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Command="{Binding OpenCreateMuscleDialog}"
+                        Command="{Binding OpenCreateMuscleDialogCommand}"
                     >
                         <materialDesign:PackIcon Kind="Plus" />
                     </Button>
@@ -42,8 +55,7 @@
                 
             <controls:DataGrid
                 Grid.Row="1"
-                ItemsSource="{Binding Muscles}"
-                Style="{DynamicResource MaterialDesignDataGrid}"
+                ItemsSource="{Binding Source={StaticResource Muscles}}"
             >
                 <DataGrid.Columns>
                     <DataGridTextColumn
@@ -57,15 +69,21 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button
-                                        Command="{Binding DataContext.OpenEditMuscleDialog,
-                                            RelativeSource={RelativeSource FindAncestor, AncestorType=muscles:MusclesPage}}"
+                                        Command="{Binding
+                                            DataContext.OpenEditMuscleDialogCommand,
+                                            RelativeSource={RelativeSource
+                                                FindAncestor,
+                                                AncestorType=local:MusclesPage}}"
                                         CommandParameter="{Binding}"
                                     >
                                         <materialDesign:PackIcon Kind="Edit" />
                                     </Button>
                                     <Button
-                                        Command="{Binding DataContext.Delete,
-                                            RelativeSource={RelativeSource FindAncestor, AncestorType=muscles:MusclesPage}}"
+                                        Command="{Binding
+                                            DataContext.DeleteCommand,
+                                            RelativeSource={RelativeSource
+                                                FindAncestor,
+                                                AncestorType=local:MusclesPage}}"
                                         CommandParameter="{Binding}"
                                     >
                                         <materialDesign:PackIcon Kind="Delete" />
@@ -76,12 +94,6 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </controls:DataGrid>
-        </Grid>
-        
-        <materialDesign:DialogHost.DialogContentTemplate>
-            <DataTemplate DataType="models:MuscleDialogViewModel">
-                <dialogs:MuscleDialog DataContext="{Binding}" />
-            </DataTemplate>
-        </materialDesign:DialogHost.DialogContentTemplate> 
+        </Grid>  
     </materialDesign:DialogHost> 
 </UserControl>

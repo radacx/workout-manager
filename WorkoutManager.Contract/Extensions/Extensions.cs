@@ -19,21 +19,26 @@ namespace WorkoutManager.Contract.Extensions
             return descriptionAttribute?.Description ?? stringValue;
         }
 
-        public static void RemoveByReference<T>(this IList<T> collection, T itemToRemove)
+        public static int FindIndexByReference<T>(this ICollection<T> collection, T item)
         {
-            var index = -1;
-
             for (var i = 0; i < collection.Count; i++)
             {
-                var item = collection.ElementAt(i);
-
-                if (!ReferenceEquals(item, itemToRemove))
+                if (ReferenceEquals(collection.ElementAt(i), item))
                 {
-                    continue;
+                    return i;
                 }
+            }
 
-                index = i;
-                break;
+            return -1;
+        }
+        
+        public static void RemoveByReference<T>(this IList<T> collection, T item)
+        {
+            var index = collection.FindIndexByReference(item);
+
+            if (index == -1)
+            {
+                return;
             }
             
             collection.RemoveAt(index);

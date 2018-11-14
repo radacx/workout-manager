@@ -1,30 +1,19 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using WorkoutManager.Contract.Extensions;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Contract.Models.Exercises.Sets;
-using WorkoutManager.Contract.Models.Misc;
+using WorkoutManager.Contract.Models.Sessions.Sets;
 
 namespace WorkoutManager.Contract.Models.Sessions
 {
-    public class SessionExercise : IEntity, IEquatable<SessionExercise>
+    public class SessionExercise
     {
-        public int Id { get; set; }
-        
-        private List<ExerciseSet> _sets = new List<ExerciseSet>();
+        private IList<ExerciseSet> _sets = new List<ExerciseSet>();
         
         public ExerciseSet[] Sets
         {
             get => _sets.ToArray();
             set => _sets = value.ToList();
-        }
-
-        public SessionExercise() {}
-
-        public SessionExercise(Exercise exercise)
-        {
-            Exercise = exercise;
         }
 
         public Exercise Exercise { get; set; }
@@ -33,38 +22,12 @@ namespace WorkoutManager.Contract.Models.Sessions
 
         public void RemoveSet(ExerciseSet set) => _sets.RemoveByReference(set);
 
-        public bool Equals(SessionExercise other)
+        public override string ToString() => Exercise.Name;
+
+        public SessionExercise Clone() => new SessionExercise
         {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Id == other.Id;
-        }
-
-        public bool Equals(IEntity other) => other is SessionExercise exercise && Equals(exercise);
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            return obj.GetType() == GetType() && Equals((SessionExercise) obj);
-        }
-
-        public override int GetHashCode() => Id;
+            Exercise = Exercise.Clone(),
+            _sets = _sets.Select(x => x.Clone()).ToList(),
+        };
     }
 }

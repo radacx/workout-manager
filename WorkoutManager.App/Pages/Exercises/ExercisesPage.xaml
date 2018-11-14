@@ -4,15 +4,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:exercises="clr-namespace:WorkoutManager.App.Pages.Exercises"
+             xmlns:local="clr-namespace:WorkoutManager.App.Pages.Exercises"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:models="clr-namespace:WorkoutManager.App.Pages.Exercises.Models"
-             xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs"
              xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              mc:Ignorable="d"
              Background="{DynamicResource MaterialDesignPaper}"
-             d:DataContext="{d:DesignInstance Type=exercises:ExercisesPageViewModel}">
-    <materialDesign:DialogHost CloseOnClickAway="True" Identifier="{Binding ExerciseDialogIdentifier}">
+             d:DataContext="{d:DesignInstance Type=local:ExercisesPageViewModel}"
+>
+    <UserControl.Resources>
+        <local:ExercisesPageDialogsSelector x:Key="DialogsSelector"/>
+        
+        <CollectionViewSource Source="{Binding Exercises}" x:Key="Exercises">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Name" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    
+    <materialDesign:DialogHost
+        Identifier="{Binding DialogsIdentifier}"
+        DialogContentTemplateSelector="{StaticResource DialogsSelector}"
+    >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -31,8 +44,9 @@
                     />
                 
                     <Button
+                        TabIndex="0"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Command="{Binding OpenCreateExerciseModalDialog}"
+                        Command="{Binding OpenCreateExerciseDialogCommand}"
                     >
                         <materialDesign:PackIcon Kind="Plus" />
                     </Button>
@@ -41,8 +55,7 @@
             
             <controls:DataGrid
                 Grid.Row="1"
-                ItemsSource="{Binding Exercises}"
-                Style="{DynamicResource MaterialDesignDataGrid}"
+                ItemsSource="{Binding Source={StaticResource Exercises}}"
             >
                 <DataGrid.Columns>
                     <DataGridTextColumn
@@ -56,21 +69,32 @@
                         Binding="{Binding ContractionType}"
                     />
                     
+                    <DataGridTextColumn
+                        Header="Muscles"
+                        Binding="{Binding Muscles, Converter={StaticResource EnumerableConverter}}"
+                    />
+                    
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button
-                                        Command="{Binding DataContext.OpenEditExerciseModalDialog,
-                                            RelativeSource={RelativeSource FindAncestor, AncestorType=exercises:ExercisesPage}}"
+                                        Command="{Binding
+                                            DataContext.OpenEditExerciseDialogCommand,
+                                            RelativeSource={RelativeSource
+                                                FindAncestor,
+                                                AncestorType=local:ExercisesPage}}"
                                         CommandParameter="{Binding}"
                                     >
                                         <materialDesign:PackIcon Kind="Edit" />
                                     </Button>
                                     
                                     <Button
-                                        Command="{Binding DataContext.Delete,
-                                            RelativeSource={RelativeSource FindAncestor, AncestorType=exercises:ExercisesPage}}"
+                                        Command="{Binding
+                                            DataContext.DeleteCommand,
+                                            RelativeSource={RelativeSource
+                                                FindAncestor,
+                                                AncestorType=local:ExercisesPage}}"
                                         CommandParameter="{Binding}"
                                     >
                                         <materialDesign:PackIcon Kind="Delete" />
@@ -82,11 +106,5 @@
                 </DataGrid.Columns>
             </controls:DataGrid>
         </Grid>
-        
-        <materialDesign:DialogHost.DialogContentTemplate>
-            <DataTemplate DataType="models:ExerciseDialogModelViewModel">
-                <dialogs:ExerciseDialog DataContext="{Binding}" />
-            </DataTemplate>
-        </materialDesign:DialogHost.DialogContentTemplate> 
     </materialDesign:DialogHost>
 </UserControl>

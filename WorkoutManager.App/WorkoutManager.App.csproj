@@ -40,14 +40,6 @@
       <HintPath>..\packages\Unity.5.8.11\lib\net47\CommonServiceLocator.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e">
-      <HintPath>..\packages\ControlzEx.4.0.0-alpha0189\lib\net462\ControlzEx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99">
-      <HintPath>..\packages\DeepCloner.0.10.2\lib\net40\DeepCloner.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
       <Private>True</Private>
@@ -58,6 +50,10 @@
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -80,8 +76,8 @@
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\ControlzEx.4.0.0-alpha0189\lib\net462\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -132,7 +128,7 @@
     </ApplicationDefinition>
     <Compile Include="Config\Bootstrap.cs" />
     <Compile Include="Controls\DataGrid.cs" />
-    <Compile Include="Controls\Dialog\Dialog.cs" />
+    <Compile Include="Controls\Dialog.cs" />
     <Compile Include="Controls\ValueSlider.xaml.cs">
       <DependentUpon>ValueSlider.xaml</DependentUpon>
     </Compile>
@@ -140,91 +136,107 @@
     <Compile Include="Controls\TimeSpanUpDown\TimeSpanUpDown.xaml.cs">
       <DependentUpon>TimeSpanUpDown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolNegationConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumerableConverter.cs" />
     <Compile Include="Converters\IsValueNotNullConverter.cs" />
     <Compile Include="Converters\MultiBoolConverter.cs" />
     <Compile Include="Converters\TextToVisibilityConverter.cs" />
     <Compile Include="Converters\IsEnumerableEmptyConverter.cs" />
     <Compile Include="Converters\IsNumberZeroConverter.cs" />
-    <Compile Include="Events\SessionExerciseReAddedEvent.cs" />
+    <Compile Include="Events\ExercisesChangedEvent.cs" />
+    <Compile Include="Events\MusclesChangedEvent.cs" />
     <Compile Include="Pages\Categories\CategoryPage.xaml.cs">
       <DependentUpon>CategoryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Categories\CategoryPageDialogsSelector.cs" />
     <Compile Include="Pages\Categories\CategoryPageViewModel.cs" />
-    <Compile Include="Pages\Categories\Dialogs\AddCategoryOptionsDialog.xaml.cs">
+    <Compile Include="Pages\Categories\Dialogs\AddCategoryOptionsDialog\AddCategoryOptionsDialog.xaml.cs">
       <DependentUpon>AddCategoryOptionsDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Categories\Dialogs\CategoryDialog.xaml.cs">
+    <Compile Include="Pages\Categories\Dialogs\AddCategoryOptionsDialog\AddCategoryOptionsDialogViewModel.cs" />
+    <Compile Include="Pages\Categories\Dialogs\CategoryDialog\CategoryDialog.xaml.cs">
       <DependentUpon>CategoryDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Categories\Models\AddCategoryOptionsDialogViewModel.cs" />
-    <Compile Include="Pages\Categories\Models\CategoryDialogViewModel.cs" />
-    <Compile Include="Pages\Exercises\Dialogs\EditExercisedMuscleDialog.xaml.cs">
-      <DependentUpon>EditExercisedMuscleDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml.cs">
-      <DependentUpon>ExerciseDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Exercises\Dialogs\MusclesDialog.xaml.cs">
+    <Compile Include="Pages\Categories\Dialogs\CategoryDialog\CategoryDialogDialogsSelector.cs" />
+    <Compile Include="Pages\Categories\Dialogs\CategoryDialog\CategoryDialogViewModel.cs" />
+    <Compile Include="Pages\Categories\Dialogs\CategoryDialog\CategoryViewModel.cs" />
+    <Compile Include="Pages\Exercises\Dialogs\AddMuscleDialog\AddExercisedMuscleDialogViewModel.cs" />
+    <Compile Include="Pages\Exercises\Dialogs\AddMuscleDialog\MusclesDialog.xaml.cs">
       <DependentUpon>AddExercisedMuscleDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Exercises\Dialogs\EditMuscleDialog\EditExercisedMuscleDialog.xaml.cs">
+      <DependentUpon>EditExercisedMuscleDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Exercises\Dialogs\EditMuscleDialog\EditExercisedMuscleDialogViewModel.cs" />
+    <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog\ExerciseDialog.xaml.cs">
+      <DependentUpon>ExerciseDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog\ExerciseDialogDialogsSelector.cs" />
+    <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog\ExerciseDialogViewModel.cs" />
+    <Compile Include="Pages\Exercises\Dialogs\ExerciseDialog\ExerciseViewModel.cs" />
+    <Compile Include="Pages\Exercises\Dialogs\Models\ExercisedMuscleViewModel.cs" />
     <Compile Include="Pages\Exercises\ExercisesPage.xaml.cs">
       <DependentUpon>ExercisesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Exercises\ExercisesPageDialogsSelector.cs" />
     <Compile Include="Pages\Exercises\ExercisesPageViewModel.cs" />
-    <Compile Include="Pages\Exercises\Models\EditExercisedMuscleDialogViewModel.cs" />
-    <Compile Include="Pages\Exercises\Models\ExerciseDialogViewModel.cs" />
-    <Compile Include="Pages\Exercises\Models\AddExercisedMuscleDialogViewModel.cs" />
     <Compile Include="Pages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Pages\MainWindowViewModel.cs" />
-    <Compile Include="Pages\Muscles\Dialogs\MuscleDialog.xaml.cs">
+    <Compile Include="Pages\Muscles\Dialogs\MuscleDialog\MuscleDialog.xaml.cs">
       <DependentUpon>MuscleDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Muscles\Models\MuscleDialogViewModel.cs" />
+    <Compile Include="Pages\Muscles\Dialogs\MuscleDialog\MuscleDialogViewModel.cs" />
+    <Compile Include="Pages\Muscles\Dialogs\MuscleDialog\MuscleViewModel.cs" />
     <Compile Include="Pages\Muscles\MusclesPage.xaml.cs">
       <DependentUpon>MusclesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Muscles\MusclesPageDialogsSelector.cs" />
     <Compile Include="Pages\Muscles\MusclesPageViewModel.cs" />
     <Compile Include="Pages\Progress\Dialogs\ProgressFilterDialog.xaml.cs">
       <DependentUpon>ProgressFilterDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Progress\Models\ProgressFilterDialogViewModel.cs" />
+    <Compile Include="Pages\Progress\Dialogs\ProgressFilterDialogViewModel.cs" />
+    <Compile Include="Pages\Progress\Dialogs\ProgressFilterViewModel.cs" />
     <Compile Include="Pages\Progress\ProgressPage.xaml.cs">
       <DependentUpon>ProgressPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Progress\ProgressPageDialogsSelector.cs" />
     <Compile Include="Pages\Progress\ProgressPageViewModel.cs" />
     <Compile Include="Pages\Progress\Structures\Calculators\ExerciseMetricsCalculator.cs" />
     <Compile Include="Pages\Progress\Structures\Calculators\IMetricsCalculator.cs" />
     <Compile Include="Pages\Progress\Structures\Calculators\MetricsCalculator.cs" />
     <Compile Include="Pages\Progress\Structures\Calculators\MuscleMetricCalculator.cs" />
-    <Compile Include="Pages\Progress\Structures\ProgressFilterForDialog.cs" />
     <Compile Include="Pages\Progress\Structures\ProgressResult.cs" />
-    <Compile Include="Pages\TrainingLog\Controls\SessionExercise.xaml.cs">
-      <DependentUpon>SessionExercise.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\TrainingLog\Converters\ExerciseSetToTextConverter.cs" />
-    <Compile Include="Pages\TrainingLog\Converters\GetSessionExerciseViewModelConverter.cs" />
-    <Compile Include="Pages\TrainingLog\Dialogs\AddTrainingSessionExerciseDialog.xaml.cs">
-      <DependentUpon>AddTrainingSessionExerciseDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\TrainingLog\Dialogs\Sets\DynamicSetDialog.xaml.cs">
-      <DependentUpon>DynamicSetDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\TrainingLog\Dialogs\Sets\ExerciseSetDialog.xaml.cs">
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\ExerciseSetDialog.xaml.cs">
       <DependentUpon>ExerciseSetDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TrainingLog\Dialogs\Sets\IsometricSetDialog.xaml.cs">
-      <DependentUpon>IsometricSetDialog.xaml</DependentUpon>
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\ExerciseSetDialogTemplateSelector.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\Isometric\IsometricExerciseSetViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\Isometric\IsometricSetDialog.xaml.cs">
+      <DependentUpon>IsometricExerciseSet.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog.xaml.cs">
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\Dynamic\DynamicExerciseSetViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\Dynamic\DynamicSetDialog.xaml.cs">
+      <DependentUpon>DynamicExerciseSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\ExerciseSetDialogViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\ExerciseSetViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\SessionExerciseDialog\SessionExerciseDialog.xaml.cs">
+      <DependentUpon>SessionExerciseDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TrainingLog\Dialogs\SessionExerciseDialog\SessionExerciseDialogDialogsSelector.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\SessionExerciseDialog\SessionExerciseDialogViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\SessionExerciseDialog\SessionExerciseViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog\TrainingSessionDialog.xaml.cs">
       <DependentUpon>TrainingSessionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TrainingLog\Models\AddTrainingSessionExerciseDialogViewModel.cs" />
-    <Compile Include="Pages\TrainingLog\Models\ExerciseSetDialogViewModel.cs" />
-    <Compile Include="Pages\TrainingLog\Models\SessionExerciseViewModel.cs" />
-    <Compile Include="Pages\TrainingLog\Models\TrainingSessionDialogViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog\TrainingSessionDialogDialogsSelector.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog\TrainingSessionDialogViewModel.cs" />
+    <Compile Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog\TrainingSessionViewModel.cs" />
     <Compile Include="Pages\TrainingLog\TrainingLogPage.xaml.cs">
       <DependentUpon>TrainingLogPage.xaml</DependentUpon>
     </Compile>
@@ -235,39 +247,39 @@
     <Compile Include="Converters\DoesEnumMatchConverter.cs" />
     <Compile Include="Converters\EnumConverter.cs" />
     <Compile Include="Converters\IsTextNotEmptyConverter.cs" />
+    <Compile Include="Pages\TrainingLog\TrainingLogPageDialogsSelector.cs" />
     <Compile Include="Pages\TrainingLog\TrainingLogPageViewModel.cs" />
     <Compile Include="Pages\UserSettings\UserPreferencesPage.xaml.cs">
       <DependentUpon>UserPreferencesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UserSettings\UserPreferencesPageViewModel.cs" />
-    <Compile Include="Structures\CollectionViewShaper.cs" />
+    <Compile Include="Pages\UserSettings\UserPreferencesViewModel.cs" />
+    <Compile Include="Structures\Collections\Common\ObservableRangeCollection.cs" />
+    <Compile Include="Structures\Collections\Common\ObservedCollection.cs" />
+    <Compile Include="Structures\Collections\Common\WpfObservableRangeCollection.cs" />
     <Compile Include="Structures\ConverterParam.cs" />
-    <Compile Include="Structures\DialogModelBase.cs" />
-    <Compile Include="Structures\IViewModel.cs" />
-    <Compile Include="Structures\ObservableRangeCollection.cs" />
-    <Compile Include="Structures\ObservedCollection.cs" />
-    <Compile Include="Structures\ViewModelBase.cs" />
-    <Compile Include="Structures\WpfObservableRangeCollection.cs" />
+    <Compile Include="Structures\Dialogs\DialogModelBase.cs" />
+    <Compile Include="Structures\Dialogs\DialogResult.cs" />
+    <Compile Include="Structures\Dialogs\DialogFactory.cs" />
+    <Compile Include="Structures\Dialogs\IDialog.cs" />
+    <Compile Include="Structures\ViewModels\IViewModel.cs" />
+    <Compile Include="Structures\ViewModels\ViewModelBase.cs" />
+    <Compile Include="Structures\ViewModels\ViewModelFactory.cs" />
     <Compile Include="Utils\Constants.cs" />
-    <Compile Include="Utils\Dialogs\DialogResult.cs" />
-    <Compile Include="Utils\Dialogs\DialogViewer.cs" />
     <Compile Include="Utils\SetCreator.cs" />
-    <Compile Include="Utils\ViewModelFactory.cs" />
-    <Compile Include="Utils\WindowFactory.cs" />
-    <Compile Include="Validators\DoubleValidationRule.cs" />
-    <Compile Include="Validators\IntegerValidationRule.cs" />
-    <Compile Include="Validators\RequiredTextValidationRule.cs" />
+    <Compile Include="Validation\Validators\DoubleValidator.cs" />
+    <Compile Include="Validation\Validators\TextLengthValidator.cs" />
     <Page Include="Controls\ValueSlider.xaml" />
     <Page Include="Controls\TimeSpanUpDown\TimeSpanUpDown.xaml" />
     <Page Include="Pages\Categories\CategoryPage.xaml" />
-    <Page Include="Pages\Categories\Dialogs\AddCategoryOptionsDialog.xaml" />
-    <Page Include="Pages\Categories\Dialogs\CategoryDialog.xaml" />
-    <Page Include="Pages\Exercises\Dialogs\EditExercisedMuscleDialog.xaml" />
-    <Page Include="Pages\Exercises\Dialogs\ExerciseDialog.xaml">
+    <Page Include="Pages\Categories\Dialogs\AddCategoryOptionsDialog\AddCategoryOptionsDialog.xaml" />
+    <Page Include="Pages\Categories\Dialogs\CategoryDialog\CategoryDialog.xaml" />
+    <Page Include="Pages\Exercises\Dialogs\AddMuscleDialog\AddExercisedMuscleDialog.xaml" />
+    <Page Include="Pages\Exercises\Dialogs\EditMuscleDialog\EditExercisedMuscleDialog.xaml" />
+    <Page Include="Pages\Exercises\Dialogs\ExerciseDialog\ExerciseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Exercises\Dialogs\AddExercisedMuscleDialog.xaml" />
     <Page Include="Pages\Exercises\ExercisesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,16 +287,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Muscles\Dialogs\MuscleDialog.xaml" />
+    <Page Include="Pages\Muscles\Dialogs\MuscleDialog\MuscleDialog.xaml" />
     <Page Include="Pages\Muscles\MusclesPage.xaml" />
     <Page Include="Pages\Progress\Dialogs\ProgressFilterDialog.xaml" />
     <Page Include="Pages\Progress\ProgressPage.xaml" />
-    <Page Include="Pages\TrainingLog\Controls\SessionExercise.xaml" />
-    <Page Include="Pages\TrainingLog\Dialogs\AddTrainingSessionExerciseDialog.xaml" />
-    <Page Include="Pages\TrainingLog\Dialogs\Sets\DynamicSetDialog.xaml" />
-    <Page Include="Pages\TrainingLog\Dialogs\Sets\ExerciseSetDialog.xaml" />
-    <Page Include="Pages\TrainingLog\Dialogs\Sets\IsometricSetDialog.xaml" />
-    <Page Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\ExerciseSetDialog.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\Isometric\IsometricExerciseSet.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\ExerciseSetDialog\Dynamic\DynamicExerciseSet.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\SessionExerciseDialog\SessionExerciseDialog.xaml" />
+    <Page Include="Pages\TrainingLog\Dialogs\TrainingSessionDialog\TrainingSessionDialog.xaml" />
     <Page Include="Pages\TrainingLog\TrainingLogPage.xaml" />
     <Page Include="Pages\UserSettings\UserPreferencesPage.xaml" />
   </ItemGroup>
@@ -330,6 +341,9 @@
       <Project>{1365506b-5d8f-4539-b8f8-0d7819faeaf3}</Project>
       <Name>WorkoutManager.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\Dialogs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using WorkoutManager.Contract.Models.Misc;
+using WorkoutManager.Contract.Models.Base;
 using WorkoutManager.Repository;
 
 namespace WorkoutManager.Service

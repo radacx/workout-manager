@@ -1,9 +1,13 @@
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Force.DeepCloner;
-using WorkoutManager.App.Pages.Muscles.Models;
+using PubSub.Core;
+using WorkoutManager.App.Events;
+using WorkoutManager.App.Pages.Muscles.Dialogs.MuscleDialog;
 using WorkoutManager.App.Structures;
-using WorkoutManager.App.Utils.Dialogs;
+using WorkoutManager.App.Structures.Collections.Common;
+using WorkoutManager.App.Structures.Dialogs;
+using WorkoutManager.App.Structures.ViewModels;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Repository;
 
@@ -11,79 +15,103 @@ namespace WorkoutManager.App.Pages.Muscles
 {
     internal class MusclesPageViewModel : ViewModelBase
     {
-        public string MuscleDialogIdentifier => "MuscleDialog";
+        public static string DialogsIdentifier => "MusclesPageDialogs";
+
+        private readonly Repository<Muscle> _muscleRepository;
+        private readonly DialogFactory _dialogs;
+        private readonly Hub _hub;
         
+        #region Commands
+
+        public ICommand OpenCreateMuscleDialogCommand { get; }
+        
+        public ICommand OpenEditMuscleDialogCommand { get; }
+        
+        public ICommand DeleteCommand { get; }
+
+        #endregion
+
+
+        #region UI Properties
+
         public ObservableRangeCollection<Muscle> Muscles { get; } = new WpfObservableRangeCollection<Muscle>();
 
-        public ICommand OpenCreateMuscleDialog { get; }
+        #endregion
         
-        public ICommand OpenEditMuscleDialog { get; }
+
+        #region MuscleDialog
+
+        private async void OpenCreateMuscleDialogAsync()
+        {
+            var muscle = new Muscle();
+
+            var dialog = _dialogs.For<MuscleDialogViewModel>(DialogsIdentifier);
+            dialog.Data.DialogTitle = "New muscle";
+            dialog.Data.SubmitButtonTitle = "Create";
+            dialog.Data.Muscle = MuscleViewModel.FromModel(muscle);
+
+            var dialogResult = await dialog.Show();
+
+            if (dialogResult != DialogResult.Ok)
+            {
+                return;
+            }
+
+            muscle = dialog.Data.Muscle.ToModel();
+            Muscles.Add(muscle);
+            _muscleRepository.Create(muscle);
+        }
+
+        private async void OpenEditMuscleDialogAsync(Muscle muscle)
+        {
+            var muscleClone = muscle.Clone();
+
+            var dialog = _dialogs.For<MuscleDialogViewModel>(DialogsIdentifier);
+            dialog.Data.DialogTitle = "Modified muscle";
+            dialog.Data.SubmitButtonTitle = "Save";
+            dialog.Data.Muscle = MuscleViewModel.FromModel(muscleClone);
+
+            var dialogResult = await dialog.Show();
+
+            if (dialogResult != DialogResult.Ok)
+            {
+                return;
+            }
+
+            muscleClone = dialog.Data.Muscle.ToModel();
+            Muscles.Replace(muscle, muscleClone);
+            _muscleRepository.Update(muscleClone);
+        }
         
-        public ICommand Delete { get; }
+        #endregion
         
         private void LoadMuscles() => Muscles.AddRange(_muscleRepository.GetAll());
 
-        private readonly Repository<Muscle> _muscleRepository;
+        private void DeleteMuscle(Muscle muscle)
+        {
+            Muscles.Remove(muscle);
+                    
+            Task.Run(() => _muscleRepository.Delete(muscle));
+        }
         
-        public MusclesPageViewModel(Repository<Muscle> muscleRepository, DialogViewer dialogViewer)
+        public MusclesPageViewModel(Repository<Muscle> muscleRepository, DialogFactory dialogs, Hub hub)
         {
             _muscleRepository = muscleRepository;
-            
-            Muscles.ShapeView().OrderBy(muscle => muscle.Name).Apply();
-            
-            OpenCreateMuscleDialog = new Command(
-               async () =>
-                {
-                    var muscle = new Muscle();
+            _dialogs = dialogs;
+            _hub = hub;
 
-                    var dialog = dialogViewer.For<MuscleDialogViewModel>(MuscleDialogIdentifier);
-                    dialog.Data.Muscle = muscle;
-                    dialog.Data.DialogTitle = "New muscle";
-                    dialog.Data.SubmitButtonTitle = "Submit";
+            OpenCreateMuscleDialogCommand = new Command(OpenCreateMuscleDialogAsync);
+            OpenEditMuscleDialogCommand = new Command<Muscle>(OpenEditMuscleDialogAsync);
+            DeleteCommand = new Command<Muscle>(DeleteMuscle);
 
-                    var dialogResult = await dialog.Show();
-
-                    if (dialogResult != DialogResult.Ok)
-                    {
-                        return;
-                    }
-
-                    Muscles.Add(muscle);
-
-                    _muscleRepository.Create(muscle);
-                });
-            
-            OpenEditMuscleDialog = new Command<Muscle>(
-                async muscle =>
-                {
-                    var muscleClone = muscle.DeepClone();
-
-                    var dialog = dialogViewer.For<MuscleDialogViewModel>(MuscleDialogIdentifier);
-                    dialog.Data.Muscle = muscleClone;
-                    dialog.Data.SubmitButtonTitle = "Save";
-                    dialog.Data.DialogTitle = "Modified muscle";
-
-                    var dialogResult = await dialog.Show();
-
-                    if (dialogResult != DialogResult.Ok)
-                    {
-                        return;
-                    }
-
-                    Muscles.Replace(muscle, muscleClone);
-
-                    _muscleRepository.Update(muscleClone);
-                });
-            
-            Delete = new Command<Muscle>(
-                muscle =>
-                {
-                    Muscles.Remove(muscle);
-                    
-                    Task.Run(() => _muscleRepository.Delete(muscle));
-                });
+            Muscles.CollectionChanged += MusclesOnCollectionChanged;
             
             Task.Run(LoadMuscles);
+        }
+
+        private void MusclesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            _hub.Publish(new MusclesChangedEvent(Muscles));
         }
     }
 }

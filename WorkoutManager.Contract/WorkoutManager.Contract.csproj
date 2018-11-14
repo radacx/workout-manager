@@ -41,25 +41,29 @@
   <ItemGroup>
     <Compile Include="DatabaseConfiguration.cs" />
     <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Models\Base\Entity.cs" />
     <Compile Include="Models\Categories\Category.cs" />
+    <Compile Include="Models\Categories\CategoryOptions.cs" />
+    <Compile Include="Models\Categories\EntityReference.cs" />
     <Compile Include="Models\Exercises\ExercisedMuscle.cs" />
     <Compile Include="Models\Exercises\Muscle.cs" />
     <Compile Include="Models\Exercises\ContractionType.cs" />
     <Compile Include="Models\Exercises\Exercise.cs" />
-    <Compile Include="Models\Exercises\Sets\DynamicExerciseSet.cs" />
-    <Compile Include="Models\Exercises\Sets\ExerciseSet.cs" />
-    <Compile Include="Models\Exercises\Sets\IsometricExerciseSet.cs" />
-    <Compile Include="Models\Misc\IEntity.cs" />
+    <Compile Include="Models\Base\IEntity.cs" />
     <Compile Include="Models\Progress\FilterBy.cs" />
     <Compile Include="Models\Progress\FilterMetric.cs" />
     <Compile Include="Models\Progress\GroupBy.cs" />
     <Compile Include="Models\Progress\ProgressFilter.cs" />
     <Compile Include="Models\Sessions\SessionExercise.cs" />
+    <Compile Include="Models\Sessions\Sets\DynamicExerciseSet.cs" />
+    <Compile Include="Models\Sessions\Sets\ExerciseSet.cs" />
+    <Compile Include="Models\Sessions\Sets\IsometricExerciseSet.cs" />
     <Compile Include="Models\Sessions\TrainingSession.cs" />
     <Compile Include="Models\User\WeightUnits.cs" />
     <Compile Include="Models\User\UserPreferences.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structures\PropertyChangedNotifier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

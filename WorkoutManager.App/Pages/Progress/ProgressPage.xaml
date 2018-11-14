@@ -8,19 +8,25 @@
              xmlns:progress="clr-namespace:WorkoutManager.Contract.Models.Progress;assembly=WorkoutManager.Contract"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              d:DataContext="{d:DesignInstance Type=local:ProgressPageViewModel}"
              mc:Ignorable="d"
              Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
              Background="{DynamicResource MaterialDesignPaper}"
-             d:DesignHeight="300" d:DesignWidth="300">
-<UserControl.Resources>
-    <local:ProgressPageDialogsSelector x:Key="ProgressPageDialogsSelector" />
-</UserControl.Resources>
+>
+    <UserControl.Resources>
+        <local:ProgressPageDialogsSelector x:Key="DialogsSelector" />
+        
+        <CollectionViewSource Source="{Binding Filters}" x:Key="Filters">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Name" Direction="Ascending" /> 
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
     
     <materialDesign:DialogHost
-        CloseOnClickAway="True"
-        Identifier="{Binding ProgressPageDialogsIdentifier}"
-        DialogContentTemplateSelector="{StaticResource ProgressPageDialogsSelector}"
+        Identifier="{Binding DialogsIdentifier}"
+        DialogContentTemplateSelector="{StaticResource DialogsSelector}"
     >
         <Grid>
             <Grid.ColumnDefinitions>
@@ -40,6 +46,7 @@
                     <Label Content="Filter by" />
                 
                     <ComboBox
+                        TabIndex="0"
                         ItemsSource="{Binding FilterByOptions}"
                         SelectedItem="{Binding FilterBy}"
                     >
@@ -51,14 +58,17 @@
                     </ComboBox>
                 
                     <ComboBox
+                        TabIndex="1"
                         ItemsSource="{Binding FilteringValueOptions}"
                         SelectedItem="{Binding SelectedFilteringValue}"
                     />
                 </StackPanel>
                 
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Group by"/> 
+                    <Label Content="Group by"/>
+                    
                     <ComboBox
+                        TabIndex="2"
                         ItemsSource="{Binding GroupByOptions}"
                         SelectedItem="{Binding GroupBy}"
                     >
@@ -68,7 +78,9 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
+                    
                     <ComboBox
+                        TabIndex="3"
                         ItemsSource="{Binding DayOfWeekOptions}"
                         SelectedItem="{Binding StartingDayOfWeek}"
                     >
@@ -87,7 +99,9 @@
                 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Metric" />
+                    
                     <ComboBox
+                        TabIndex="4"
                         ItemsSource="{Binding MetricOptions}"
                         SelectedItem="{Binding Metric}"
                     >
@@ -103,9 +117,11 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox
+                                TabIndex="5"
                                 Content="From"
                                 IsChecked="{Binding ShouldFilterFrom}"
                             />
+                            
                             <DatePicker SelectedDate="{Binding DateFrom}">
                                 <DatePicker.Style>
                                     <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
@@ -123,6 +139,7 @@
                 
                         <StackPanel Orientation="Horizontal">
                             <CheckBox
+                                TabIndex="6"
                                 Content="To"
                                 IsChecked="{Binding ShouldFilterTill}"
                             />
@@ -165,8 +182,9 @@
                         />
                     
                         <Button
+                            TabIndex="7"
                             Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                            Command="{Binding OpenAddFilterDialog}"
+                            Command="{Binding OpenAddFilterDialogCommand}"
                         >
                             <materialDesign:PackIcon Kind="Plus" />
                         </Button>
@@ -175,8 +193,7 @@
                 
                 <controls:DataGrid
                     Grid.Row="1"
-                    ItemsSource="{Binding Filters}"
-                    Style="{DynamicResource MaterialDesignDataGrid}"
+                    ItemsSource="{Binding Source={StaticResource Filters}}"
                 >
                     <DataGrid.Columns>
                         <DataGridTextColumn
@@ -190,15 +207,21 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button
-                                            Command="{Binding DataContext.SelectFilterCommand,
-                                            RelativeSource={RelativeSource FindAncestor, AncestorType=local:ProgressPage}}"
+                                            Command="{Binding
+                                                DataContext.SelectFilterCommand,
+                                                RelativeSource={RelativeSource
+                                                    FindAncestor,
+                                                    AncestorType=local:ProgressPage}}"
                                             CommandParameter="{Binding}"
                                         >
                                             <materialDesign:PackIcon Kind="Select" />
                                         </Button>
                                         <Button
-                                            Command="{Binding DataContext.RemoveFilterCommand,
-                                            RelativeSource={RelativeSource FindAncestor, AncestorType=local:ProgressPage}}"
+                                            Command="{Binding
+                                                DataContext.RemoveFilterCommand,
+                                                RelativeSource={RelativeSource
+                                                    FindAncestor,
+                                                    AncestorType=local:ProgressPage}}"
                                             CommandParameter="{Binding}"
                                         >
                                             <materialDesign:PackIcon Kind="Delete" />
@@ -218,12 +241,9 @@
             >
                 <Button
                     Content="Refresh"
-                    Command="{Binding Refresh}"
+                    Command="{Binding RefreshCommand}"
                 />
-                <ItemsControl
-               
-                    ItemsSource="{Binding Results}"
-                >
+                <ItemsControl ItemsSource="{Binding Results}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Mode=OneTime}" />

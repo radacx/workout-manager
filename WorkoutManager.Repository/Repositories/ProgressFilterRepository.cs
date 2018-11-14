@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using LiteDB;
 using WorkoutManager.Contract;
+using WorkoutManager.Contract.Models.Base;
 using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
-using WorkoutManager.Contract.Models.Misc;
 using WorkoutManager.Contract.Models.Progress;
 
 namespace WorkoutManager.Repository.Repositories

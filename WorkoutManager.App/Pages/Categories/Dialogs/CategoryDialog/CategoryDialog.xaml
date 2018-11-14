@@ -1,0 +1,135 @@
+<UserControl x:Class="WorkoutManager.App.Pages.Categories.Dialogs.CategoryDialog.CategoryDialog"
+        x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:structures="clr-namespace:WorkoutManager.App.Structures"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+        xmlns:local="clr-namespace:WorkoutManager.App.Pages.Categories.Dialogs.CategoryDialog"
+        xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:CategoryDialogViewModel}"
+>
+    <UserControl.Resources>
+        <local:CategoryDialogDialogsSelector x:Key="DialogsSelector" />    
+        
+        <CollectionViewSource Source="{Binding Category.Items}" x:Key="Items">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Name" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    
+    <materialDesign:DialogHost
+        Identifier="{Binding DialogsIdentifier}"
+        DialogContentTemplateSelector="{StaticResource DialogsSelector}"
+    >
+        <controls:Dialog
+            SubmitButtonTitle="{Binding SubmitButtonTitle}"
+            DialogTitle="{Binding DialogTitle}"
+        >
+            <controls:Dialog.CanSubmit>
+                <MultiBinding
+                    Converter="{StaticResource MultiBoolConverter}"
+                >
+                    <Binding
+                        Path="Category.HasErrors"
+                        Converter="{StaticResource BoolNegationConverter}"
+                    />
+                    
+                    <Binding
+                        Path="Category.Items.Count"
+                        Converter="{StaticResource IsNumberZeroConverter}"
+                        ConverterParameter="{x:Static structures:ConverterParam.Negation}"
+                    />
+                </MultiBinding>
+            </controls:Dialog.CanSubmit>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Width="120" Grid.Column="0">
+                    <TextBox
+                        TabIndex="0"
+                        materialDesign:HintAssist.Hint="Name"
+                        materialDesign:ValidationAssist.Suppress="True"
+                        Text="{Binding Category.Name, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                    />
+                
+                    <materialDesign:ColorZone Mode="PrimaryMid" Margin="0 15 0 15">
+                        <TextBlock
+                            Text="Type"
+                            Margin="8"
+                        />
+                    </materialDesign:ColorZone>
+                        
+                    <ComboBox
+                        TabIndex="1"
+                        materialDesign:HintAssist.Hint="Type"
+                        materialDesign:ValidationAssist.Suppress="True"
+                        ItemsSource="{Binding AllowedCategoryTypes}"
+                        SelectedItem="{Binding Category.ItemType}"
+                    >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>  
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1">
+                    <materialDesign:ColorZone Mode="PrimaryMid" Margin="0 15 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Text="{Binding Path=Category.ItemType.Name, StringFormat={}{0}s}"
+                                Margin="8"
+                            />
+                        
+                            <Button
+                                TabIndex="2"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                Command="{Binding OpenAddOptionsCommand}"
+                            >
+                                <materialDesign:PackIcon Kind="Plus" />
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+                    
+                    <controls:DataGrid
+                        ItemsSource="{Binding Source={StaticResource Items}}"
+                    >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Binding="{Binding Name}"
+                                SortDirection="Ascending"
+                            />
+                    
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                            Command="{Binding
+                                            DataContext.RemoveOptionCommand,
+                                            RelativeSource={RelativeSource
+                                                FindAncestor,
+                                                AncestorType=local:CategoryDialog}}"
+                                            CommandParameter="{Binding}"
+                                        >
+                                            <materialDesign:PackIcon Kind="Delete" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </controls:DataGrid>
+                </StackPanel>
+            </Grid>
+        </controls:Dialog>
+    </materialDesign:DialogHost>
+</UserControl>

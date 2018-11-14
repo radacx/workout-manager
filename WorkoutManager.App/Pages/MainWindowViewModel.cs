@@ -5,6 +5,7 @@ using WorkoutManager.App.Pages.Progress;
 using WorkoutManager.App.Pages.TrainingLog;
 using WorkoutManager.App.Pages.UserSettings;
 using WorkoutManager.App.Structures;
+using WorkoutManager.App.Structures.ViewModels;
 
 namespace WorkoutManager.App.Pages
 {

@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="WorkoutManager.App.Pages.Exercises.Dialogs.ExerciseDialog.ExerciseDialog"
+        x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:exercises="clr-namespace:WorkoutManager.Contract.Models.Exercises;assembly=WorkoutManager.Contract"
+             xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs.ExerciseDialog"
+        xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        mc:Ignorable="d"        
+        d:DataContext="{d:DesignInstance Type=local:ExerciseDialogViewModel}"
+>
+    <UserControl.Resources>
+        <local:ExerciseDialogDialogsSelector x:Key="DialogsSelector" />
+        
+        <CollectionViewSource Source="{Binding Exercise.Muscles}" x:Key="Muscles">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Muscle.Name" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    
+    <materialDesign:DialogHost
+        Identifier="{Binding DialogsIdentifier}"
+        DialogContentTemplateSelector="{StaticResource DialogsSelector}"
+    >
+        <controls:Dialog
+            SubmitButtonTitle="{Binding SubmitButtonTitle}"
+            DialogTitle="{Binding DialogTitle}"
+            CanSubmit="{Binding Exercise.HasErrors, Converter={StaticResource BoolNegationConverter}}"
+        >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Width="120" Grid.Column="0">
+                    <TextBox
+                        TabIndex="0"
+                        materialDesign:HintAssist.Hint="Name"
+                        materialDesign:ValidationAssist.Suppress="True"
+                        Text="{Binding Exercise.Name, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="8"
+                    />
+    
+                    <TextBox
+                        TabIndex="1"
+                        materialDesign:HintAssist.Hint="Relative bodyweight"
+                        materialDesign:ValidationAssist.Suppress="True"
+                        Text="{Binding Exercise.RelativeBodyweight, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="8"
+                    />
+                    
+                    <materialDesign:ColorZone Mode="PrimaryMid">
+                        <TextBlock
+                            Text="Contraction type"
+                            Margin="8"
+                        />
+                    </materialDesign:ColorZone>
+                    
+                    <RadioButton
+                        TabIndex="2"
+                        VerticalAlignment="Center"
+                        Margin="0 0 10 0"
+                        GroupName="ContractionType"
+                        Content="Dynamic"
+                        IsChecked="{Binding
+                            Exercise.ContractionType,
+                            Converter={StaticResource DoesEnumMatchConverter},
+                            ConverterParameter={x:Static exercises:ContractionType.Dynamic}}"
+                    />
+                    
+                    <RadioButton
+                        TabIndex="3"
+                        VerticalAlignment="Center"
+                        GroupName="ContractionType"
+                        Content="Isometric"
+                        IsChecked="{Binding
+                            Exercise.ContractionType,
+                            Converter={StaticResource DoesEnumMatchConverter},
+                            ConverterParameter={x:Static exercises:ContractionType.Isometric}}"
+                    />
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1">
+                    <materialDesign:ColorZone
+                        Margin="0 15 0 0"
+                        Mode="PrimaryMid"
+                        Effect="{DynamicResource MaterialDesignShadowDepth5}"
+                    >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Text="Muscles"
+                                Margin="16"
+                            />
+                    
+                            <Button
+                                TabIndex="4"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                Command="{Binding OpenAddMuscleDialogCommand}"
+                            >
+                                <materialDesign:PackIcon Kind="Plus" />
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+                    
+                    <controls:DataGrid ItemsSource="{Binding Source={StaticResource Muscles}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Header="Name"
+                                Binding="{Binding Muscle.Name}"
+                                SortDirection="Ascending"
+                            />
+                        
+                            <DataGridTextColumn
+                                Header="Relative engagement"
+                                Binding="{Binding RelativeEngagement, StringFormat={}{0:F2} %}"
+                            />
+                            
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                Command="{Binding
+                                                    DataContext.OpenEditMuscleDialogCommand,
+                                                    RelativeSource={RelativeSource
+                                                        FindAncestor,
+                                                        AncestorType=local:ExerciseDialog}}"
+                                                CommandParameter="{Binding}"
+                                            >
+                                                <materialDesign:PackIcon Kind="Edit" />
+                                            </Button>
+                                        
+                                            <Button
+                                                Command="{Binding
+                                                    DataContext.RemoveMuscleCommand,
+                                                    RelativeSource={RelativeSource
+                                                        FindAncestor,
+                                                        AncestorType=local:ExerciseDialog}}"
+                                                CommandParameter="{Binding}"
+                                            >
+                                                <materialDesign:PackIcon Kind="Delete" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </controls:DataGrid>
+                </StackPanel>  
+            </Grid>   
+        </controls:Dialog>
+    </materialDesign:DialogHost>
+</UserControl>

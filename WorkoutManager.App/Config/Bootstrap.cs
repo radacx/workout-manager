@@ -1,23 +1,13 @@
+using System;
 using System.Configuration;
 using PubSub.Core;
 using Unity;
 using Unity.Lifetime;
-using WorkoutManager.App.Pages;
-using WorkoutManager.App.Pages.Categories;
-using WorkoutManager.App.Pages.Exercises;
-using WorkoutManager.App.Pages.Muscles;
-using WorkoutManager.App.Pages.Progress;
-using WorkoutManager.App.Pages.TrainingLog;
-using WorkoutManager.App.Pages.UserSettings;
-using WorkoutManager.App.Utils;
-using WorkoutManager.App.Utils.Dialogs;
 using WorkoutManager.Contract;
-using WorkoutManager.Contract.Models.Categories;
 using WorkoutManager.Contract.Models.Exercises;
 using WorkoutManager.Contract.Models.Sessions;
 using WorkoutManager.Repository;
 using WorkoutManager.Repository.Repositories;
-using WorkoutManager.Service.Services;
 
 namespace WorkoutManager.App.Config
 {
@@ -35,32 +25,53 @@ namespace WorkoutManager.App.Config
 
         public static void Register(IUnityContainer container)
         {
-            container.RegisterType<Hub>(new SingletonLifetimeManager());
+            var bootstrapper = new Bootstrapper(container);
+
+            bootstrapper.RegisterInstance(GetDatabaseConfiguration())
+                
+                .RegisterType<Hub>()
+                
+                .RegisterType<Repository<Exercise>, ExerciseRepository>()
+                .RegisterType<Repository<TrainingSession>, TrainingSessionRepository>();
+        }
+        
+        private class Bootstrapper
+        {
+            private readonly IUnityContainer _container;
+
+            public Bootstrapper(IUnityContainer container)
+            {
+                _container = container;
+            }
+
+            public Bootstrapper RegisterType<T>()
+            {
+                _container.RegisterType<T>(new SingletonLifetimeManager());
             
-            container.RegisterInstance(GetDatabaseConfiguration(), new SingletonLifetimeManager());
-            container.RegisterType(typeof(Repository<>), new SingletonLifetimeManager());
-            container.RegisterType<Repository<Exercise>, ExerciseRepository>(new SingletonLifetimeManager());
-            container.RegisterType<Repository<SessionExercise>, SessionExerciseRepository>(new SingletonLifetimeManager());
-            container.RegisterType<Repository<TrainingSession>, TrainingSessionRepository>(new SingletonLifetimeManager());
-            container.RegisterType<Repository<Category>, CategoryRepository>(new SingletonLifetimeManager());
+                return this;
+            }
+
+            public Bootstrapper RegisterType(Type type)
+            {
+                _container.RegisterType(type, new SingletonLifetimeManager());
+
+                return this;
+            }
             
-            container.RegisterType<ExerciseService>(new SingletonLifetimeManager());
-            container.RegisterType<DatabaseService>(new SingletonLifetimeManager());
-            container.RegisterType<TrainingSessionService>(new SingletonLifetimeManager());
-            container.RegisterType<UserPreferencesService>(new SingletonLifetimeManager());
+            public Bootstrapper RegisterType<TResolveFrom, TResolveTo>()
+                where TResolveTo : TResolveFrom
+            {
+                _container.RegisterType<TResolveFrom, TResolveTo>(new SingletonLifetimeManager());
+                
+                return this;
+            }
             
-            container.RegisterType<ExercisesPageViewModel>(new SingletonLifetimeManager());
-            container.RegisterType<MusclesPageViewModel>(new SingletonLifetimeManager());
-            container.RegisterType<TrainingLogPageViewModel>(new SingletonLifetimeManager());
-            container.RegisterType<UserPreferencesPageViewModel>(new SingletonLifetimeManager());
-            container.RegisterType<ProgressPageViewModel>(new SingletonLifetimeManager());
-            container.RegisterType<CategoryPageViewModel>(new SingletonLifetimeManager());
-            
-            container.RegisterType<ViewModelFactory>(new SingletonLifetimeManager());
-            container.RegisterType<WindowFactory>(new SingletonLifetimeManager());
-            container.RegisterType<DialogViewer>(new SingletonLifetimeManager());
-            
-            container.RegisterType<MainWindow>(new SingletonLifetimeManager());
+            public Bootstrapper RegisterInstance<TInstance>(TInstance instance)
+            {
+                _container.RegisterInstance(instance, new SingletonLifetimeManager());
+                
+                return this;
+            }
         }
     }
 }

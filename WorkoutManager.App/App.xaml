@@ -2,17 +2,28 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:WorkoutManager.App.Converters"
-             xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:models1="clr-namespace:WorkoutManager.App.Pages.Exercises.Models"
-             xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs"
-             xmlns:utils1="clr-namespace:WorkoutManager.App.Utils.Dialogs"
-             xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
-             xmlns:dialogs1="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-             xmlns:sets="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.Sets"
              xmlns:progress="clr-namespace:WorkoutManager.App.Pages.Progress"
-             xmlns:dialogs2="clr-namespace:WorkoutManager.App.Pages.Progress.Dialogs">
+             xmlns:dialogs2="clr-namespace:WorkoutManager.App.Pages.Progress.Dialogs"
+             xmlns:utils1="clr-namespace:WorkoutManager.App.Structures.Dialogs"
+             xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
+             xmlns:muscles="clr-namespace:WorkoutManager.App.Pages.Muscles"
+             xmlns:muscleDialog="clr-namespace:WorkoutManager.App.Pages.Muscles.Dialogs.MuscleDialog"
+             xmlns:exercises="clr-namespace:WorkoutManager.App.Pages.Exercises"
+             xmlns:categories="clr-namespace:WorkoutManager.App.Pages.Categories"
+             xmlns:exerciseDialog="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs.ExerciseDialog"
+             xmlns:trainingLog="clr-namespace:WorkoutManager.App.Pages.TrainingLog"
+             xmlns:addMuscleDialog="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs.AddMuscleDialog"
+             xmlns:editMuscleDialog="clr-namespace:WorkoutManager.App.Pages.Exercises.Dialogs.EditMuscleDialog"
+             xmlns:trainingSessionDialog="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.TrainingSessionDialog"
+             xmlns:sessionExerciseDialog="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.SessionExerciseDialog"
+             xmlns:exerciseSetDialog="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.ExerciseSetDialog"
+             xmlns:dynamic="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.ExerciseSetDialog.Dynamic"
+             xmlns:isometric="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs.ExerciseSetDialog.Isometric"
+             xmlns:timeSpanUpDown="clr-namespace:WorkoutManager.App.Controls.TimeSpanUpDown"
+             xmlns:categoryDialog="clr-namespace:WorkoutManager.App.Pages.Categories.Dialogs.CategoryDialog"
+             xmlns:addCategoryOptionsDialog="clr-namespace:WorkoutManager.App.Pages.Categories.Dialogs.AddCategoryOptionsDialog">
     <Application.Resources>  
         <ResourceDictionary>
             <converters:EnumConverter x:Key="EnumConverter" />
@@ -23,46 +34,93 @@
             <converters:TextToVisibilityConverter x:Key="TextToVisibilityConverter" /> 
             <converters:IsValueNotNullConverter x:Key="IsValueNotNullConverter" />
             <converters:MultiBoolConverter x:Key="MultiBoolConverter" />
+            <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+            <converters:EnumerableConverter x:Key="EnumerableConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             
-            <DataTemplate x:Key="{x:Static models1:ExercisedMuscleDialogSelector.AddExercisedMuscleDataTemplateIdentifier}" x:Shared="False">
-                <dialogs:AddExercisedMuscleDialog />
-            </DataTemplate>
-            <DataTemplate x:Key="{x:Static models1:ExercisedMuscleDialogSelector.EditExercisedMuscleDataTemplateIdentifier}" x:Shared="False">
-                <dialogs:EditExercisedMuscleDialog />
-            </DataTemplate>
-            
-            <DataTemplate x:Key="{x:Static models:TrainingSessionDialogSelector.AddTrainingSessionExerciseDialogDataTemplateIdentifier}" x:Shared="False">
-                <dialogs1:AddTrainingSessionExerciseDialog />
-            </DataTemplate>
-            <DataTemplate x:Key="{x:Static models:TrainingSessionDialogSelector.AddExerciseSetToNewTrainingSessionDialogDataTemplateIdentifier}" x:Shared="False">
-                <dialogs1:ExerciseSetDialog />
+            <DataTemplate x:Key="{x:Static muscles:MusclesPageDialogsSelector.MuscleDialog}" x:Shared="False">
+                <muscleDialog:MuscleDialog />
             </DataTemplate>
             
-            <DataTemplate x:Key="{x:Static models:ExerciseSetDialogSelector.DynamicSetDialogDataTemplateIdentifier}" x:Shared="False">
-                <sets:DynamicSetDialog />
+            <DataTemplate x:Key="{x:Static exercises:ExercisesPageDialogsSelector.ExerciseDialog}" x:Shared="False">
+                <exerciseDialog:ExerciseDialog DataContext="{Binding}" />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="{x:Static exerciseDialog:ExerciseDialogDialogsSelector.AddExercisedMuscleDialog}" x:Shared="False">
+                <addMuscleDialog:AddExercisedMuscleDialog />
+            </DataTemplate>
+            <DataTemplate x:Key="{x:Static exerciseDialog:ExerciseDialogDialogsSelector.EditExercisedMuscleDialog}" x:Shared="False">
+                <editMuscleDialog:EditExercisedMuscleDialog />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="{x:Static trainingLog:TrainingLogPageDialogsSelector.TrainingSessionDialog}" x:Shared="False">
+                <trainingSessionDialog:TrainingSessionDialog />
+            </DataTemplate>            
+            
+            <DataTemplate x:Key="{x:Static trainingSessionDialog:TrainingSessionDialogDialogsSelector.ExerciseDialog}" x:Shared="False">
+                <sessionExerciseDialog:SessionExerciseDialog />
+            </DataTemplate>  
+            
+            <DataTemplate x:Key="{x:Static sessionExerciseDialog:SessionExerciseDialogDialogsSelector.ExerciseSetDialog}" x:Shared="False">
+                <exerciseSetDialog:ExerciseSetDialog />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="{x:Static exerciseSetDialog:ExerciseSetDialogTemplateSelector.DynamicSet}" x:Shared="False">
+                <dynamic:DynamicExerciseSet />
             </DataTemplate>
         
-            <DataTemplate x:Key="{x:Static models:ExerciseSetDialogSelector.IsometricSetDialogDataTemplateIdentifier}" x:Shared="False">
-                <sets:IsometricSetDialog />
+            <DataTemplate x:Key="{x:Static exerciseSetDialog:ExerciseSetDialogTemplateSelector.IsometricSet}" x:Shared="False">
+                <isometric:IsometricExerciseSetDialog />
             </DataTemplate>
             
             <DataTemplate x:Key="{x:Static progress:ProgressPageDialogsSelector.ProgressFilterDialog}" x:Shared="False">
                 <dialogs2:ProgressFilterDialog />
             </DataTemplate>
             
-            <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignAlternateTabablzControlStyle}" />
+            <DataTemplate x:Key="{x:Static categoryDialog:CategoryDialogDialogsSelector.AddOptionsDialog}" x:Shared="False">
+                <addCategoryOptionsDialog:AddCategoryOptionsDialog />
+            </DataTemplate>
             
-            <Style TargetType="dialog:Dialog" x:Shared="False">
+            <DataTemplate x:Key="{x:Static categories:CategoryPageDialogsSelector.CategoryDialog}" x:Shared="False">
+                <categoryDialog:CategoryDialog />
+            </DataTemplate>
+            
+            <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignAlternateTabablzControlStyle}" />
+                
+            <Style TargetType="timeSpanUpDown:TimeSpanUpDown" BasedOn="{StaticResource MaterialDesignFilledTextFieldTextBox}" />
+            
+            <Style TargetType="controls:DataGrid" BasedOn="{StaticResource MaterialDesignDataGrid}" />
+            <Style
+                TargetType="TextBox"
+                BasedOn="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+            >
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="Foreground" Value="Red" />
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <Binding
+                                    RelativeSource="{RelativeSource Self}"
+                                    Path="(Validation.Errors)[0].ErrorContent"
+                                />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>        
+            
+            <Style TargetType="controls:Dialog" x:Shared="False">
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="dialog:Dialog">
+                        <ControlTemplate TargetType="controls:Dialog">
                             <StackPanel>
                                 <TextBlock
                                     Name="DialogTitle"
                                     HorizontalAlignment="Center"
                                     Style="{StaticResource MaterialDesignTitleTextBlock}"
                                     Text="{TemplateBinding DialogTitle}"
-                                    Visibility="{Binding Text,
+                                    Visibility="{Binding
+                                        Text,
                                         Converter={StaticResource TextToVisibilityConverter}, ElementName=DialogTitle}"
                                     Margin="10"
                                 />
@@ -91,6 +149,7 @@
                                             Command="materialDesign:DialogHost.CloseDialogCommand"
                                             CommandParameter="{x:Static utils1:DialogResult.Ok}"
                                             IsEnabled="{TemplateBinding CanSubmit}"
+                                            IsDefault="True"
                                         />
             
                                         <Button
@@ -98,6 +157,7 @@
                                             Content="Cancel"
                                             Command="materialDesign:DialogHost.CloseDialogCommand"
                                             CommandParameter="{x:Static utils1:DialogResult.Cancel}"
+                                            IsCancel="True"
                                         />
                                     </Grid>
                                 </Grid>

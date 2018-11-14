@@ -27,7 +27,7 @@ namespace WorkoutManager.App.Converters
                 return enumParameter;
             }
 
-            return null;
+            return Binding.DoNothing;
         }
     }
 }

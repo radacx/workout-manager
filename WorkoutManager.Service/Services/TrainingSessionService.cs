@@ -9,7 +9,6 @@ namespace WorkoutManager.Service.Services
 {
     public class TrainingSessionService : Service<TrainingSession>
     {
-        private readonly Repository<SessionExercise> _sessionExerciseRepository;
         private readonly UserPreferencesService _userPreferencesService;
         
         public void ExportToFile(string fileName)
@@ -50,36 +49,20 @@ namespace WorkoutManager.Service.Services
             File.WriteAllText(fileName, sb.ToString());
         }
         
-        public TrainingSessionService(Repository<TrainingSession> repository, Repository<SessionExercise> sessionExerciseRepository, UserPreferencesService userPreferencesService) : base(repository)
+        public TrainingSessionService(Repository<TrainingSession> repository, UserPreferencesService userPreferencesService) : base(repository)
         {
-            _sessionExerciseRepository = sessionExerciseRepository;
             _userPreferencesService = userPreferencesService;
         }
         
-        public void Delete(TrainingSession session)
-        {
-            _sessionExerciseRepository.DeleteRange(session.Exercises);
-            
-            Repository.Delete(session);
-        }
+        public void Delete(TrainingSession session) => Repository.Delete(session);
 
-        public void Update(TrainingSession session)
-        {
-            var newExercises = session.Exercises.Where(exercise => exercise.Id == 0);
-            var oldExercises = session.Exercises.Where(exercise => exercise.Id != 0);
-            
-            _sessionExerciseRepository.CreateRange(newExercises);
-            _sessionExerciseRepository.UpdateRange(oldExercises);
-            Repository.Update(session);
-        }
+        public void Update(TrainingSession session) => Repository.Update(session);
 
-        public void Create(TrainingSession session)
-        {
-            var newExercises = session.Exercises;
+        public void Create(TrainingSession session) => Repository.Create(session);
 
-            _sessionExerciseRepository.CreateRange(newExercises);
-            
-            Repository.Create(session);
-        }
+        public double? GetLastUsedBodyweight() => GetAll()
+            .OrderByDescending(session => session.Date)
+            .FirstOrDefault()
+            ?.Bodyweight;
     }
 }

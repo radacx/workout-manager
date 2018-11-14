@@ -4,7 +4,11 @@ using System.Linq;
 using System.Reflection;
 using LiteDB;
 using WorkoutManager.Contract;
-using WorkoutManager.Contract.Models.Misc;
+using WorkoutManager.Contract.Models.Base;
+using WorkoutManager.Contract.Models.Categories;
+using WorkoutManager.Contract.Models.Exercises;
+using WorkoutManager.Contract.Models.Sessions;
+using WorkoutManager.Repository.Extensions;
 using WorkoutManager.Repository.Repositories;
 
 namespace WorkoutManager.Repository
@@ -49,11 +53,31 @@ namespace WorkoutManager.Repository
         {
             var mapper = new CustomMapper();
             
-            ExerciseRepository.Register(mapper);
-            ExercisedMuscleRepository.Register(mapper);
-            SessionExerciseRepository.Register(mapper);
-            TrainingSessionRepository.Register(mapper);
-            CategoryRepository.Register(mapper);
+            mapper.For<ExercisedMuscle>().DbRef(x => x.Muscle);
+            mapper.For<SessionExercise>().DbRef(x => x.Exercise);
+
+            mapper.RegisterType(
+                category => new Dictionary<string, BsonValue>
+                {
+                    { "_id", category.Id },
+                    { "name", category.Name },
+                    { "type", category.ItemType.AssemblyQualifiedName },
+                    { "items", new BsonArray(category.Items.Select(x => new BsonValue(x.Id))) },
+                },
+                bsonVal =>
+                {
+                    var doc = bsonVal.AsDocument;
+
+                    return new Category
+                    {
+                        Id = doc["_id"],
+                        Name = doc["name"],
+                        Items = doc["items"].AsArray.Select(id => new EntityReference(id)).ToArray(),
+                        ItemType = Type.GetType(doc["type"]),
+                    };
+                }
+            );
+            
             ProgressFilterRepository.Register(mapper);
             
             BsonMapper.Global = mapper;

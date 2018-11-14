@@ -1,12 +1,9 @@
-using System;
-using WorkoutManager.Contract.Models.Misc;
+using WorkoutManager.Contract.Models.Base;
 
 namespace WorkoutManager.Contract.Models.Progress
 {
-    public class ProgressFilter : IEntity, IEquatable<ProgressFilter>
+    public class ProgressFilter : Entity
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
         
         public FilterBy? FilterBy { get; set; }
@@ -16,39 +13,17 @@ namespace WorkoutManager.Contract.Models.Progress
         public GroupBy? GroupBy { get; set; }
         
         public FilterMetric? Metric { get; set; }
+
+        public override IEntity GenericClone() => new ProgressFilter
+        {
+            Id = Id,
+            FilterBy = FilterBy,
+            Name = Name,
+            GroupBy = GroupBy,
+            Metric = Metric,
+            FilteringValue = FilteringValue?.GenericClone(),
+        };
         
-        public bool Equals(ProgressFilter other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Id == other.Id;
-        }
-
-        public bool Equals(IEntity other) => other is ProgressFilter filter && Equals(filter);
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            return obj.GetType() == GetType() && Equals((ProgressFilter) obj);
-        }
-
-        public override int GetHashCode() => Id;
+        public ProgressFilter Clone() => GenericClone() as ProgressFilter;
     }
 }

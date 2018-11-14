@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 
 namespace WorkoutManager.App.Converters
@@ -15,6 +16,11 @@ namespace WorkoutManager.App.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (values.Any(value => value == DependencyProperty.UnsetValue))
+            {
+                return false;
+            }
+            
             switch (parameter) {
                 case MultiBoolConverterParam param:
 

@@ -4,49 +4,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:models="clr-namespace:WorkoutManager.App.Pages.Progress.Models"
-        xmlns:dialog="clr-namespace:WorkoutManager.App.Controls.Dialog"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:validators="clr-namespace:WorkoutManager.App.Validators"
+        xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.Progress.Dialogs"
+        xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=models:ProgressFilterDialogViewModel}">
-    <dialog:Dialog
+        d:DataContext="{d:DesignInstance Type=dialogs:ProgressFilterDialogViewModel}">
+    <controls:Dialog
         SubmitButtonTitle="{Binding SubmitButtonTitle}"
         DialogTitle="{Binding DialogTitle}"
+        CanSubmit="{Binding ProgressFilter.HasErrors, Converter={StaticResource BoolNegationConverter}}"
     >
-        <dialog:Dialog.CanSubmit>
-            <MultiBinding Converter="{StaticResource MultiBoolConverter}">
-                <Binding
-                    Path="Text"
-                    Converter="{StaticResource IsTextNotEmptyConverter}"
-                    ElementName="FilterName"
-                    UpdateSourceTrigger="PropertyChanged"
-                />
-                
-                <Binding Path="ProgressFilter.IsValid" />
-            </MultiBinding>
-        </dialog:Dialog.CanSubmit>
-        
-        <StackPanel>
+        <StackPanel Width="120">
             <TextBox
-                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                TabIndex="0"
                 materialDesign:HintAssist.Hint="Name"
                 materialDesign:ValidationAssist.Suppress="True"
-                Name="FilterName"
-                Width="120"
                 Margin="0 0 0 15"
-            >
-                <TextBox.Text>
-                    <Binding
-                        Path="ProgressFilter.Name"
-                        UpdateSourceTrigger="PropertyChanged"
-                    >
-                        <Binding.ValidationRules>
-                            <validators:RequiredTextValidationRule />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+                Text="{Binding ProgressFilter.Name, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+            />
         
             <materialDesign:ColorZone Mode="PrimaryMid">
                 <TextBlock
@@ -57,18 +32,21 @@
             
             <StackPanel Margin="8 15 8 0">
                 <CheckBox
+                    TabIndex="1"
                     Content="Filter by"
                     IsChecked="{Binding ProgressFilter.RememberFilterBy}"
                 />
                 <CheckBox
+                    TabIndex="2"
                     Content="Group by"
                     IsChecked="{Binding ProgressFilter.RememberGroupBy}"
                 />
                 <CheckBox
+                    TabIndex="3"
                     Content="Metric"
                     IsChecked="{Binding ProgressFilter.RememberMetric}"
                 />
             </StackPanel>
         </StackPanel>
-    </dialog:Dialog>
+    </controls:Dialog>
 </UserControl>

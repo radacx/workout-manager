@@ -6,16 +6,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:trainingLog="clr-namespace:WorkoutManager.App.Pages.TrainingLog"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:models="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Models"
              xmlns:controls="clr-namespace:WorkoutManager.App.Controls"
-             xmlns:dialogs="clr-namespace:WorkoutManager.App.Pages.TrainingLog.Dialogs"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              d:DataContext="{d:DesignInstance Type=trainingLog:TrainingLogPageViewModel}"
              mc:Ignorable="d"
              Background="{DynamicResource MaterialDesignPaper}"
-             d:DesignHeight="300" d:DesignWidth="300">
+>
+    <UserControl.Resources>
+        <trainingLog:TrainingLogPageDialogsSelector x:Key="DialogsSelector" />
+        
+        <CollectionViewSource Source="{Binding TrainingSessions}" x:Key="TrainingSessions">
+            <CollectionViewSource.SortDescriptions>
+                <componentModel:SortDescription PropertyName="Date" Direction="Descending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    
     <materialDesign:DialogHost
-        CloseOnClickAway="True"
-        Identifier="{Binding SessionDialogIdentifier}"
+        Identifier="{Binding DialogsIdentifier}"
+        DialogContentTemplateSelector="{StaticResource DialogsSelector}"
     >
         <Grid>
             <Grid.RowDefinitions>
@@ -35,16 +44,18 @@
                     />
                 
                     <Button
+                        TabIndex="0"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Command="{Binding OpenAddSessionDialog}"
+                        Command="{Binding OpenAddSessionDialogCommand}"
                         Margin="0 0 15 0"
                     >
                         <materialDesign:PackIcon Kind="Plus" />
                     </Button>
                     
                     <Button
+                        TabIndex="1"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Command="{Binding Export}"
+                        Command="{Binding OpenExportDialogCommand}"
                     >
                         <materialDesign:PackIcon Kind="Export" />
                     </Button>
@@ -53,19 +64,23 @@
             
             <controls:DataGrid
                 Grid.Row="1"
-                ItemsSource="{Binding TrainingSessions}"
-                Style="{DynamicResource MaterialDesignDataGrid}"
+                ItemsSource="{Binding Source={StaticResource TrainingSessions}}"
             >
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Header="Date"
-                        Binding="{Binding Date}"
+                        Binding="{Binding Date, StringFormat={}{0:dd MMM yyyy}}"
                         SortDirection="Descending"
                     />
                     
                     <DataGridTextColumn
                         Header="Bodyweight"
-                        Binding="{Binding Bodyweight}"
+                        Binding="{Binding Bodyweight, StringFormat={}{0:F2} kg}"
+                    />
+                    
+                    <DataGridTextColumn
+                        Header="Exercises"
+                        Binding="{Binding Exercises, Converter={StaticResource EnumerableConverter}}"
                     />
                     
                     <DataGridTemplateColumn>
@@ -73,18 +88,22 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button
-                                        Command="{Binding DataContext.OpenEditSessionDialog,
-                                            RelativeSource={RelativeSource FindAncestor,
-                                            AncestorType=trainingLog:TrainingLogPage}}"
+                                        Command="{Binding
+                                            DataContext.OpenEditSessionDialogCommand,
+                                            RelativeSource={RelativeSource
+                                                FindAncestor,
+                                                AncestorType=trainingLog:TrainingLogPage}}"
                                         CommandParameter="{Binding}"
                                     >
                                         <materialDesign:PackIcon Kind="Edit" />
                                     </Button>
                                     
                                     <Button
-                                        Command="{Binding DataContext.DeleteSession,
-                                            RelativeSource={RelativeSource FindAncestor,
-                                            AncestorType=trainingLog:TrainingLogPage}}"
+                                        Command="{Binding
+                                            DataContext.DeleteSessionCommand,
+                                            RelativeSource={RelativeSource
+                                                FindAncestor,
+                                                AncestorType=trainingLog:TrainingLogPage}}"
                                         CommandParameter="{Binding}"
                                     >
                                         <materialDesign:PackIcon Kind="Delete" />
@@ -96,11 +115,5 @@
                 </DataGrid.Columns>
             </controls:DataGrid>
         </Grid>
-        
-        <materialDesign:DialogHost.DialogContentTemplate>
-            <DataTemplate DataType="models:TrainingSessionDialogViewModel">
-                <dialogs:TrainingSessionDialog DataContext="{Binding}" />
-            </DataTemplate>
-        </materialDesign:DialogHost.DialogContentTemplate> 
     </materialDesign:DialogHost>
 </UserControl>

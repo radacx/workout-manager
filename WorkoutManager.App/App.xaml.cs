@@ -17,12 +17,7 @@ namespace WorkoutManager.App
             Bootstrap.Register(container);
             var mainWindow = container.Resolve<MainWindow>();
 
-            if (mainWindow == null)
-            {
-                throw new Exception("Main window was not resolved");
-            }
-            
-            Current.MainWindow = mainWindow;
+            Current.MainWindow = mainWindow ?? throw new Exception("Main window was not resolved");
             Current.MainWindow.Show();
         }
     }
